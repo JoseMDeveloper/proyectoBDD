@@ -20,7 +20,7 @@ public class Main extends Application {
 			stage.setResizable(false);
 			stage.setTitle("VAMOSSS");
 			stage.setScene(scene);
-			stage.show();			
+			stage.show();
 		}
 		catch(Exception e)
 		{

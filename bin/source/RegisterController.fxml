@@ -99,7 +99,7 @@
                <children>
                   <ImageView fitHeight="498.0" fitWidth="419.0" layoutX="-5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/casa-14.x29366.jpg" />
+                        <Image url="@imgs/casa-14.x29366.jpg" />
                      </image>
                      <viewport>
                         <Rectangle2D height="600.0" minX="200.0" width="500.0" />
@@ -108,7 +108,7 @@
                   <Label layoutX="22.0" layoutY="22.0" opacity="0.66" prefHeight="379.0" prefWidth="362.0" style="-fx-background-color: #b7b8ba; -fx-opacity: 0.6;" />
                   <ImageView fitHeight="187.0" fitWidth="215.0" layoutX="112.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/Logodefinitivo.png" />
+                        <Image url="@imgs/Logodefinitivo.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="boton1" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#registrar" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="Registrar">
