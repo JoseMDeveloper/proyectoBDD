@@ -19,7 +19,7 @@ public class Main extends Application {
 			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setTitle("VAMOSSS");
 			stage.setScene(scene);
-			stage.show();			
+			stage.show();
 		}
 		catch(Exception e)
 		{
