@@ -1,14 +1,17 @@
 package application;
 	
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.stage.StageStyle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import java.util.Scanner;
+
 
 public class Main extends Application {
-	@Override
     public void start(Stage stage) throws Exception{
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/source/RegisterController.fxml"));
@@ -21,6 +24,7 @@ public class Main extends Application {
 			stage.setTitle("VAMOSSS");
 			stage.setScene(scene);
 			stage.show();
+			Scanner scanner = new Scanner(System.in);
 		}
 		catch(Exception e)
 		{
