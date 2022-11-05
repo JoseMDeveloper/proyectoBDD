@@ -15,8 +15,9 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			String css = this.getClass().getResource("application.css").toExternalForm();
 			scene.getStylesheets().add(css);
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.initStyle(StageStyle.TRANSPARENT);
+//			stage.initStyle(StageStyle.UNDECORATED);
+//			stage.initStyle(StageStyle.TRANSPARENT);
+			stage.setResizable(false);
 			stage.setTitle("VAMOSSS");
 			stage.setScene(scene);
 			stage.show();			

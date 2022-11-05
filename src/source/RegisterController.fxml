@@ -71,7 +71,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="325.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="14.0" prefWidth="278.0" text="¿Se te olvido la contraseña?" textFill="#76a77c">
+                        <Label fx:id="seTeOlvido" alignment="CENTER" prefHeight="14.0" prefWidth="278.0" text="¿Se te olvido la contraseña?" textFill="#76a77c">
                            <font>
                               <Font name="Consolas" size="11.0" />
                            </font>
@@ -80,7 +80,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="64.0" prefWidth="325.0">
                      <children>
-                        <Button fx:id="boton2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#btn1" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: #000000;" text="iniciar sesión" textFill="WHITE">
+                        <Button fx:id="boton3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: #000000;" text="iniciar sesión" textFill="WHITE">
                            <font>
                               <Font name="Consolas" size="15.0" />
                            </font>
@@ -111,7 +111,7 @@
                         <Image url="@../../../../../../Downloads/Logodefinitivo.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="boton1" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#btn" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="Registrar">
+                  <Button fx:id="boton1" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#registrar" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="Registrar">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
@@ -121,6 +121,11 @@
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
+                  <Button fx:id="boton2" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#iniciarSesion" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="iniciar sesión">
+                     <font>
+                        <Font name="Consolas" size="15.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
          </children>
