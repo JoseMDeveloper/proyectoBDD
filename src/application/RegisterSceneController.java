@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.event.ActionEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,8 +18,12 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -26,6 +31,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class RegisterSceneController implements Initializable{
@@ -67,6 +74,10 @@ public class RegisterSceneController implements Initializable{
 	private Button boton1;
 	@FXML
 	private Label seTeOlvido;
+	//Variables para abrir la ventana principal
+	private Stage ventanaPrinci;
+	private Scene EscenarioPrinci;
+	private Parent rootPrinci;
 	
 	@Override
  	public void initialize(URL arg0, ResourceBundle arg1) 
@@ -169,8 +180,8 @@ public class RegisterSceneController implements Initializable{
 						error.setStyle("-fx-background-color: #91e291;"+"-fx-border-color: #578857;"+"-fx-background-radius: 9;"+"-fx-border-radius: 9;");
 						error.setAlignment(Pos.CENTER);
 						error.setText("¡Ingreso Correctamente!");
-						
 						error.setVisible(true);
+						cambiaVentanaPrincipal(event);
 					} else {
 						error.setVisible(true);
 					}
@@ -220,6 +231,17 @@ public class RegisterSceneController implements Initializable{
 
         writer.write(nombre + ","+ mail + "," + encriptador.encryptString(contra) + "\n");
         writer.close();
+	}
+	public void cambiaVentanaPrincipal(MouseEvent evento) throws IOException
+	{
+		rootPrinci = FXMLLoader.load(getClass().getResource("/source/PrincipalSceneOccupant.fxml"));
+		ventanaPrinci=(Stage)((Node)evento.getSource()).getScene().getWindow();
+		EscenarioPrinci=new Scene(rootPrinci);
+		ventanaPrinci.setScene(EscenarioPrinci);
+		ventanaPrinci.setX(-10);
+		ventanaPrinci.setY(0);
+		ventanaPrinci.setResizable(false);
+		ventanaPrinci.showAndWait();
 	}
 	
 }
