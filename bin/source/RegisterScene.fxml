@@ -45,7 +45,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="47.0" prefWidth="325.0">
                      <children>
-                        <TextField fx:id="ingresarN" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese su nombre" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
+                        <TextField fx:id="ingresarN" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese su usuario" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>

@@ -18,7 +18,7 @@ public class Main extends Application {
 //			stage.initStyle(StageStyle.UNDECORATED);
 //			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setResizable(false);
-			stage.setTitle("La Casa De Tus Sueños");
+			stage.setTitle("La Casa De Tus SueÃ±os");
 			stage.setScene(scene);
 			stage.show();
 		}
