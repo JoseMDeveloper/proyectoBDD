@@ -69,7 +69,8 @@ public class RegisterSceneController implements Initializable{
 	private Label seTeOlvido;
 	
 	@Override
- 	public void initialize(URL arg0, ResourceBundle arg1) {
+ 	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
 		// TODO Auto-generated method stub
 		ingresarN.setVisible(false);
 		ingresarE.setTranslateY(-35);
@@ -82,7 +83,8 @@ public class RegisterSceneController implements Initializable{
 	
 	//Cambia la posicion y hace la traslacion cuando se le da al boton registrar 
 	@FXML
-	public void registrar(MouseEvent event) {
+	public void registrar(MouseEvent event) 
+	{
 		if(bo1==false) {	
 			ingresarN.setVisible(true);
 			seTeOlvido.setVisible(false);
@@ -107,7 +109,7 @@ public class RegisterSceneController implements Initializable{
 				bo3="Registrar";
 				recibir.setText("!Bienvenido!");
 				profe.setVisible(true);
-				texto.setText("Para crear una nueva cuenta, ingresa tu nombre, correo electronico y establece una contraseña.");
+				texto.setText("Para crear una nueva cuenta, ingresa tu nombre de usuario, correo electronico y establece una contraseña.");
 				slogan.setText("Los mejores profesionales a tu servicio, Tu casa en buenas manos");
 				error.setVisible(false);
 		}
@@ -150,11 +152,13 @@ public class RegisterSceneController implements Initializable{
 	
 	//Interaccion con el boton siguiente para crear o ingresar un usuario
 	public void siguiente(MouseEvent event) throws NoSuchAlgorithmException, IOException, InvalidKeyException, 
-			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException 
+	{
 		//Ingresar 
 			String nombre=ingresarN.getText();
 			String mail=ingresarE.getText();
 			String contra=ingresarC.getText();
+			//No acepta campos nulos
 			if(mail.strip()!="" && contra.strip()!="")
 			{
 				if(bo3.equals("iniciar sesion"))
@@ -187,12 +191,14 @@ public class RegisterSceneController implements Initializable{
 			}
 			else
 			{
+				error.setStyle("-fx-background-color: #fcc0bf;"+"-fx-border-color: #b12727;"+"-fx-background-radius: 9;"+"-fx-border-radius: 9;");
 				error.setText("Debe llenar todos los campos");
 				error .setVisible(true);
 			}
 	}
 	
-	public void actualizarUsuarioyContra() throws IOException {
+	public void actualizarUsuarioyContra() throws IOException 
+	{
         Scanner scaner = new Scanner(file);
         cuentas.clear();
         cuentas = new HashMap<>();
@@ -207,7 +213,9 @@ public class RegisterSceneController implements Initializable{
     }
 	
 	public void crearcuenta(String nombre,String mail, String contra) throws IOException, NoSuchPaddingException,
-			InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+			InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException 
+	{
+		
         BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
 
         writer.write(nombre + ","+ mail + "," + encriptador.encryptString(contra) + "\n");
