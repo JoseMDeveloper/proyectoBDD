@@ -31,7 +31,7 @@ import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.layout.BorderPane;
 
-public class RegisterControllerController implements Initializable{
+public class RegisterSceneController implements Initializable{
 	//Map contiene <mail, contraseña>
 	HashMap<String, String> cuentas = new HashMap<>();
 	Encryptor encriptador = new Encryptor();

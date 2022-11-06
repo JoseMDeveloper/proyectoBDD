@@ -1,7 +1,5 @@
 package application;
 	
-import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -13,7 +11,7 @@ import javafx.scene.Parent;
 public class Main extends Application {
     public void start(Stage stage) throws Exception{
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/source/RegisterController.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/source/RegisterScene.fxml"));
 			Scene scene = new Scene(root);
 			String css = this.getClass().getResource("application.css").toExternalForm();
 			scene.getStylesheets().add(css);
