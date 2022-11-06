@@ -165,7 +165,6 @@ public class RegisterControllerController implements Initializable{
 	            error.setVisible(true);
 	            error.setText("Funciono");
 	        } else {
-	        	error.setText("aaaaa");
 	            error.setVisible(true);
 	        }
 		}
