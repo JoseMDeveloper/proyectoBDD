@@ -29,6 +29,7 @@ public class RegisterControllerController implements Initializable{
 	private TextField ingresarE;
 	@FXML
 	private TextField ingresarC;
+	@FXML
 	private Button boton3;
 	@FXML
 	private Button boton2;
@@ -72,6 +73,7 @@ public class RegisterControllerController implements Initializable{
 			
 				boton1.setVisible(false);
 				boton2.setVisible(true);
+				boton3.setText("Registrar");
 		}
 		
 		
@@ -104,6 +106,7 @@ public class RegisterControllerController implements Initializable{
 			
 			boton1.setVisible(true);
 			boton2.setVisible(false);
+			boton3.setText("Registrar");
 		}
 	}
 }

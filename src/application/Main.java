@@ -2,8 +2,8 @@ package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.stage.StageStyle;
+import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -18,12 +18,11 @@ public class Main extends Application {
 //			stage.initStyle(StageStyle.UNDECORATED);
 //			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setResizable(false);
-			stage.setTitle("VAMOSSS");
+			stage.setTitle("La Casa De Tus Sueños");
 			stage.setScene(scene);
 			stage.show();
 		}
-		catch(Exception e)
-		{
+		catch(Exception e){
 			e.printStackTrace();
 		}
     }
