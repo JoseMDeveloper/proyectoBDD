@@ -10,7 +10,7 @@ public class Queries {
 		return DBConnection.getStatement().executeQuery(query);
 	}
 	
-	public static ResultSet totPapadoDuenoPorPeriodo() throws SQLException {
+	public static ResultSet totPagadoDuenoPorPeriodo() throws SQLException {
 		//Suma total pagada a los dueños por las rentas de sus propiedades (suma del valor de renta estipulado) por períodos
 		String query = "";
 		return DBConnection.getStatement().executeQuery(query);
