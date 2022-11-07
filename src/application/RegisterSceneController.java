@@ -16,6 +16,7 @@ import java.util.Scanner;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -238,8 +239,9 @@ public class RegisterSceneController implements Initializable{
 		ventanaPrinci=(Stage)((Node)evento.getSource()).getScene().getWindow();
 		EscenarioPrinci=new Scene(rootPrinci);
 		ventanaPrinci.setScene(EscenarioPrinci);
-		ventanaPrinci.setX(-10);
-		ventanaPrinci.setY(0);
+//		ventanaPrinci.setX(-10);
+//		ventanaPrinci.setY(0);
+		ventanaPrinci.setMaximized(true);
 		ventanaPrinci.setResizable(false);
 		ventanaPrinci.showAndWait();
 	}
