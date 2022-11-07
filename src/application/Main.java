@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
+//admin@gmail.com teamo
 
 public class Main extends Application {
     public void start(Stage stage) throws Exception{
@@ -18,7 +19,7 @@ public class Main extends Application {
 //			stage.initStyle(StageStyle.UNDECORATED);
 //			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setResizable(false);
-			stage.setTitle("La Casa De Tus SueÃ±os");
+			stage.setTitle("La Casa De Tus Sueños");
 			stage.setScene(scene);
 			stage.show();
 		}

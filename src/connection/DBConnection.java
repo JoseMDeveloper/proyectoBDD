@@ -2,12 +2,12 @@ package connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DBConnection {
 	private static Connection connection;
-	private static Statement statement;
+	private static PreparedStatement statement;
     private static String login = "is1270204";
     private static String password  ="qOqI64e0LT";
     private static String url = "jdbc:oracle:thin:@orion.javeriana.edu.co:1521/LAB";
@@ -16,14 +16,13 @@ public class DBConnection {
 		return connection;
     }
     
-    public static Statement getStatement() {
+    public static PreparedStatement getStatement() {
 		return statement;
     }
 
     public static void connect() throws ClassNotFoundException, SQLException {
         try {
             connection = DriverManager.getConnection(url, login, password);
-            statement = connection.createStatement();
             //conn.setAutoCommit(false);
             if(connection != null) {
                 System.out.println("Conexion exitosa");
@@ -38,8 +37,12 @@ public class DBConnection {
             e.printStackTrace();
         }
     }
+    
+    public static void createStatement(String query) throws SQLException {
+    	statement = connection.prepareStatement(query);
+    }
 
-    public static void closeConnection() {
+    public static void desconnect() {
         try {
             connection.close();
         }
