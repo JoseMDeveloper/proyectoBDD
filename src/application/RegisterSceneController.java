@@ -1,9 +1,7 @@
 package application;
 
 import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.security.InvalidAlgorithmParameterException;
@@ -12,15 +10,11 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javafx.util.Duration;
-import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-
-import connection.DBConnection;
 import connection.Queries;
 
 import javafx.animation.TranslateTransition;
@@ -158,7 +152,7 @@ public class RegisterSceneController implements Initializable{
 			boton2.setVisible(false);
 			boton3.setText("iniciar sesion");
 			bo3="iniciar sesion";
-			recibir.setText("ï¿½Hola de Nuevo!");
+			recibir.setText("¡Hola de Nuevo!");
 			profe.setVisible(false);
 			texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contraseÃ±a.");
 			slogan.setText("No buscamos tu piso, encontramos tu hogar, y si quieres hacer parte de esta familia dale registrar");
@@ -181,7 +175,7 @@ public class RegisterSceneController implements Initializable{
 					if(Queries.sesionValida(mail, contra)){
 						error.setStyle("-fx-background-color: #91e291;"+"-fx-border-color: #578857;"+"-fx-background-radius: 9;"+"-fx-border-radius: 9;");
 						error.setAlignment(Pos.CENTER);
-						error.setText("ï¿½Ingreso Correctamente!");
+						error.setText("¡Ingreso Correctamente!");
 						error.setVisible(true);
 						cambiaVentanaPrincipal(event);
 					} else {
