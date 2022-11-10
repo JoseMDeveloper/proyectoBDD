@@ -1,21 +1,22 @@
 package application;
 
 import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+
 import javafx.util.Duration;
-import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+
+import connection.Queries;
+
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,8 +38,6 @@ import javafx.stage.StageStyle;
 
 public class RegisterSceneController implements Initializable{
 	//Map contiene <mail, contraseña>
-	HashMap<String, String> cuentas = new HashMap<>();
-	Encryptor encriptador = new Encryptor();
 	private boolean bo1=false;
 	private String bo3="iniciar sesion";
 	
@@ -153,7 +152,7 @@ public class RegisterSceneController implements Initializable{
 			boton2.setVisible(false);
 			boton3.setText("iniciar sesion");
 			bo3="iniciar sesion";
-			recibir.setText("¡Hola de Nuevo!");
+			recibir.setText("�Hola de Nuevo!");
 			profe.setVisible(false);
 			texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contraseña.");
 			slogan.setText("No buscamos tu piso, encontramos tu hogar, y si quieres hacer parte de esta familia dale registrar");
@@ -163,7 +162,7 @@ public class RegisterSceneController implements Initializable{
 	
 	//Interaccion con el boton siguiente para crear o ingresar un usuario
 	public void siguiente(MouseEvent event) throws NoSuchAlgorithmException, IOException, InvalidKeyException, 
-			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException 
+			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, ClassNotFoundException, SQLException 
 	{
 		//Ingresar 
 			String nombre=ingresarN.getText();
@@ -184,14 +183,11 @@ public class RegisterSceneController implements Initializable{
 			//No acepta campos nulos
 			if(mail.strip()!="" && contra.strip()!="")
 			{
-				if(bo3.equals("iniciar sesion"))
-				{
-					actualizarUsuarioyContra();
-					String contraencrip=cuentas.get(mail);
-					if(encriptador.encryptString(contra).equals(contraencrip)){
+				if(bo3.equals("iniciar sesion")){
+					if(Queries.sesionValida(mail, contra)){
 						error.setStyle("-fx-background-color: #91e291;"+"-fx-border-color: #578857;"+"-fx-background-radius: 9;"+"-fx-border-radius: 9;");
 						error.setAlignment(Pos.CENTER);
-						error.setText("¡Ingreso Correctamente!");
+						error.setText("�Ingreso Correctamente!");
 						error.setVisible(true);
 						cambiaVentanaPrincipal(event);
 					} else {
@@ -202,7 +198,7 @@ public class RegisterSceneController implements Initializable{
 				{
 					if(bo3.equals("Registrar"))
 					{
-						crearcuenta(nombre,mail,contra);
+						Queries.createUser(nombre, mail, contra);
 					}
 				}
 				else
@@ -220,38 +216,15 @@ public class RegisterSceneController implements Initializable{
 			}
 	}
 	
-	public void actualizarUsuarioyContra() throws IOException 
-	{
-        Scanner scaner = new Scanner(file);
-        cuentas.clear();
-        cuentas = new HashMap<>();
-        while (scaner.hasNext()){
-        	String siguientelinea=scaner.nextLine();
-        	System.out.println(siguientelinea);
-            String[] usuarioycontra = siguientelinea.split(",");
-            cuentas.put(usuarioycontra[1],usuarioycontra[2]);
-            System.out.println("mail: "+ usuarioycontra[1] + " | contra: "+ usuarioycontra[2]);
-        }
-        scaner.close();
-    }
-	
-	public void crearcuenta(String nombre,String mail, String contra) throws IOException, NoSuchPaddingException,
-			InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException 
-	{
-		
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
-
-        writer.write(nombre + ","+ mail + "," + encriptador.encryptString(contra) + "\n");
-        writer.close();
-	}
 	public void cambiaVentanaPrincipal(MouseEvent evento) throws IOException
 	{
 		rootPrinci = FXMLLoader.load(getClass().getResource("/source/PrincipalSceneOccupant.fxml"));
 		ventanaPrinci=(Stage)((Node)evento.getSource()).getScene().getWindow();
 		EscenarioPrinci=new Scene(rootPrinci);
 		ventanaPrinci.setScene(EscenarioPrinci);
-		ventanaPrinci.setX(-10);
-		ventanaPrinci.setY(0);
+//		ventanaPrinci.setX(-10);
+//		ventanaPrinci.setY(0);
+		ventanaPrinci.setMaximized(true);
 		ventanaPrinci.setResizable(false);
 		ventanaPrinci.showAndWait();
 	}

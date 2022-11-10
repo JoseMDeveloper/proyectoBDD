@@ -6,9 +6,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class Encryptor {
+public class Encrypter {
 	
-	public String encryptString(String input) throws NoSuchAlgorithmException {
+	public static String encryptString(String input) throws NoSuchAlgorithmException {
 		
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		
