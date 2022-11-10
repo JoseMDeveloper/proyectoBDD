@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import application.Encrypter;
 
 public class Queries {
-	public static boolean sesionValida(String mail, String password) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public static boolean validSesion(String mail, String password) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
 		String query = "SELECT correo, contrasena "
 				+ "FROM usuario "
@@ -58,7 +58,7 @@ public class Queries {
 	}
 	
 	public static ResultSet impuestosAPagarPorRentaPorPeriodo() throws SQLException {
-		//Reporte por periodos (aï¿½o, mes) de Impuestos que se deben pagar por cada renta
+		//Reporte por periodos (año, mes) de Impuestos que se deben pagar por cada renta
 		String query = "";
 		return DBConnection.getStatement().executeQuery(query);
 	}

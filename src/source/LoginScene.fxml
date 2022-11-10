@@ -45,7 +45,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="47.0" prefWidth="325.0">
                      <children>
-                        <TextField fx:id="ingresarN" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese su usuario" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
+                        <TextField fx:id="enterName" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese su usuario" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -54,7 +54,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="60.0" prefWidth="325.0">
                      <children>
-                        <TextField fx:id="ingresarE" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese el email" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
+                        <TextField fx:id="enterEmail" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese el email" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -63,7 +63,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="47.0" prefWidth="325.0">
                      <children>
-                        <PasswordField fx:id="ingresarC" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese la contraseña" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
+                        <PasswordField fx:id="enterPassword" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese la contraseña" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -81,7 +81,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="64.0" prefWidth="325.0">
                      <children>
-                        <Button fx:id="boton3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#siguiente" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: #000000;" text="iniciar sesión" textFill="WHITE">
+                        <Button fx:id="boton3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#siguiente" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: #000000;" text="Iniciar sesión" textFill="WHITE">
                            <font>
                               <Font name="Consolas" size="15.0" />
                            </font>
@@ -109,7 +109,7 @@
                <children>
                   <ImageView fitHeight="497.0" fitWidth="419.0" layoutX="-5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@imgs/casa-14.x29366.jpg" />
+                        <Image url="@imgs/casaPaginaRegistro.jpg" />
                      </image>
                      <viewport>
                         <Rectangle2D height="600.0" minX="200.0" width="500.0" />
@@ -131,7 +131,7 @@
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="boton2" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#iniciarSesion" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="iniciar sesión">
+                  <Button fx:id="boton2" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#iniciarSesion" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="Iniciar sesión">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
