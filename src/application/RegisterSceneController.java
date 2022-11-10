@@ -167,7 +167,19 @@ public class RegisterSceneController implements Initializable{
 	{
 		//Ingresar 
 			String nombre=ingresarN.getText();
+			String nombreRegex="^([\\w]){3,25}";
+			if(!nombre.matches(nombreRegex)){
+				error.setStyle("-fx-background-color: #fcc0bf;"+"-fx-border-color: #b12727;"+"-fx-background-radius: 9;"+"-fx-border-radius: 9;");
+				error.setText("Debe llenar todos los campos");
+				error .setVisible(true);
+			}
 			String mail=ingresarE.getText();
+			String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
+			if(!mail.matches(mailRegex)){
+				error.setStyle("-fx-background-color: #fcc0bf;"+"-fx-border-color: #b12727;"+"-fx-background-radius: 9;"+"-fx-border-radius: 9;");
+				error.setText("Debe llenar todos los campos");
+				error .setVisible(true);
+			}
 			String contra=ingresarC.getText();
 			//No acepta campos nulos
 			if(mail.strip()!="" && contra.strip()!="")
