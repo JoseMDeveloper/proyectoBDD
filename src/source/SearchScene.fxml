@@ -72,6 +72,6 @@
             </HBox>
          </children>
       </AnchorPane>
-      <Spinner fx:id="SeleccionadorHabi" editable="true" layoutX="814.0" layoutY="274.0" prefHeight="64.0" prefWidth="226.0" />
+      <Spinner fx:id="SeleccionadorHabi" editable="true" layoutX="820.0" layoutY="287.0" prefHeight="64.0" prefWidth="226.0" />
    </children>
 </AnchorPane>

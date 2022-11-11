@@ -15,14 +15,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 public class PrincipalSceneOccupantController {
-	@FXML
-	private Button BotonExploraPropiedades;
-	@FXML
-	private Button MiPerfil;
-	@FXML
-	private ScrollPane Scroller;
-	@FXML
-	private GridPane PaneldeRejilla;
+	@FXML private Button BotonExploraPropiedades;
+	@FXML private Button MiPerfil;
+	@FXML private ScrollPane Scroller;
+	@FXML private GridPane PaneldeRejilla;
 
 
 //	public void initialize(URL arg0, ResourceBundle arg1)  throws IOException

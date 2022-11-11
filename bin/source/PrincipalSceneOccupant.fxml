@@ -7,13 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="1536.0" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PrincipalSceneOccupantController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1992.0" prefWidth="1336.0" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PrincipalSceneOccupantController">
    <children>
-      <AnchorPane layoutX="-184.0" prefHeight="53.0" prefWidth="1721.0" style="-fx-background-color: #76a77c;" AnchorPane.leftAnchor="-184.0" AnchorPane.rightAnchor="-1.0" />
+      <AnchorPane layoutX="1.0" prefHeight="53.0" prefWidth="1336.0" style="-fx-background-color: #76a77c;" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" />
       <ImageView fitHeight="95.0" fitWidth="134.0" layoutX="112.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imgs/logoSinMarco.png" />
@@ -28,7 +26,7 @@
             <Image url="@imgs/lupa.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="54.0" fitWidth="54.0" layoutX="1246.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="54.0" fitWidth="54.0" layoutX="1201.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imgs/notificacion.png" />
          </image>
@@ -38,32 +36,17 @@
             <Image url="@imgs/user.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="54.0" fitWidth="54.0" layoutX="1317.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="54.0" fitWidth="54.0" layoutX="1266.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imgs/info.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="1058.0" layoutY="102.0" prefHeight="200.0" prefWidth="170.0">
-         <children>
-            <VBox layoutY="8.0" prefHeight="118.0" prefWidth="178.0" style="-fx-background-color: white;">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="178.0">
-                     <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="189.0" text="Button" />
-                     </children>
-                  </HBox>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="205.0" text="Button" />
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-      <Button fx:id="MiPerfil" layoutX="1056.0" layoutY="54.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="178.0" style="-fx-background-color: transparent;" text="Mi Perfil">
+      <Button fx:id="MiPerfil" layoutX="1023.0" layoutY="54.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="178.0" style="-fx-background-color: transparent;" text="Mi Perfil">
          <font>
             <Font name="Consolas" size="12.0" />
          </font>
       </Button>
-      <ScrollPane fx:id="Scroller" hbarPolicy="NEVER" layoutY="135.0" pannable="true" prefHeight="1867.0" prefWidth="1536.0" vbarPolicy="ALWAYS">
+      <ScrollPane fx:id="Scroller" hbarPolicy="NEVER" layoutY="108.0" pannable="true" prefHeight="1893.0" prefWidth="1336.0" vbarPolicy="ALWAYS">
          <content>
             <GridPane fx:id="PaneldeRejilla" prefHeight="0.0" prefWidth="82.0">
               <columnConstraints>

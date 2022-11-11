@@ -33,42 +33,24 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class RegisterSceneController implements Initializable{
+	
 	private boolean perspective = false;//Iniciar sesion = false, Registrar = true
 	 
-	@FXML
-	private Label error;
-	@FXML
-	private Label slogan;
-	@FXML
-	private Label texto;
-	@FXML
-	private Label profe;
-	@FXML 
-	private Label recibir;
-	@FXML
-	private BorderPane pantalla1;
-	@FXML
-	private AnchorPane ancla2;
-	@FXML
-	private TextField enterName;
-	@FXML
-	private TextField enterEmail;
-	@FXML
-	private PasswordField enterPassword;
-	@FXML
-	private Button boton3;
-	@FXML
-	private Button boton2;
-	@FXML
-	private AnchorPane ancla1;
-	@FXML
-	private Button boton1;
-	@FXML
-	private Label seTeOlvido;
-	//Variables para abrir la ventana principal
-	private Stage ventanaPrinci;
-	private Scene EscenarioPrinci;
-	private Parent rootPrinci;
+	@FXML private Label error;
+	@FXML private Label slogan;
+	@FXML private Label texto;
+	@FXML private Label profe;
+	@FXML private Label recibir;
+	@FXML private BorderPane pantalla1;
+	@FXML private AnchorPane ancla2;
+	@FXML private TextField enterName;
+	@FXML private TextField enterEmail;
+	@FXML private PasswordField enterPassword;
+	@FXML private Button boton3;
+	@FXML private Button boton2;
+	@FXML private AnchorPane ancla1;
+	@FXML private Button boton1;
+	@FXML private Label seTeOlvido;
 	
 	@Override
  	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -147,15 +129,22 @@ public class RegisterSceneController implements Initializable{
 	public void siguiente(MouseEvent event) throws NoSuchAlgorithmException, IOException, InvalidKeyException, 
 			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, ClassNotFoundException, SQLException {
 		//obtener texto de los fields
+		error.setAlignment(Pos.CENTER);
 		String nombre = enterName.getText().strip();
 		String mail = enterEmail.getText().strip();
 		String contra = enterPassword.getText();
+		String nombreRegex="^([\\w]){3,25}";
+		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		//No acepta campos vacios
 		if(!(mail.isEmpty() || contra.isBlank())) {
+			if(!mail.matches(mailRegex)){
+				error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
+				error.setText("Mail invalido");
+				error.setVisible(true);
+			}
 			if(!perspective) {//Iniciar sesion
 				if(Queries.validSesion(mail, contra)) {
 					error.setStyle("-fx-background-color: #91e291;-fx-border-color: #578857;-fx-background-radius: 9;-fx-border-radius: 9;");
-					error.setAlignment(Pos.CENTER);
 					error.setText("¡Ingreso Correctamente!");
 					error.setVisible(true);
 					cambiaVentanaPrincipal(event);
@@ -164,6 +153,11 @@ public class RegisterSceneController implements Initializable{
 				}
 			} 	
 			else if(!nombre.isEmpty()) {
+				if(!nombre.matches(nombreRegex)){
+					error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
+					error.setText("Nombre de usuario invalido");
+					error.setVisible(true);
+				}
 				Queries.createUser(nombre, mail, contra);
 			}
 			else{
@@ -179,15 +173,15 @@ public class RegisterSceneController implements Initializable{
 		}
 	}
 	
-	public void cambiaVentanaPrincipal(MouseEvent evento) throws IOException {
-		rootPrinci = FXMLLoader.load(getClass().getResource("/source/PrincipalSceneOccupant.fxml"));
-		ventanaPrinci=(Stage)((Node)evento.getSource()).getScene().getWindow();
-		EscenarioPrinci=new Scene(rootPrinci);
-		ventanaPrinci.setScene(EscenarioPrinci);
+	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/source/tests.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
 //		ventanaPrinci.setX(-10);
 //		ventanaPrinci.setY(0);
-		ventanaPrinci.setMaximized(true);
-		ventanaPrinci.setResizable(false);
+		stage.setMaximized(true);
+		stage.setResizable(false);
 //		ventanaPrinci.showAndWait();
 	}
 	
