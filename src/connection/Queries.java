@@ -24,12 +24,14 @@ public class Queries {
 	
 	public static void createUser(String username, String mail, String password, int userType) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
-		String insert = "INSERT INTO usuario VALUES(default, 'n', 'a', ?, ?, ?, default, default, null, null, ?, null, null)";// 1: cliente, 2: dueño, 3: empleado, 4: admin
+		String insert = "INSERT INTO usuario"
+				+ "(IDusuario, Nombre, Apellido, NombreUsuario, Contrasena, Correo, Estado, Fecha, MaxPorOfrecer, Salario, IDtipoUsuario, IDubicacion, IDagencia) "
+				+ "VALUES(default, 'n', 'a', ?, ?, ?, default, default, null, null, ?, null, null)";
 		DBConnection.createStatement(insert);
 		DBConnection.getStatement().setString(1,username);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
 		DBConnection.getStatement().setString(3,mail);
-		DBConnection.getStatement().setInt(4, userType);
+		DBConnection.getStatement().setInt(4, userType);// 1: cliente, 2: dueño, 3: empleado
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}

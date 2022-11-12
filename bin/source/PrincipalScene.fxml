@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PrincipalSceneController">
+	<top>
+		<AnchorPane prefHeight="69.0" prefWidth="1200.0" style="-fx-background-color: #76a77c;" BorderPane.alignment="CENTER" />
+	</top>
+   <center>
+      <HBox prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefWidth="300.0">
+               <children>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="20.0">
+                     <image>
+                        <Image url="@imgs/lupa.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btnBuscarPropiedades" layoutX="90.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#changeToSearchScene" text="Buscar propiedades" />
+               </children>
+            </Pane>
+            <Pane prefWidth="300.0">
+               <children>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="20.0">
+                     <image>
+                        <Image url="@imgs/notificacion.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btnNotificaciones" layoutX="105.0" layoutY="250.0" mnemonicParsing="false" text="Notificaciones" />
+               </children>
+            </Pane>
+            <Pane prefWidth="300.0">
+               <children>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="20.0">
+                     <image>
+                        <Image url="@imgs/info.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btnInfo" layoutX="110.0" layoutY="250.0" mnemonicParsing="false" text="Informacion" />
+               </children>
+            </Pane>
+            <Pane prefWidth="300.0">
+               <children>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="20.0">
+                     <image>
+                        <Image url="@imgs/user.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btnMiCuenta" layoutX="116.0" layoutY="250.0" mnemonicParsing="false" text="Mi cuenta" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

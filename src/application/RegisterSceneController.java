@@ -54,6 +54,9 @@ public class RegisterSceneController implements Initializable{
 	
 	@Override
  	public void initialize(URL arg0, ResourceBundle arg1) {
+		enterEmail.setText("admin@gmail.com");
+		enterPassword.setText("teamo");
+		
 		enterName.setVisible(false);
 		enterEmail.setTranslateY(-35);
 		enterPassword.setTranslateY(-20);
@@ -161,7 +164,7 @@ public class RegisterSceneController implements Initializable{
 				} else {
 					Queries.createUser(nombre, mail, contra, tipoUsuario);	
 					error.setStyle("-fx-background-color: #91e291;-fx-border-color: #578857;-fx-background-radius: 9;-fx-border-radius: 9;");
-					error.setText("¡Usuario Creado!");
+					error.setText("¡Usuario creado correctamente!");
 					error.setVisible(true);
 				}
 			}
@@ -179,15 +182,14 @@ public class RegisterSceneController implements Initializable{
 	}
 	
 	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/source/tests.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/source/PrincipalScene.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 //		ventanaPrinci.setX(-10);
 //		ventanaPrinci.setY(0);
-		stage.setMaximized(true);
-		stage.setResizable(false);
+//		stage.setMaximized(true);
+//		stage.setResizable(false);
 //		ventanaPrinci.showAndWait();
 	}
-	
 }
