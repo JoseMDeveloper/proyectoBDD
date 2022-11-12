@@ -133,6 +133,7 @@ public class RegisterSceneController implements Initializable{
 		String nombre = enterName.getText().strip();
 		String mail = enterEmail.getText().strip();
 		String contra = enterPassword.getText();
+		int tipoUsuario = 1;
 		String nombreRegex="^([\\w]){3,25}";
 		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		//No acepta campos vacios
@@ -153,12 +154,16 @@ public class RegisterSceneController implements Initializable{
 				}
 			} 	
 			else if(!nombre.isEmpty()) {
-				if(!nombre.matches(nombreRegex)){
+				if(!nombre.matches(nombreRegex)) {
 					error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
 					error.setText("Nombre de usuario invalido");
 					error.setVisible(true);
+				} else {
+					Queries.createUser(nombre, mail, contra, tipoUsuario);	
+					error.setStyle("-fx-background-color: #91e291;-fx-border-color: #578857;-fx-background-radius: 9;-fx-border-radius: 9;");
+					error.setText("¡Usuario Creado!");
+					error.setVisible(true);
 				}
-				Queries.createUser(nombre, mail, contra);
 			}
 			else{
 				error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
