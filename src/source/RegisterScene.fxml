@@ -81,7 +81,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="64.0" prefWidth="325.0">
                      <children>
-                        <Button fx:id="boton3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#siguiente" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: #000000;" text="iniciar sesión" textFill="WHITE">
+                        <Button fx:id="boton3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#siguiente" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: #000000;" text="Iniciar sesión" textFill="WHITE">
                            <font>
                               <Font name="Consolas" size="15.0" />
                            </font>
@@ -131,7 +131,7 @@
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="boton2" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#iniciarSesion" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="iniciar sesión">
+                  <Button fx:id="boton2" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#iniciarSesion" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="Iniciar sesión">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
