@@ -8,13 +8,13 @@ import java.util.List;
 import application.Encrypter;
 
 public class Queries {
-	public static boolean validSesion(String mail, String password) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public static boolean validSesion(String name, String password) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
-		String query = "SELECT correo, contrasena "
+		String query = "SELECT nombreUsuario, contrasena "
 				+ "FROM usuario "
-				+ "WHERE correo=? AND contrasena=?";
+				+ "WHERE nombreUsuario=? AND contrasena=?";
 		DBConnection.createStatement(query);
-		DBConnection.getStatement().setString(1,mail);
+		DBConnection.getStatement().setString(1,name);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
 		ResultSet rs = DBConnection.getStatement().executeQuery();
 		boolean valid = rs.next();
@@ -31,7 +31,7 @@ public class Queries {
 		DBConnection.getStatement().setString(1,username);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
 		DBConnection.getStatement().setString(3,mail);
-		DBConnection.getStatement().setInt(4, userType);// 1: cliente, 2: dueño, 3: empleado
+		DBConnection.getStatement().setInt(4, userType);// 1: cliente, 2: dueï¿½o, 3: empleado
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}

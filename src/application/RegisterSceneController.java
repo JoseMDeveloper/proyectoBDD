@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -35,7 +36,9 @@ import javafx.stage.Stage;
 public class RegisterSceneController implements Initializable{
 	
 	private boolean perspective = false;//Iniciar sesion = false, Registrar = true
-	 
+	
+	@FXML private ToggleButton botonCliente;
+	@FXML private ToggleButton botonDue√±o;
 	@FXML private Label error;
 	@FXML private Label slogan;
 	@FXML private Label texto;
@@ -43,8 +46,8 @@ public class RegisterSceneController implements Initializable{
 	@FXML private Label recibir;
 	@FXML private BorderPane pantalla1;
 	@FXML private AnchorPane ancla2;
+	@FXML private TextField enterMail;
 	@FXML private TextField enterName;
-	@FXML private TextField enterEmail;
 	@FXML private PasswordField enterPassword;
 	@FXML private Button boton3;
 	@FXML private Button boton2;
@@ -54,11 +57,11 @@ public class RegisterSceneController implements Initializable{
 	
 	@Override
  	public void initialize(URL arg0, ResourceBundle arg1) {
-		enterEmail.setText("admin@gmail.com");
+		enterName.setText("Admin");
 		enterPassword.setText("teamo");
 		
-		enterName.setVisible(false);
-		enterEmail.setTranslateY(-35);
+		enterMail.setVisible(false);
+		enterName.setTranslateY(-35);
 		enterPassword.setTranslateY(-20);
 		seTeOlvido.setTranslateY(-20);
 		boton2.setVisible(false);
@@ -70,11 +73,11 @@ public class RegisterSceneController implements Initializable{
 	@FXML
 	public void registrar(MouseEvent event) {
 		if(perspective==false) {	
-			enterName.setVisible(true);
+			enterMail.setVisible(true);
 			seTeOlvido.setVisible(false);
-			if(enterEmail.getTranslateY()<=35) {
-				enterEmail.setTranslateY(10);
-				enterPassword.setTranslateY(20);
+			if(enterName.getTranslateY()<=35) {
+				enterName.setTranslateY(5);
+				enterPassword.setTranslateY(10);
 			}
 				TranslateTransition slide = new TranslateTransition();
 				slide.setDuration (Duration. seconds(0.7));
@@ -91,7 +94,7 @@ public class RegisterSceneController implements Initializable{
 				boton3.setText("Registrar");
 				recibir.setText("!Bienvenido!");
 				profe.setVisible(true);
-				texto.setText("Para crear una nueva cuenta, ingresa tu nombre de usuario, correo electronico y establece una contraseÒa.");
+				texto.setText("Para crear una nueva cuenta, ingresa tu nombre de usuario, correo electronico y establece una contraseÔøΩa.");
 				slogan.setText("Los mejores profesionales a tu servicio, Tu casa en buenas manos");
 				error.setVisible(false);
 		}
@@ -101,12 +104,12 @@ public class RegisterSceneController implements Initializable{
 	public void iniciarSesion(MouseEvent event) {
 		if(perspective==true){	
 			seTeOlvido.setVisible(true);
-			if(enterEmail.getLayoutX()>=52.8){
-				enterEmail.setTranslateY(-30);
+			if(enterName.getLayoutX()>=52.8){
+				enterName.setTranslateY(-30);
 				enterPassword.setTranslateY(-20);
 				seTeOlvido.setTranslateY(-20);
 			}
-			enterName.setVisible(false);
+			enterMail.setVisible(false);
 			TranslateTransition slide = new TranslateTransition();
 			slide.setDuration (Duration.seconds(0.7));
 			slide.setNode(ancla1);
@@ -120,14 +123,13 @@ public class RegisterSceneController implements Initializable{
 			boton1.setVisible(true);
 			boton2.setVisible(false);
 			boton3.setText("Iniciar sesion");
-<<<<<<< HEAD
-			bo3="Iniciar sesion";
+
+			
+
 			recibir.setText("ÔøΩHola de Nuevo!");
-=======
-			recibir.setText("°Hola de Nuevo!");
->>>>>>> 6507d87172c1350426639b87702c61b079c1242c
+
 			profe.setVisible(false);
-			texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contraseÒa.");
+			texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contraseÔøΩa.");
 			slogan.setText("No buscamos tu piso, encontramos tu hogar, y si quieres hacer parte de esta familia dale registrar");
 			error.setVisible(false);
 		}
@@ -135,70 +137,44 @@ public class RegisterSceneController implements Initializable{
 	
 	//Interaccion con el boton siguiente para crear o ingresar un usuario
 	public void siguiente(MouseEvent event) throws NoSuchAlgorithmException, IOException, InvalidKeyException, 
-<<<<<<< HEAD
-			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, ClassNotFoundException, SQLException 
-	{
-		//Ingresar 
-			String nombre=ingresarN.getText();
-			String mail=ingresarE.getText();
-			String contra=ingresarC.getText();
-			//No acepta campos nulos
-			if(mail.strip()!="" && contra.strip()!="")
-			{
-				if(bo3.equals("Iniciar sesion")){
-					if(Queries.sesionValida(mail, contra)){
-						error.setStyle("-fx-background-color: #91e291;"+"-fx-border-color: #578857;"+"-fx-background-radius: 9;"+"-fx-border-radius: 9;");
-						error.setAlignment(Pos.CENTER);
-						error.setText("ÔøΩIngreso Correctamente!");
-						error.setVisible(true);
-						cambiaVentanaPrincipal(event);
-					} else {
-						error.setVisible(true);
-					}
-				} 	
-				if(nombre.strip()!="" || bo1==false)
-				{
-					if(bo3.equals("Registrar"))
-					{
-						Queries.createUser(nombre, mail, contra);
-					}
-=======
+
 			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, ClassNotFoundException, SQLException {
 		//obtener texto de los fields
 		error.setAlignment(Pos.CENTER);
 		String nombre = enterName.getText().strip();
-		String mail = enterEmail.getText().strip();
+		String mail = enterMail.getText().strip();
 		String contra = enterPassword.getText();
 		int tipoUsuario = 1;
 		String nombreRegex="^([\\w]){3,25}";
 		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		//No acepta campos vacios
-		if(!(mail.isEmpty() || contra.isBlank())) {
-			if(!mail.matches(mailRegex)){
+		
+		if(!(nombre.isEmpty() || contra.isBlank())) {
+			if(!nombre.matches(nombreRegex)){
 				error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
-				error.setText("Mail invalido");
+				error.setText("Nombre invalido");
 				error.setVisible(true);
 			}
 			if(!perspective) {//Iniciar sesion
-				if(Queries.validSesion(mail, contra)) {
+				if(Queries.validSesion(nombre, contra)) {
 					error.setStyle("-fx-background-color: #91e291;-fx-border-color: #578857;-fx-background-radius: 9;-fx-border-radius: 9;");
-					error.setText("°Ingreso Correctamente!");
+					error.setText("ÔøΩIngreso Correctamente!");
 					error.setVisible(true);
 					cambiaVentanaPrincipal(event);
 				} else {
 					error.setVisible(true);
->>>>>>> 6507d87172c1350426639b87702c61b079c1242c
+
 				}
 			} 	
-			else if(!nombre.isEmpty()) {
-				if(!nombre.matches(nombreRegex)) {
+			else if(!mail.isEmpty()) {
+				if(!mail.matches(mailRegex)) {
 					error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
 					error.setText("Nombre de usuario invalido");
 					error.setVisible(true);
 				} else {
 					Queries.createUser(nombre, mail, contra, tipoUsuario);	
 					error.setStyle("-fx-background-color: #91e291;-fx-border-color: #578857;-fx-background-radius: 9;-fx-border-radius: 9;");
-					error.setText("°Usuario creado correctamente!");
+					error.setText("ÔøΩUsuario creado correctamente!");
 					error.setVisible(true);
 				}
 			}
@@ -206,12 +182,32 @@ public class RegisterSceneController implements Initializable{
 				error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
 				error.setText("Debe llenar todos los campos");
 				error.setVisible(true);
+				
 			}
 		}
 		else{
 			error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
 			error.setText("Debe llenar todos los campos");
 			error.setVisible(true);
+			
+		}
+	}
+	public void Due√±o()
+	{
+		
+		if(botonDue√±o.isSelected() && botonCliente.isSelected())
+		{
+			botonCliente.setSelected(!botonCliente.isSelected());;
+		}
+		
+		
+	}
+	public void Cliente()
+	{
+		if(botonCliente.isSelected()&& botonDue√±o.isSelected())
+		{
+			
+			botonDue√±o.setSelected(!botonDue√±o.isSelected());;	
 		}
 	}
 	
