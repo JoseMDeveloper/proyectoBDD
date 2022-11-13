@@ -23,13 +23,6 @@ public class DBConnection {
     public static void connect() throws ClassNotFoundException, SQLException {
         try {
             connection = DriverManager.getConnection(url, login, password);
-            //conn.setAutoCommit(false);
-            if(connection != null) {
-                System.out.println("Conexion exitosa");
-            }
-            else {
-                System.out.println("Conexion erronea");
-            }
         }
         catch (Exception e)
         {

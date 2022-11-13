@@ -3,11 +3,12 @@ package connection;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import application.Encrypter;
 
 public class Queries {
-	public static boolean sesionValida(String mail, String password) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public static boolean validSesion(String mail, String password) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
 		String query = "SELECT correo, contrasena "
 				+ "FROM usuario "
@@ -16,67 +17,37 @@ public class Queries {
 		DBConnection.getStatement().setString(1,mail);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
 		ResultSet rs = DBConnection.getStatement().executeQuery();
-		boolean valid;
-		valid = rs.next();
+		boolean valid = rs.next();
 		DBConnection.desconnect();
 		return valid;
 	}
 	
-	public static void createUser(String username, String mail, String password) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public static void createUser(String username, String mail, String password, int userType) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
-		String insert = "INSERT INTO usuario VALUES(null, 'n', 'a', 0, ?, ?, ?, null, 1, 1, null)";// poner comentarios de que es cada cosa heche no joda
+		String insert = "INSERT INTO usuario"
+				+ "(IDusuario, Nombre, Apellido, NombreUsuario, Contrasena, Correo, Estado, Fecha, MaxPorOfrecer, Salario, IDtipoUsuario, IDubicacion, IDagencia) "
+				+ "VALUES(default, 'n', 'a', ?, ?, ?, default, default, null, null, ?, null, null)";
 		DBConnection.createStatement(insert);
 		DBConnection.getStatement().setString(1,username);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
 		DBConnection.getStatement().setString(3,mail);
+		DBConnection.getStatement().setInt(4, userType);// 1: cliente, 2: dueño, 3: empleado
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
 	
-	public static ResultSet totPropiedadesPorClientePorPeriodo() throws SQLException {
-		//Cantidad Total de propiedades rentadas por cliente por perï¿½odos (mes, aï¿½o)
-		String query = "";
+	public static ResultSet buscarPropiedades(List<Integer> listUbicaciones, String tipoPropiedad, int cantHabitaciones, int minRent, int maxRent)
+			throws SQLException {
+		String query = "SELECT TipoVivienda.tipo, Vivienda.Direccion, Vivienda.CantHabitaciones, Vivienda.PrecioRentaMensual, "
+				+ "ViviendaDescripcion, Ubicacion.pais "
+				+ "FROM Vivienda "
+				+ " JOIN Ubicacion ON Vivienda.IDubicacion = Ubicacion.IDubicacion "
+				+ " JOIN TipoVivienda ON Vivienda.IDtipoViv = TipoVivienda.IDtipoViv "
+				+ "WHERE ";
 		return DBConnection.getStatement().executeQuery(query);
 	}
 	
 	public static ResultSet totPagadoDuenoPorPeriodo() throws SQLException {
-		//Suma total pagada a los dueï¿½os por las rentas de sus propiedades (suma del valor de renta estipulado) por perï¿½odos
-		String query = "";
-		return DBConnection.getStatement().executeQuery(query);
-	}
-
-	public static ResultSet totRentasPorClientePorPeriodo() throws SQLException {
-		//Suma y cantidad de rentas por cliente, por perï¿½odo
-		String query = "";
-		return DBConnection.getStatement().executeQuery(query);
-	}
-	
-	public static ResultSet totRentasPorUbicacion() throws SQLException {
-		//Nï¿½mero total de rentas por paï¿½s, departamento, municipio y ubicaciï¿½n (location)
-		String query = "";
-		return DBConnection.getStatement().executeQuery(query);
-	}
-	
-	public static ResultSet impuestosAPagarPorRentaPorPeriodo() throws SQLException {
-		//Reporte por periodos (aï¿½o, mes) de Impuestos que se deben pagar por cada renta
-		String query = "";
-		return DBConnection.getStatement().executeQuery(query);
-	}
-	
-	public static ResultSet topPropiedadesRentadas() throws SQLException {
-		//ï¿½Cuï¿½les son los tipos de propiedades mï¿½s rentadas?
-		String query = "";
-		return DBConnection.getStatement().executeQuery(query);
-	}
-	
-	public static ResultSet totRentasConImpuestosPorPeriodo() throws SQLException {
-		//Totales de rentas por periodo con impuestos
-		String query = "";
-		return DBConnection.getStatement().executeQuery(query);
-	}
-	
-	public static ResultSet totComisionesPagadasPorPeriodos() throws SQLException {
-		//Totales de comisiones pagadas por periodo
 		String query = "";
 		return DBConnection.getStatement().executeQuery(query);
 	}

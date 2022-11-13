@@ -1,7 +1,5 @@
 package application;
 
-import java.awt.event.ActionEvent;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.security.InvalidAlgorithmParameterException;
@@ -33,58 +31,35 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 
 public class RegisterSceneController implements Initializable{
-	//Map contiene <mail, contraseÃ±a>
-	private boolean bo1=false;
-	private String bo3="iniciar sesion";
 	
-	File file = new File("data.csv");
+	private boolean perspective = false;//Iniciar sesion = false, Registrar = true
 	 
-	@FXML
-	private Label error;
-	@FXML
-	private Label slogan;
-	@FXML
-	private Label texto;
-	@FXML
-	private Label profe;
-	@FXML 
-	private Label recibir;
-	@FXML
-	private BorderPane pantalla1;
-	@FXML
-	private AnchorPane ancla2;
-	@FXML
-	private TextField ingresarN;
-	@FXML
-	private TextField ingresarE;
-	@FXML
-	private PasswordField ingresarC;
-	@FXML
-	private Button boton3;
-	@FXML
-	private Button boton2;
-	@FXML
-	private AnchorPane ancla1;
-	@FXML
-	private Button boton1;
-	@FXML
-	private Label seTeOlvido;
-	//Variables para abrir la ventana principal
-	private Stage ventanaPrinci;
-	private Scene EscenarioPrinci;
-	private Parent rootPrinci;
+	@FXML private Label error;
+	@FXML private Label slogan;
+	@FXML private Label texto;
+	@FXML private Label profe;
+	@FXML private Label recibir;
+	@FXML private BorderPane pantalla1;
+	@FXML private AnchorPane ancla2;
+	@FXML private TextField enterName;
+	@FXML private TextField enterEmail;
+	@FXML private PasswordField enterPassword;
+	@FXML private Button boton3;
+	@FXML private Button boton2;
+	@FXML private AnchorPane ancla1;
+	@FXML private Button boton1;
+	@FXML private Label seTeOlvido;
 	
 	@Override
- 	public void initialize(URL arg0, ResourceBundle arg1) 
-	{
-		// TODO Auto-generated method stub
-		ingresarN.setVisible(false);
-		ingresarE.setTranslateY(-35);
-		ingresarC.setTranslateY(-20);
+ 	public void initialize(URL arg0, ResourceBundle arg1) {
+		enterEmail.setText("admin@gmail.com");
+		enterPassword.setText("teamo");
+		
+		enterName.setVisible(false);
+		enterEmail.setTranslateY(-35);
+		enterPassword.setTranslateY(-20);
 		seTeOlvido.setTranslateY(-20);
 		boton2.setVisible(false);
 		profe.setVisible(false);
@@ -93,51 +68,45 @@ public class RegisterSceneController implements Initializable{
 	
 	//Cambia la posicion y hace la traslacion cuando se le da al boton registrar 
 	@FXML
-	public void registrar(MouseEvent event) 
-	{
-		if(bo1==false) {	
-			ingresarN.setVisible(true);
+	public void registrar(MouseEvent event) {
+		if(perspective==false) {	
+			enterName.setVisible(true);
 			seTeOlvido.setVisible(false);
-			if(ingresarE.getTranslateY()<=35)
-			{
-				ingresarE.setTranslateY(10);
-				ingresarC.setTranslateY(20);
+			if(enterEmail.getTranslateY()<=35) {
+				enterEmail.setTranslateY(10);
+				enterPassword.setTranslateY(20);
 			}
 				TranslateTransition slide = new TranslateTransition();
-				slide. setDuration (Duration. seconds(0.7));
-				slide. setNode(ancla1);
+				slide.setDuration (Duration. seconds(0.7));
+				slide.setNode(ancla1);
 				slide.setByX(325);
 				slide.play();
 				
 				ancla2.setTranslateX(-415);
 				slide.setOnFinished((e->{}));
-				bo1=true;
+				perspective=true;
 			
 				boton1.setVisible(false);
 				boton2.setVisible(true);
 				boton3.setText("Registrar");
-				bo3="Registrar";
 				recibir.setText("!Bienvenido!");
 				profe.setVisible(true);
-				texto.setText("Para crear una nueva cuenta, ingresa tu nombre de usuario, correo electronico y establece una contraseÃ±a.");
+				texto.setText("Para crear una nueva cuenta, ingresa tu nombre de usuario, correo electronico y establece una contraseña.");
 				slogan.setText("Los mejores profesionales a tu servicio, Tu casa en buenas manos");
 				error.setVisible(false);
 		}
 	}
 	
 	//Cambia la posicion y hace la traslacion cuando se le da al boton iniciar sesion 
-	public void iniciarSesion(MouseEvent event)
-	{
-		if(bo1==true)
-		{	
+	public void iniciarSesion(MouseEvent event) {
+		if(perspective==true){	
 			seTeOlvido.setVisible(true);
-			if(ingresarE.getLayoutX()>=52.8)
-			{
-				ingresarE.setTranslateY(-30);
-				ingresarC.setTranslateY(-20);
+			if(enterEmail.getLayoutX()>=52.8){
+				enterEmail.setTranslateY(-30);
+				enterPassword.setTranslateY(-20);
 				seTeOlvido.setTranslateY(-20);
 			}
-			ingresarN.setVisible(false);
+			enterName.setVisible(false);
 			TranslateTransition slide = new TranslateTransition();
 			slide.setDuration (Duration.seconds(0.7));
 			slide.setNode(ancla1);
@@ -146,15 +115,19 @@ public class RegisterSceneController implements Initializable{
 			
 			ancla2.setTranslateX(0);
 			slide.setOnFinished((e->{}));
-			bo1=false;
+			perspective=false;
 			
 			boton1.setVisible(true);
 			boton2.setVisible(false);
 			boton3.setText("Iniciar sesion");
+<<<<<<< HEAD
 			bo3="Iniciar sesion";
 			recibir.setText("ï¿½Hola de Nuevo!");
+=======
+			recibir.setText("¡Hola de Nuevo!");
+>>>>>>> 6507d87172c1350426639b87702c61b079c1242c
 			profe.setVisible(false);
-			texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contraseÃ±a.");
+			texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contraseña.");
 			slogan.setText("No buscamos tu piso, encontramos tu hogar, y si quieres hacer parte de esta familia dale registrar");
 			error.setVisible(false);
 		}
@@ -162,6 +135,7 @@ public class RegisterSceneController implements Initializable{
 	
 	//Interaccion con el boton siguiente para crear o ingresar un usuario
 	public void siguiente(MouseEvent event) throws NoSuchAlgorithmException, IOException, InvalidKeyException, 
+<<<<<<< HEAD
 			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, ClassNotFoundException, SQLException 
 	{
 		//Ingresar 
@@ -188,33 +162,68 @@ public class RegisterSceneController implements Initializable{
 					{
 						Queries.createUser(nombre, mail, contra);
 					}
+=======
+			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, ClassNotFoundException, SQLException {
+		//obtener texto de los fields
+		error.setAlignment(Pos.CENTER);
+		String nombre = enterName.getText().strip();
+		String mail = enterEmail.getText().strip();
+		String contra = enterPassword.getText();
+		int tipoUsuario = 1;
+		String nombreRegex="^([\\w]){3,25}";
+		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
+		//No acepta campos vacios
+		if(!(mail.isEmpty() || contra.isBlank())) {
+			if(!mail.matches(mailRegex)){
+				error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
+				error.setText("Mail invalido");
+				error.setVisible(true);
+			}
+			if(!perspective) {//Iniciar sesion
+				if(Queries.validSesion(mail, contra)) {
+					error.setStyle("-fx-background-color: #91e291;-fx-border-color: #578857;-fx-background-radius: 9;-fx-border-radius: 9;");
+					error.setText("¡Ingreso Correctamente!");
+					error.setVisible(true);
+					cambiaVentanaPrincipal(event);
+				} else {
+					error.setVisible(true);
+>>>>>>> 6507d87172c1350426639b87702c61b079c1242c
 				}
-				else
-				{
-					error.setStyle("-fx-background-color: #fcc0bf;"+"-fx-border-color: #b12727;"+"-fx-background-radius: 9;"+"-fx-border-radius: 9;");
-					error.setText("Debe llenar todos los campos");
-					error .setVisible(true);
+			} 	
+			else if(!nombre.isEmpty()) {
+				if(!nombre.matches(nombreRegex)) {
+					error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
+					error.setText("Nombre de usuario invalido");
+					error.setVisible(true);
+				} else {
+					Queries.createUser(nombre, mail, contra, tipoUsuario);	
+					error.setStyle("-fx-background-color: #91e291;-fx-border-color: #578857;-fx-background-radius: 9;-fx-border-radius: 9;");
+					error.setText("¡Usuario creado correctamente!");
+					error.setVisible(true);
 				}
 			}
-			else
-			{
-				error.setStyle("-fx-background-color: #fcc0bf;"+"-fx-border-color: #b12727;"+"-fx-background-radius: 9;"+"-fx-border-radius: 9;");
+			else{
+				error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
 				error.setText("Debe llenar todos los campos");
-				error .setVisible(true);
+				error.setVisible(true);
 			}
+		}
+		else{
+			error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
+			error.setText("Debe llenar todos los campos");
+			error.setVisible(true);
+		}
 	}
 	
-	public void cambiaVentanaPrincipal(MouseEvent evento) throws IOException
-	{
-		rootPrinci = FXMLLoader.load(getClass().getResource("/source/PrincipalSceneOccupant.fxml"));
-		ventanaPrinci=(Stage)((Node)evento.getSource()).getScene().getWindow();
-		EscenarioPrinci=new Scene(rootPrinci);
-		ventanaPrinci.setScene(EscenarioPrinci);
+	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/source/PrincipalScene.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
 //		ventanaPrinci.setX(-10);
 //		ventanaPrinci.setY(0);
-		ventanaPrinci.setMaximized(true);
-		ventanaPrinci.setResizable(false);
-		ventanaPrinci.showAndWait();
+//		stage.setMaximized(true);
+//		stage.setResizable(false);
+//		ventanaPrinci.showAndWait();
 	}
-	
 }

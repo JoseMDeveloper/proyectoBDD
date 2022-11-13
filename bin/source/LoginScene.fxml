@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="pantalla1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="740.0" style="-fx-background-radius: 9; -fx-background-color: r;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegisterSceneController">
+<BorderPane fx:id="pantalla1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="740.0" style="-fx-background-radius: 9;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegisterSceneController">
    <right>
-      <AnchorPane fx:id="ancla2" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="ancla2" stylesheets="@../application/application.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="460.0" prefWidth="325.0" style="-fx-background-color: 0;">
+            <VBox prefHeight="460.0" prefWidth="325.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="0.0" prefWidth="325.0">
                      <children>
@@ -45,7 +45,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="47.0" prefWidth="325.0">
                      <children>
-                        <TextField fx:id="ingresarN" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese su usuario" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
+                        <TextField fx:id="enterName" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese su usuario" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -54,7 +54,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="60.0" prefWidth="325.0">
                      <children>
-                        <TextField fx:id="ingresarE" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese el email" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
+                        <TextField fx:id="enterEmail" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese el email" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -63,7 +63,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="47.0" prefWidth="325.0">
                      <children>
-                        <PasswordField fx:id="ingresarC" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese la contraseña" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
+                        <PasswordField fx:id="enterPassword" alignment="CENTER" prefHeight="35.0" prefWidth="220.0" promptText="Ingrese la contraseña" style="-fx-background-radius: 9; -fx-background-color: #e9eae9;">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -81,7 +81,11 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="64.0" prefWidth="325.0">
                      <children>
+<<<<<<< HEAD:src/source/RegisterScene.fxml
                         <Button fx:id="boton3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#siguiente" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: #000000;" text="Iniciar sesión" textFill="WHITE">
+=======
+                        <Button fx:id="boton3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#siguiente" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: #000000;" styleClass="shadow" stylesheets="@../application/application.css" text="Iniciar sesión" textFill="WHITE">
+>>>>>>> 6507d87172c1350426639b87702c61b079c1242c:src/source/LoginScene.fxml
                            <font>
                               <Font name="Consolas" size="15.0" />
                            </font>
@@ -103,13 +107,13 @@
       </AnchorPane>
    </right>
    <center>
-      <AnchorPane fx:id="ancla1" style="-fx-background-color: #76a77c;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="ancla1" style="-fx-background-color: #76a77c;" stylesheets="@../application/application.css" BorderPane.alignment="CENTER">
          <children>
             <Pane layoutX="5.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #85bc8c;">
                <children>
                   <ImageView fitHeight="497.0" fitWidth="419.0" layoutX="-5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@imgs/casa-14.x29366.jpg" />
+                        <Image url="@imgs/casaPaginaRegistro.jpg" />
                      </image>
                      <viewport>
                         <Rectangle2D height="600.0" minX="200.0" width="500.0" />
@@ -121,7 +125,7 @@
                         <Image url="@imgs/Logodefinitivo.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="boton1" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#registrar" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="Registrar">
+                  <Button fx:id="boton1" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#registrar" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" styleClass="shadow" stylesheets="@../application/application.css" text="Registrar">
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>
@@ -131,7 +135,11 @@
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
+<<<<<<< HEAD:src/source/RegisterScene.fxml
                   <Button fx:id="boton2" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#iniciarSesion" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" text="Iniciar sesión">
+=======
+                  <Button fx:id="boton2" layoutX="96.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#iniciarSesion" prefHeight="35.0" prefWidth="220.0" style="-fx-background-radius: 9; -fx-background-color: ffffff;" styleClass="shadow" stylesheets="@../application/application.css" text="Iniciar sesión">
+>>>>>>> 6507d87172c1350426639b87702c61b079c1242c:src/source/LoginScene.fxml
                      <font>
                         <Font name="Consolas" size="15.0" />
                      </font>

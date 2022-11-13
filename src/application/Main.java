@@ -12,7 +12,7 @@ import javafx.scene.Parent;
 public class Main extends Application {
     public void start(Stage stage) throws Exception{
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/source/RegisterScene.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
 			Scene scene = new Scene(root);
 			String css = this.getClass().getResource("application.css").toExternalForm();
 			scene.getStylesheets().add(css);
