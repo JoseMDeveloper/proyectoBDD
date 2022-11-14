@@ -46,7 +46,7 @@
                         <Pane prefHeight="33.0" prefWidth="234.0">
                            <children>
                               <Label layoutX="37.0" layoutY="14.0" text="Numero Habitaciones" textFill="#878787" />
-                              <Spinner fx:id="selectNumRooms1" cache="true" layoutX="63.0" layoutY="31.0" prefHeight="34.0" prefWidth="64.0" stylesheets="@../application/application.css">
+                              <Spinner fx:id="selectNumRooms" cache="true" layoutX="63.0" layoutY="31.0" prefHeight="34.0" prefWidth="64.0" stylesheets="@../application/application.css">
                                  <cursor>
                                     <Cursor fx:constant="DEFAULT" />
                                  </cursor>
@@ -56,15 +56,16 @@
                         <Separator orientation="VERTICAL" prefHeight="74.0" prefWidth="4.0" />
                         <MenuButton fx:id="TipoPropiedad" mnemonicParsing="false" prefHeight="73.0" prefWidth="190.0" style="-fx-background-color: transparent;" styleClass="comboBox" stylesheets="@../application/application.css" text="Tipo de Propiedad" textAlignment="CENTER" textFill="#878787">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                              <MenuItem mnemonicParsing="false" onAction="#noSelection" text="Todas" />
+                            <MenuItem mnemonicParsing="false" onAction="#selectCasa" text="Casa" />
+                            <MenuItem mnemonicParsing="false" onAction="#selectApto" text="Apartamento" />
                           </items>
                            <font>
                               <Font name="Consolas" size="12.0" />
                            </font>
                         </MenuButton>
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <Button fx:id="BotonBuscar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="183.0" style="-fx-background-radius: 9; -fx-background-color: #76a77c;" styleClass="shadow" stylesheets="@../application/application.css" text="Buscar" textFill="WHITE">
+                        <Button fx:id="BotonBuscar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#search" prefHeight="62.0" prefWidth="183.0" style="-fx-background-radius: 9; -fx-background-color: #76a77c;" styleClass="shadow" stylesheets="@../application/application.css" text="Buscar" textFill="WHITE">
                            <font>
                               <Font name="Consolas" size="21.0" />
                            </font>
@@ -76,20 +77,22 @@
          </children>
       </AnchorPane>
    </top>
-   <center>
-      <AnchorPane prefHeight="375.0" prefWidth="1200.0">
+   <right>
+      <AnchorPane prefHeight="350.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="257.0" layoutY="14.0" prefHeight="379.0" prefWidth="687.0">
+            <TableView fx:id="tblViviendas" fixedCellSize="0.0" layoutX="225.0" layoutY="25.0" prefHeight="300.0" prefWidth="689.0" stylesheets="@../application/application.css">
               <columns>
-                <TableColumn prefWidth="46.0" text="ID" />
-                <TableColumn prefWidth="89.0" text="Direccion" />
-                  <TableColumn prefWidth="117.0" text="Habitaciones" />
-                  <TableColumn prefWidth="140.0" text="Renta munsual" />
-                  <TableColumn prefWidth="111.0" text="Fecha" />
-                  <TableColumn prefWidth="183.0" text="Descripcion" />
+                <TableColumn fx:id="colID" editable="false" minWidth="0.0" prefWidth="24.0" text="ID" />
+                <TableColumn fx:id="colDireccion" editable="false" prefWidth="97.0" sortable="false" text="Direccion" />
+                  <TableColumn fx:id="colHabitaciones" editable="false" text="Habitaciones" />
+                  <TableColumn fx:id="colTipoPropiedad" editable="false" prefWidth="107.0" text="Tipo De Vivienda" />
+                  <TableColumn fx:id="colRentaMensual" editable="false" prefWidth="101.0" text="Renta mensual" />
+                  <TableColumn fx:id="colPais" editable="false" prefWidth="66.0" text="Pais" />
+                  <TableColumn fx:id="colFecha" editable="false" prefWidth="82.0" text="Fecha" />
+                  <TableColumn fx:id="colDescripcion" editable="false" prefWidth="131.0" text="Descripcion" />
               </columns>
             </TableView>
          </children>
       </AnchorPane>
-   </center>
+   </right>
 </BorderPane>
