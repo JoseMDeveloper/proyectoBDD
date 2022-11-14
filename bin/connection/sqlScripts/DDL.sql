@@ -1,8 +1,8 @@
-CREATE TABLE TipoServicio (
+CREATE TABLE TipoServicio ( 
     IDTipoServicio number(10) DEFAULT NULL,
     TipoServicio varchar2(25) NOT NULL,
     PRIMARY KEY (IDtipoServicio)
-);
+); --Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE TipoComision (
     IDtipoCom number(10) DEFAULT NULL,
@@ -10,32 +10,32 @@ CREATE TABLE TipoComision (
     Porcentaje number(10, 1) NOT NULL,
     CHECK (Porcentaje>0),
     PRIMARY KEY (IDtipoCom)
-);
+);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE TipoImpuesto (
     IDtipoImp number(10) DEFAULT NULL,
     TipoImp varchar2(255) NOT NULL,
     Porcentaje number(3, 1) NOT NULL,
     PRIMARY KEY (IDtipoImp)
-);
+);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE TipoPago (
     IDtipoPago number(10) DEFAULT NULL,
     TipoPago varchar2(25) NOT NULL,
     PRIMARY KEY (IDtipoPago)
-);
+);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE TipoUsuario (
     IDtipoUs number(10) DEFAULT NULL,
     TipoUs varchar2(255) NOT NULL,
     PRIMARY KEY (IDtipoUs)
-);
+);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE TipoVivienda (
     IDtipoViv number(10) DEFAULT NULL,
     Tipo varchar2(25) NOT NULL,
     PRIMARY KEY (IDtipoViv)
-);
+);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Ubicacion (
     IDubicacion number(10) DEFAULT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE Factura_TipoComision (
     PRIMARY KEY (IDtipoCom, IDfactura),
     FOREIGN KEY (IDtipoCom) REFERENCES TipoComision (IDtipoCom) ON DELETE CASCADE,
     FOREIGN KEY (IDfactura) REFERENCES Factura (IDfactura) ON DELETE CASCADE
-);
+);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Pago (
     IDfactura number(10) NOT NULL,
@@ -141,7 +141,7 @@ CREATE TABLE TipoImpuesto_Factura (
     PRIMARY KEY (IDtipoImp, IDfactura),
     FOREIGN KEY (IDfactura) REFERENCES Factura (IDfactura) ON DELETE CASCADE,
     FOREIGN KEY (IDtipoImp) REFERENCES TipoImpuesto (IDtipoImp) ON DELETE CASCADE
-);
+); --Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE Servicio (
     IDfactura number(10) NOT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE Visita (
     PRIMARY KEY (IDusuario, IDvivienda),
     FOREIGN KEY (IDusuario) REFERENCES Usuario (IDusuario) ON DELETE CASCADE,
     FOREIGN KEY (IDvivienda) REFERENCES Vivienda (IDvivienda) ON DELETE CASCADE
-);
+);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE SolicitudRenta (
     IDusuario number(10) NOT NULL,
@@ -169,7 +169,7 @@ CREATE TABLE SolicitudRenta (
     PRIMARY KEY (IDusuario, IDvivienda),
     FOREIGN KEY (IDusuario) REFERENCES Usuario (IDusuario) ON DELETE CASCADE,
     FOREIGN KEY (IDvivienda) REFERENCES Vivienda (IDvivienda) ON DELETE CASCADE
-);
+);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 DROP TABLE Servicio;
 DROP TABLE TipoImpuesto_Factura;
