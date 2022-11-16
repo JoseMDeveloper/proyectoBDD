@@ -202,8 +202,8 @@ public class RegisterSceneController implements Initializable{
 	}
 	
 	public void showEventMessage(String message, String color, String borderColor) {
-		error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
-		error.setText("Debe llenar todos los campos");
+		error.setStyle("-fx-background-color: "+color+";-fx-border-color: "+borderColor+";-fx-background-radius: 9;-fx-border-radius: 9;");
+		error.setText(message);
 		error.setVisible(true);
 	}
 	

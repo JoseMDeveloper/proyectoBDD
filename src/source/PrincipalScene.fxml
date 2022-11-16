@@ -1,96 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PrincipalSceneController">
 	<top>
-		<AnchorPane prefHeight="69.0" prefWidth="1200.0" style="-fx-background-color: #76a77c;" BorderPane.alignment="CENTER" />
+		<AnchorPane prefHeight="69.0" prefWidth="1200.0" style="-fx-background-color: #76a77c;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutX="1077.0" layoutY="15.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="120.0" style="-fx-background-color: #BAEAC3;" text="Historial">
+					</Button>
+                  <Pane prefHeight="40.0" prefWidth="10.0" />
+                  <Button fx:id="btnNotificaciones" mnemonicParsing="false" prefHeight="39.0" prefWidth="120.0" style="-fx-background-color: #BAEAC3;" text="Notificaciones" />
+                  <Pane prefHeight="40.0" prefWidth="10.0" />
+                  <Button fx:id="btnMiCuenta" mnemonicParsing="false" prefHeight="44.0" prefWidth="120.0" style="-fx-background-color: #BAEAC3;" text="Mi cuenta" />
+               </children>
+            </HBox>
+         </children></AnchorPane>
 	</top>
    <center>
-      <HBox prefWidth="1200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane prefWidth="300.0">
-               <children>
-                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="20.0">
-                     <image>
-                        <Image url="@imgs/lupa.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="btnBuscarPropiedades" layoutX="90.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#changeToSearchScene" text="Buscar propiedades" />
-               </children>
-            </Pane>
-            <Pane prefWidth="300.0">
-               <children>
-                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="20.0">
-                     <image>
-                        <Image url="@imgs/notificacion.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="btnNotificaciones" layoutX="105.0" layoutY="250.0" mnemonicParsing="false" text="Notificaciones" />
-               </children>
-            </Pane>
-            <Pane prefWidth="300.0">
-               <children>
-                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="20.0">
-                     <image>
-                        <Image url="@imgs/info.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="btnInfo" layoutX="110.0" layoutY="250.0" mnemonicParsing="false" text="Informacion" />
-               </children>
-            </Pane>
-            <Pane prefWidth="300.0">
-               <children>
-                  <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="20.0">
-                     <image>
-                        <Image url="@imgs/user.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="btnMiCuenta" layoutX="116.0" layoutY="250.0" mnemonicParsing="false" text="Mi cuenta" />
-               </children>
-            </Pane>
-         </children>
-      </HBox>
-   </center>
-   <bottom>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="57.0" layoutY="62.0" prefHeight="76.0" prefWidth="1086.0" style="-fx-background-color: white; -fx-background-radius: 9; -fx-border-radius: 9;" styleClass="shadow" stylesheets="@../application/application.css">
+            <AnchorPane layoutX="122.0" layoutY="222.0" prefHeight="88.0" prefWidth="956.0" style="-fx-background-color: white; -fx-background-radius: 9; -fx-border-radius: 9;" styleClass="shadow" stylesheets="@../application/application.css">
                <children>
-                  <HBox alignment="CENTER" prefHeight="76.0" prefWidth="1078.0" styleClass="shadow" stylesheets="@../application/application.css">
+                  <HBox alignment="CENTER" layoutX="14.0" prefHeight="88.0" prefWidth="933.0" styleClass="shadow" stylesheets="@../application/application.css">
                      <children>
-                        <TextField fx:id="Buscador" alignment="CENTER" prefHeight="73.0" prefWidth="342.0" promptText="Busca por país, ciudad, zona o barrio" style="-fx-background-color: transparent;">
-                           <font>
-                              <Font name="Consolas" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <TextField fx:id="ArriendoMin" alignment="CENTER" prefHeight="73.0" prefWidth="185.0" promptText="Arriendo Mínimo" style="-fx-background-color: transparent;">
-                           <font>
-                              <Font name="Consolas" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <TextField fx:id="ArriendoMax" alignment="CENTER" prefHeight="73.0" prefWidth="185.0" promptText="Arriendo Máximo" style="-fx-background-color: transparent;" />
-                        <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <Pane prefHeight="33.0" prefWidth="234.0">
+                        <AnchorPane prefHeight="88.0" prefWidth="179.0">
                            <children>
-                              <Label layoutX="37.0" layoutY="14.0" text="Numero Habitaciones" textFill="#878787" />
-                              <Spinner fx:id="selectNumRooms" cache="true" layoutX="63.0" layoutY="31.0" prefHeight="34.0" prefWidth="64.0" stylesheets="@../application/application.css">
+                              <HBox layoutY="7.0" prefHeight="75.0" prefWidth="169.0">
+                                 <children>
+                                    <Button fx:id="nuevaUbicacion" mnemonicParsing="false" onMouseClicked="#addLocation" prefHeight="75.0" prefWidth="73.0" style="-fx-background-color: #BAEAC3;" text="Agregar Ubicacion" textAlignment="CENTER" wrapText="true" />
+                                    <AnchorPane prefHeight="75.0" prefWidth="10.0" />
+                                    <VBox prefHeight="75.0" prefWidth="95.0">
+                                       <children>
+                                          <ComboBox prefHeight="25.0" prefWidth="108.0" promptText="Pais" style="-fx-background-color: #BAEAC3;" stylesheets="@../application/application.css" />
+                                          <ComboBox prefHeight="25.0" prefWidth="107.0" promptText="Depto" style="-fx-background-color: #BAEAC3;" />
+                                          <ComboBox prefHeight="25.0" prefWidth="109.0" promptText="Municipio" style="-fx-background-color: #BAEAC3;" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <TextField fx:id="ArriendoMin" alignment="CENTER" prefHeight="73.0" prefWidth="128.0" promptText="Arriendo Mínimo" style="-fx-background-color: transparent;">
+                           <font>
+                              <Font name="Consolas" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <TextField fx:id="ArriendoMax" alignment="CENTER" prefHeight="73.0" prefWidth="115.0" promptText="Arriendo Máximo" style="-fx-background-color: transparent;" />
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Pane prefHeight="88.0" prefWidth="147.0">
+                           <children>
+                              <Label layoutX="16.0" layoutY="14.0" text="Numero Habitaciones" textFill="#b5b5b5" />
+                              <Spinner fx:id="selectNumRooms" cache="true" layoutX="42.0" layoutY="31.0" prefHeight="34.0" prefWidth="64.0" stylesheets="@../application/application.css">
                                  <cursor>
                                     <Cursor fx:constant="DEFAULT" />
                                  </cursor>
@@ -98,17 +75,9 @@
                            </children>
                         </Pane>
                         <Separator orientation="VERTICAL" prefHeight="74.0" prefWidth="4.0" />
-                        <MenuButton fx:id="TipoPropiedad" mnemonicParsing="false" prefHeight="73.0" prefWidth="190.0" style="-fx-background-color: transparent;" styleClass="comboBox" stylesheets="@../application/application.css" text="Tipo de Propiedad" textAlignment="CENTER" textFill="#878787">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Casa" />
-                              <MenuItem mnemonicParsing="false" text="Apartamento" />
-                           </items>
-                           <font>
-                              <Font name="Consolas" size="12.0" />
-                           </font>
-                        </MenuButton>
+                        <ComboBox fx:id="selectTipoPropiedad" opacity="0.36" prefHeight="65.0" prefWidth="147.0" promptText="Tipo de propiedad" style="-fx-background-color: transparent;" />
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <Button fx:id="BotonBuscar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="183.0" style="-fx-background-radius: 9; -fx-background-color: #76a77c;" styleClass="shadow" stylesheets="@../application/application.css" text="Buscar" textFill="WHITE">
+                        <Button fx:id="btnSearch" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#search" prefHeight="62.0" prefWidth="183.0" style="-fx-background-radius: 9; -fx-background-color: #76a77c;" styleClass="shadow" stylesheets="@../application/application.css" text="Buscar" textFill="WHITE">
                            <font>
                               <Font name="Consolas" size="21.0" />
                            </font>
@@ -117,7 +86,8 @@
                   </HBox>
                </children>
             </AnchorPane>
+            <Accordion layoutX="246.0" layoutY="120.0" />
          </children>
       </Pane>
-   </bottom>
+   </center>
 </BorderPane>

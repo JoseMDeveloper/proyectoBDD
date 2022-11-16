@@ -107,8 +107,18 @@ public class Queries {
 		return viviendas;
 	}
 	
-	public static ResultSet totPagadoDuenoPorPeriodo() throws SQLException {
-		String query = "";
-		return DBConnection.getStatement().executeQuery(query);
+	public static List<String[]> obtenerUbicacion() throws SQLException, ClassNotFoundException {
+		DBConnection.connect();
+		ArrayList<String[]> ubicaciones = new ArrayList<>();
+		String query = "SELECT pais, departamento, municipio "
+				+ "FROM ubicacion";
+		DBConnection.createStatement(query);
+		ResultSet rs = DBConnection.getStatement().executeQuery();
+		while (rs.next()) {
+			String[] ubicacion = {rs.getString(1),rs.getString(2),rs.getString(3)};
+			ubicaciones.add(ubicacion);
+		}
+		DBConnection.desconnect();
+		return ubicaciones;
 	}
 }
