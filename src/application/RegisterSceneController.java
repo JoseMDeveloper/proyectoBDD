@@ -169,7 +169,7 @@ public class RegisterSceneController implements Initializable{
 			else if(!mail.isEmpty()) {
 				if(!mail.matches(mailRegex)) {
 					error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
-					error.setText("Nombre de usuario invalido");
+					error.setText("Nombre de mail invalido");
 					error.setVisible(true);
 				} else {
 					Queries.createUser(nombre, mail, contra, tipoUsuario);	
