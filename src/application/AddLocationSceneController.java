@@ -7,38 +7,50 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import connection.Queries;
+import dataClass.Departamento;
+import dataClass.Municipio;
+import dataClass.Pais;
+import dataClass.Ubicacion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class AddLocationSceneController implements Initializable{
 	
 	@FXML
-	private ComboBox<String> cboxPais;
+	private ComboBox<Pais> cboxPais;
 	
 	@FXML
-    private ComboBox<String> cboxDepto;
+    private ComboBox<Departamento> cboxDepto;
 
     @FXML
-    private ComboBox<String> cboxMunicipio;
+    private ComboBox<Municipio> cboxMunicipio;
     
-    private List<String> paises = new ArrayList<>();
-    private List<String> deptos = new ArrayList<>();
-    private List<String> municipios = new ArrayList<>();
+    private List<Pais> paises = new ArrayList<>();
+    private List<Departamento> deptos = new ArrayList<>();
+    private List<Municipio> municipios = new ArrayList<>();
     
-    private ObservableList<String> obsPaises = FXCollections.observableArrayList();
-    private ObservableList<String> obsDeptos = FXCollections.observableArrayList();
-    private ObservableList<String> obsMunicipios = FXCollections.observableArrayList();
+    private List<Departamento> filteredDeptos = new ArrayList<>();
+    private List<Municipio> filteredMunicipios = new ArrayList<>();
     
-    private List<String[]> ubicaciones;
+    private ObservableList<Pais> obsPaises = FXCollections.observableArrayList();
+    private ObservableList<Departamento> obsDeptos = FXCollections.observableArrayList();
+    private ObservableList<Municipio> obsMunicipios = FXCollections.observableArrayList();
+    
+    private List<Ubicacion> ubicaciones;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			updateLocations();
+			cboxPais.setItems(obsPaises);
+			cboxDepto.setItems(obsDeptos);
+			cboxMunicipio.setItems(obsMunicipios);
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -46,58 +58,81 @@ public class AddLocationSceneController implements Initializable{
 	
 	@FXML
     void openAndFilterPaises(KeyEvent event) {
-		obsPaises.clear();
-		String filter = cboxPais.getEditor().getText();
-		for(String pais: paises) {
-			if(pais.toLowerCase().startsWith(filter.toLowerCase())) {
-				obsPaises.add(pais);
+		if(event.getCode() == KeyCode.ENTER) {
+			cboxPais.hide();
+			if(!obsPaises.isEmpty()) {
+				cboxPais.setValue(obsPaises.get(0));
+				filteredDeptos.clear();
+				filteredDeptos.addAll(obsPaises.get(0).getDepartamentos());
 			}
+		}else {
+			obsPaises.clear();
+			String filter = cboxPais.getEditor().getText();
+			paises.stream().forEach(pais -> {
+				if(pais.getNombre().toLowerCase().startsWith(filter.toLowerCase())) {
+					obsPaises.add(pais);
+				}
+			});
+			cboxPais.show();
 		}
-		cboxPais.show();
     }
 	
 	@FXML
     void openAndFilterDeptos(KeyEvent event) {
-		obsDeptos.clear();
-		String filter = cboxDepto.getEditor().getText();
-		for(String depto: deptos) {
-			if(depto.toLowerCase().startsWith(filter.toLowerCase())) {
-				obsDeptos.add(depto);
+		if(event.getCode() == KeyCode.ENTER) {
+			cboxDepto.hide();
+			if(!obsDeptos.isEmpty()) {
+				cboxDepto.setValue(obsDeptos.get(0));
+				cboxPais.setValue(obsDeptos.get(0).getPais());
 			}
+		}else {
+			obsDeptos.clear();
+			String filter = cboxDepto.getEditor().getText();
+			deptos.stream().forEach(depto -> {
+				if(depto.getNombre().toLowerCase().startsWith(filter.toLowerCase())) {
+					obsDeptos.add(depto);
+				}
+			});
+			cboxDepto.show();
 		}
-		cboxDepto.show();
     }
 	
 	@FXML
     void openAndFilterMunicipios(KeyEvent event) {
-		obsMunicipios.clear();
-		String filter = cboxMunicipio.getEditor().getText();
-		for(String municipio: municipios) {
-			if(municipio.toLowerCase().startsWith(filter.toLowerCase())) {
-				obsMunicipios.add(municipio);
+		if(event.getCode() == KeyCode.ENTER) {
+			cboxMunicipio.hide();
+			if(!obsMunicipios.isEmpty()) {
+				cboxMunicipio.setValue(obsMunicipios.get(0));
+				cboxDepto.setValue(obsMunicipios.get(0).getDepartamento());
+				cboxPais.setValue(obsMunicipios.get(0).getDepartamento().getPais());
 			}
+		}else {
+			obsMunicipios.clear();
+			String filter = cboxMunicipio.getEditor().getText();
+			municipios.stream().forEach(municipio -> {
+				if(municipio.getNombre().toLowerCase().startsWith(filter.toLowerCase())) {
+					obsMunicipios.add(municipio);
+				}
+			});
+			cboxMunicipio.show();
 		}
-		cboxMunicipio.show();
     }
 	
 	public void updateLocations() throws ClassNotFoundException, SQLException {
 		this.ubicaciones = Queries.obtenerUbicacion();
-		for(String[] ubicacion: ubicaciones) {
-			if (!paises.contains(ubicacion[0])) {
-				paises.add(ubicacion[0]);
-				obsPaises.add(ubicacion[0]);
+		for(Ubicacion ubicacion: ubicaciones) {
+			if (!paises.contains(ubicacion.getPais())) {
+				paises.add(ubicacion.getPais());
+				obsPaises.add(ubicacion.getPais());
 			}
-			if (!deptos.contains(ubicacion[1])) {
-				deptos.add(ubicacion[1]);
-				obsDeptos.add(ubicacion[1]);
+			if (!deptos.contains(ubicacion.getDepartamento())) {
+				deptos.add(ubicacion.getDepartamento());
+				obsDeptos.add(ubicacion.getDepartamento());
 			}
-			if (!municipios.contains(ubicacion[2])) {
-				municipios.add(ubicacion[2]);
-				obsMunicipios.add(ubicacion[2]);
+			if (!municipios.contains(ubicacion.getMunicipio())) {
+				municipios.add(ubicacion.getMunicipio());
+				obsMunicipios.add(ubicacion.getMunicipio());
 			}
 		}
-		cboxPais.setItems(obsPaises);
-		cboxDepto.setItems(obsDeptos);
-		cboxMunicipio.setItems(obsMunicipios);
 	}
 }

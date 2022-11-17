@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 
 public class RegisterSceneController implements Initializable{
 	
-	private boolean perspective = false;//Iniciar sesion = false, Registrar = true
+	private boolean iniciandoSesion = false;//Iniciar sesion = false, Registrar = true
 	
 	@FXML private Pane selectTipo;
 	@FXML private ToggleButton botonCliente;
@@ -68,7 +68,7 @@ public class RegisterSceneController implements Initializable{
 	//Cambia la posicion y hace la traslacion cuando se le da al boton registrar 
 	@FXML
 	public void registrar(MouseEvent event) {
-		if(perspective==false) {
+		if(iniciandoSesion==false) {
 			if(enterName.getTranslateY()<=35) {
 				enterName.setTranslateY(5);
 				enterPassword.setTranslateY(10);
@@ -87,7 +87,7 @@ public class RegisterSceneController implements Initializable{
 	
 	//Cambia la posicion y hace la traslacion cuando se le da al boton iniciar sesion 
 	public void iniciarSesion(MouseEvent event) {
-		if(perspective==true){	
+		if(iniciandoSesion==true){	
 			seTeOlvido.setVisible(true);
 			if(enterName.getLayoutX()>=52.8){
 				enterName.setTranslateY(-30);
@@ -125,7 +125,7 @@ public class RegisterSceneController implements Initializable{
 			if(!nombre.matches(nombreRegex)){
 				showEventMessage("Nombre invalido", "#fcc0bf", "#b12727");
 			}
-			if(!perspective) {//Iniciar sesion
+			if(!iniciandoSesion) {//Iniciar sesion
 				if(Queries.validSesion(nombre, contra)) {
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					cambiaVentanaPrincipal(event);
@@ -177,7 +177,7 @@ public class RegisterSceneController implements Initializable{
 		error.setVisible(false);
 		selectTipo.setVisible(false);
 		enterMail.setVisible(false);
-		perspective = false;
+		iniciandoSesion = false;
 		
 		boton3.setText("Iniciar sesion");
 		recibir.setText("Hola de Nuevo!");
@@ -193,7 +193,7 @@ public class RegisterSceneController implements Initializable{
 		selectTipo.setVisible(true);
 		enterMail.setVisible(true);
 		seTeOlvido.setVisible(false);
-		perspective=true;
+		iniciandoSesion=true;
 		
 		boton3.setText("Registrar");
 		recibir.setText("Bienvenido!");
