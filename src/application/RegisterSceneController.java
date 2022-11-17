@@ -31,14 +31,16 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class RegisterSceneController implements Initializable{
 	
 	private boolean perspective = false;//Iniciar sesion = false, Registrar = true
 	
+	@FXML private Pane selectTipo;
 	@FXML private ToggleButton botonCliente;
-	@FXML private ToggleButton botonDueño;
+	@FXML private ToggleButton botonDueno;
 	@FXML private Label error;
 	@FXML private Label slogan;
 	@FXML private Label texto;
@@ -60,21 +62,13 @@ public class RegisterSceneController implements Initializable{
 		enterName.setText("Admin");
 		enterPassword.setText("teamo");
 		
-		enterMail.setVisible(false);
-		enterName.setTranslateY(-35);
-		enterPassword.setTranslateY(-20);
-		seTeOlvido.setTranslateY(-20);
-		boton2.setVisible(false);
-		profe.setVisible(false);
-		error.setVisible(false);
+		setPerspectiveLogIn();
 	}
 	
 	//Cambia la posicion y hace la traslacion cuando se le da al boton registrar 
 	@FXML
 	public void registrar(MouseEvent event) {
-		if(perspective==false) {	
-			enterMail.setVisible(true);
-			seTeOlvido.setVisible(false);
+		if(perspective==false) {
 			if(enterName.getTranslateY()<=35) {
 				enterName.setTranslateY(5);
 				enterPassword.setTranslateY(10);
@@ -87,16 +81,7 @@ public class RegisterSceneController implements Initializable{
 				
 				ancla2.setTranslateX(-415);
 				slide.setOnFinished((e->{}));
-				perspective=true;
-			
-				boton1.setVisible(false);
-				boton2.setVisible(true);
-				boton3.setText("Registrar");
-				recibir.setText("!Bienvenido!");
-				profe.setVisible(true);
-				texto.setText("Para crear una nueva cuenta, ingresa tu nombre de usuario, correo electronico y establece una contrase�a.");
-				slogan.setText("Los mejores profesionales a tu servicio, Tu casa en buenas manos");
-				error.setVisible(false);
+				setPerspectiveSignIn();
 		}
 	}
 	
@@ -109,7 +94,6 @@ public class RegisterSceneController implements Initializable{
 				enterPassword.setTranslateY(-20);
 				seTeOlvido.setTranslateY(-20);
 			}
-			enterMail.setVisible(false);
 			TranslateTransition slide = new TranslateTransition();
 			slide.setDuration (Duration.seconds(0.7));
 			slide.setNode(ancla1);
@@ -118,20 +102,8 @@ public class RegisterSceneController implements Initializable{
 			
 			ancla2.setTranslateX(0);
 			slide.setOnFinished((e->{}));
-			perspective=false;
 			
-			boton1.setVisible(true);
-			boton2.setVisible(false);
-			boton3.setText("Iniciar sesion");
-
-			
-
-			recibir.setText("�Hola de Nuevo!");
-
-			profe.setVisible(false);
-			texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contrase�a.");
-			slogan.setText("No buscamos tu piso, encontramos tu hogar, y si quieres hacer parte de esta familia dale registrar");
-			error.setVisible(false);
+			setPerspectiveLogIn();
 		}
 	}
 	
@@ -151,15 +123,11 @@ public class RegisterSceneController implements Initializable{
 		
 		if(!(nombre.isEmpty() || contra.isBlank())) {
 			if(!nombre.matches(nombreRegex)){
-				error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
-				error.setText("Nombre invalido");
-				error.setVisible(true);
+				showEventMessage("Nombre invalido", "#fcc0bf", "#b12727");
 			}
 			if(!perspective) {//Iniciar sesion
 				if(Queries.validSesion(nombre, contra)) {
-					error.setStyle("-fx-background-color: #91e291;-fx-border-color: #578857;-fx-background-radius: 9;-fx-border-radius: 9;");
-					error.setText("�Ingreso Correctamente!");
-					error.setVisible(true);
+					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					cambiaVentanaPrincipal(event);
 				} else {
 					error.setVisible(true);
@@ -168,47 +136,77 @@ public class RegisterSceneController implements Initializable{
 			} 	
 			else if(!mail.isEmpty()) {
 				if(!mail.matches(mailRegex)) {
-					error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
-					error.setText("Nombre de mail invalido");
-					error.setVisible(true);
+
+					showEventMessage("Nombre de usuario invalido", "#fcc0bf", "#b12727");
+
 				} else {
-					Queries.createUser(nombre, mail, contra, tipoUsuario);	
-					error.setStyle("-fx-background-color: #91e291;-fx-border-color: #578857;-fx-background-radius: 9;-fx-border-radius: 9;");
-					error.setText("�Usuario creado correctamente!");
-					error.setVisible(true);
+					Queries.createUser(nombre, mail, contra, tipoUsuario);
+					showEventMessage("!Usuario creado correctamente!", "#91e291", "#578857");
 				}
 			}
 			else{
-				error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
-				error.setText("Debe llenar todos los campos");
-				error.setVisible(true);
-				
+				showEventMessage("Debe llenar todos los campos", "#fcc0bf", "#b12727");
 			}
 		}
 		else{
-			error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
-			error.setText("Debe llenar todos los campos");
-			error.setVisible(true);
-			
+			showEventMessage("Debe llenar todos los campos", "#fcc0bf", "#b12727");
 		}
 	}
-	public void Dueño()
-	{
+	public void Dueno(){
 		
-		if(botonDueño.isSelected() && botonCliente.isSelected())
-		{
+		if(botonDueno.isSelected() && botonCliente.isSelected()){
 			botonCliente.setSelected(!botonCliente.isSelected());;
 		}
 		
 		
 	}
-	public void Cliente()
-	{
-		if(botonCliente.isSelected()&& botonDueño.isSelected())
-		{
+	public void Cliente(){
+		if(botonCliente.isSelected() && botonDueno.isSelected()){
 			
-			botonDueño.setSelected(!botonDueño.isSelected());;	
+			botonDueno.setSelected(!botonDueno.isSelected());;	
 		}
+	}
+	
+	public void setPerspectiveLogIn() {
+		boton1.setVisible(true);
+		boton2.setVisible(false);
+		enterMail.setVisible(false);
+		enterName.setTranslateY(-35);
+		enterPassword.setTranslateY(-20);
+		seTeOlvido.setTranslateY(-20);
+		boton2.setVisible(false);
+		profe.setVisible(false);
+		error.setVisible(false);
+		selectTipo.setVisible(false);
+		enterMail.setVisible(false);
+		perspective = false;
+		
+		boton3.setText("Iniciar sesion");
+		recibir.setText("Hola de Nuevo!");
+		texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contrase�a.");
+		slogan.setText("No buscamos tu piso, encontramos tu hogar, y si quieres hacer parte de esta familia dale registrar");
+	}
+	
+	public void setPerspectiveSignIn() {
+		boton1.setVisible(false);
+		boton2.setVisible(true);
+		profe.setVisible(true);
+		error.setVisible(false);
+		selectTipo.setVisible(true);
+		enterMail.setVisible(true);
+		seTeOlvido.setVisible(false);
+		perspective=true;
+		
+		boton3.setText("Registrar");
+		recibir.setText("Bienvenido!");
+		texto.setText("Para crear una nueva cuenta, ingresa tu nombre de usuario, correo electronico y establece una contrase�a.");
+		slogan.setText("Los mejores profesionales a tu servicio, Tu casa en buenas manos");
+	}
+	
+	public void showEventMessage(String message, String color, String borderColor) {
+		error.setStyle("-fx-background-color: #fcc0bf;-fx-border-color: #b12727;-fx-background-radius: 9;-fx-border-radius: 9;");
+		error.setText("Debe llenar todos los campos");
+		error.setVisible(true);
 	}
 	
 	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
@@ -216,6 +214,7 @@ public class RegisterSceneController implements Initializable{
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
+		stage.centerOnScreen();
 //		ventanaPrinci.setX(-10);
 //		ventanaPrinci.setY(0);
 //		stage.setMaximized(true);
