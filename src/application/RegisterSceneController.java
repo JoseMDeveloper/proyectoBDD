@@ -136,7 +136,9 @@ public class RegisterSceneController implements Initializable{
 			} 	
 			else if(!mail.isEmpty()) {
 				if(!mail.matches(mailRegex)) {
+
 					showEventMessage("Nombre de usuario invalido", "#fcc0bf", "#b12727");
+
 				} else {
 					Queries.createUser(nombre, mail, contra, tipoUsuario);
 					showEventMessage("!Usuario creado correctamente!", "#91e291", "#578857");
@@ -181,7 +183,7 @@ public class RegisterSceneController implements Initializable{
 		
 		boton3.setText("Iniciar sesion");
 		recibir.setText("Hola de Nuevo!");
-		texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contraseÑa.");
+		texto.setText("Para iniciar sesion en tu cuenta, ingrese su direccion de correo electronico y su contraseï¿½a.");
 		slogan.setText("No buscamos tu piso, encontramos tu hogar, y si quieres hacer parte de esta familia dale registrar");
 	}
 	
@@ -197,7 +199,7 @@ public class RegisterSceneController implements Initializable{
 		
 		boton3.setText("Registrar");
 		recibir.setText("Bienvenido!");
-		texto.setText("Para crear una nueva cuenta, ingresa tu nombre de usuario, correo electronico y establece una contraseña.");
+		texto.setText("Para crear una nueva cuenta, ingresa tu nombre de usuario, correo electronico y establece una contraseï¿½a.");
 		slogan.setText("Los mejores profesionales a tu servicio, Tu casa en buenas manos");
 	}
 	
@@ -212,6 +214,7 @@ public class RegisterSceneController implements Initializable{
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
+		stage.centerOnScreen();
 //		ventanaPrinci.setX(-10);
 //		ventanaPrinci.setY(0);
 //		stage.setMaximized(true);
