@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import connection.Queries;
@@ -62,18 +63,11 @@ public class AddLocationSceneController implements Initializable{
     
     private List<String> result = new ArrayList<>();
     
-    private List<Ubicacion> ubicaciones;
-    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		try {
-			updateLocations();
-			cboxPais.setItems(obsPaises);
-			cboxDepto.setItems(obsDeptos);
-			cboxMunicipio.setItems(obsMunicipios);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
+		cboxPais.setItems(obsPaises);
+		cboxDepto.setItems(obsDeptos);
+		cboxMunicipio.setItems(obsMunicipios);
 	}
 	
 	@FXML
@@ -156,41 +150,56 @@ public class AddLocationSceneController implements Initializable{
 	@FXML
     void deptoSelected(ActionEvent event) {
 		if(cboxDepto.getValue()!=null) {
-			Departamento depto = cboxDepto.getValue();
-			cboxPais.setValue(depto.getPais());
-			cboxMunicipio.setValue(null);
-			cboxDepto.setValue(depto);
+			try { 
+				Departamento depto = cboxDepto.getValue();
+				cboxPais.setValue(depto.getPais());
+				cboxMunicipio.setValue(null);
+				cboxDepto.setValue(depto);
+			}catch(java.lang.ClassCastException e) {}
 		}
     }
 
     @FXML
     void municipioSelected(ActionEvent event) {
-    	if(cboxMunicipio.getValue()!=null) {    		
-    		Municipio muni = cboxMunicipio.getValue();
-    		cboxDepto.setValue(muni.getDepartamento());
-    		cboxPais.setValue(muni.getDepartamento().getPais());
-    		cboxMunicipio.setValue(muni);
+    	if(cboxMunicipio.getValue()!=null) {
+    		try {    			
+    			Municipio muni = cboxMunicipio.getValue();
+    			cboxDepto.setValue(muni.getDepartamento());
+    			cboxPais.setValue(muni.getDepartamento().getPais());
+    			cboxMunicipio.setValue(muni);
+    		}catch(java.lang.ClassCastException e) {}
     	}
     }
     
     @FXML
     void agregarUbicacion(MouseEvent event) {
-    	if (cboxPais.getValue()!=null) {   		
+    	if (!(cboxPais.getValue()+"").isBlank()) {
     		String ubi = "Pais: "+cboxPais.getValue();
+    		String rUbi = cboxPais.getValue()+"";
     		if(cboxDepto.getValue()!=null) {
     			ubi += " | Departamento: "+ cboxDepto.getValue();
+    			rUbi += ","+cboxDepto.getValue();
     			if(cboxMunicipio.getValue()!=null) {
     				ubi += " | Municipio: "+ cboxMunicipio.getValue();
+    				rUbi += ","+cboxMunicipio.getValue();
     			}
     		}
     		lista.getItems().add(ubi);
-    		result.add(cboxPais.getValue()+","+cboxDepto.getValue()+","+cboxMunicipio.getValue());
+    		result.add(rUbi);
+    	}else {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debes seleccionar al menos un pais");
+            alert.showAndWait();
     	}
     }
+    
 
 	@FXML
     void borrarUbicacion(MouseEvent event) {
     	String ubi = lista.getSelectionModel().getSelectedItem();
+    	int i = lista.getSelectionModel().getSelectedIndex();
     	if (ubi == null) {
     		Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -199,48 +208,62 @@ public class AddLocationSceneController implements Initializable{
             alert.showAndWait();
     	}else {
     		lista.getItems().remove(ubi);
+    		result.remove(i);
     	}
     }
+	
     
     @FXML
     void aceptarUbicaciones(MouseEvent event) {
-    	Stage stage = (Stage) this.aceptar.getScene().getWindow();
-        stage.close();
+    	if(result.isEmpty()) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debes seleccionar una ubicacion");
+            alert.showAndWait();
+    	}else {    		
+    		Stage stage = (Stage) this.aceptar.getScene().getWindow();
+    		stage.close();
+    	}
     }
     
-	public void updateLocations() throws ClassNotFoundException, SQLException {
-		this.ubicaciones = Queries.obtenerUbicacion();
-		for(Ubicacion ubicacion: ubicaciones) {
-			if (!paises.contains(ubicacion.getPais())) {
-				paises.add(ubicacion.getPais());
-				obsPaises.add(ubicacion.getPais());
+    
+	public void updateLocations(Map<Integer, Ubicacion> ubicaciones) {
+		ubicaciones.forEach((i,u)->{			
+			if (!paises.contains(u.getPais())) {
+				paises.add(u.getPais());
+				obsPaises.add(u.getPais());
 			}
-			if (!deptos.contains(ubicacion.getDepartamento())) {
-				deptos.add(ubicacion.getDepartamento());
-				filteredDeptos.add(ubicacion.getDepartamento());
-				obsDeptos.add(ubicacion.getDepartamento());
+			if (!deptos.contains(u.getDepartamento())) {
+				deptos.add(u.getDepartamento());
+				filteredDeptos.add(u.getDepartamento());
+				obsDeptos.add(u.getDepartamento());
 			}
-			if (!municipios.contains(ubicacion.getMunicipio())) {
-				municipios.add(ubicacion.getMunicipio());
-				filteredMunicipios.add(ubicacion.getMunicipio());
-				obsMunicipios.add(ubicacion.getMunicipio());
+			if (!municipios.contains(u.getMunicipio())) {
+				municipios.add(u.getMunicipio());
+				filteredMunicipios.add(u.getMunicipio());
+				obsMunicipios.add(u.getMunicipio());
 			}
-		}
+		});
 	}
+	
 	
 	public List<String> getResult() {
 		return result;
 	}
 	
-	public void setUserLocation() {
-		String ubi = "Pais: "+ubicaciones.get(Sesion.getUser().getIDubicacion()).getPais();
-		if(cboxDepto.getValue()!=null) {
-			ubi += " | Departamento: "+ubicaciones.get(Sesion.getUser().getIDubicacion()).getDepartamento();
-			if(cboxMunicipio.getValue()!=null) {
-				ubi += " | Municipio: "+ubicaciones.get(Sesion.getUser().getIDubicacion()).getMunicipio();
+	public void setSelectedUbicaciones(List<String> selectedUbis) {
+		selectedUbis.forEach(u->{
+			String[] us = u.split(",");
+			result.add(u);
+			String ubi = "Pais: "+us[0];
+			if(us.length>1) {
+				ubi += " | Departamento: "+us[1];
+				if(us.length==3) {
+					ubi += " | Municipio: "+us[2];
+				}
 			}
-		}
-		lista.getItems().add(ubi);
-		result.add(cboxPais.getValue()+","+cboxDepto.getValue()+","+cboxMunicipio.getValue());
+			lista.getItems().add(ubi);
+		});
 	}
 }

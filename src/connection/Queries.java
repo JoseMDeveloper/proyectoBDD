@@ -4,7 +4,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import application.Encrypter;
 import dataClass.Ubicacion;
@@ -85,18 +87,9 @@ public class Queries {
 			query += ")";
 		}
 		if (!(tipoPropiedad==null)) {
-			int tipo = 0;
-			switch (tipoPropiedad) {
-				case "Apartamento":
-					tipo = 2;
-				break;
-				case "Casa":
-					tipo = 1;
-				break;
-			}
-			query += " AND TipoVivienda.tipo = " + tipo;
+			query += " AND TipoVivienda.tipo = '" + tipoPropiedad+ "'";
 		}
-		if (!(cantHabitaciones==null)) {
+		if (!(cantHabitaciones==0)) {
 			query += " AND Vivienda.cantHabitaciones = " + cantHabitaciones;
 		}
 		if (!(minRent==null)) {
@@ -123,16 +116,16 @@ public class Queries {
 		return viviendas;
 	}
 	
-	public static List<Ubicacion> obtenerUbicacion() throws SQLException, ClassNotFoundException {
+	public static Map<Integer, Ubicacion> obtenerUbicacion() throws SQLException, ClassNotFoundException {
 		DBConnection.connect();
-		List<Ubicacion> ubicaciones = new ArrayList<>();
+		Map<Integer, Ubicacion> ubicaciones = new HashMap<>();
 		String query = "SELECT IDubicacion, pais, departamento, municipio "
 				+ "FROM ubicacion";
 		DBConnection.createStatement(query);
 		ResultSet rs = DBConnection.getStatement().executeQuery();
 		while (rs.next()) {
 			Ubicacion ubicacion = new Ubicacion(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getString(4));
-			ubicaciones.add(ubicacion);
+			ubicaciones.put(rs.getInt(1),ubicacion);
 		}
 		DBConnection.desconnect();
 		return ubicaciones;

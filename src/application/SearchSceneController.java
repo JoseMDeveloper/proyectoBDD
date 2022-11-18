@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -24,6 +26,7 @@ public class SearchSceneController implements Initializable{
 	
 	@FXML
 	private TableView<Vivienda> tblViviendas;
+	
 	@FXML
 	private TableColumn<Vivienda, Integer> colID;
 	
@@ -62,6 +65,12 @@ public class SearchSceneController implements Initializable{
 		colPais.setCellValueFactory(new PropertyValueFactory<Vivienda, String>("pais"));
 		tblViviendas.setItems(viviendas);
 	}
+	
+	@FXML
+    void aceptarConsultas(MouseEvent event) {
+		Stage stage = (Stage) this.aceptar.getScene().getWindow();
+        stage.close();
+    }
 	
 	public void search(List<Vivienda> vivs) throws SQLException, ClassNotFoundException {
 		viviendas.addAll(vivs);
