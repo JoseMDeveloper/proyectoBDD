@@ -132,7 +132,7 @@ public class RegisterSceneController implements Initializable{
             alert.setContentText("Debe seleccionar un tipo de cuenta");
             alert.showAndWait();
 		}
-		String nombreRegex="^[a-z0-9]{3,25}$";
+		String nombreRegex="^[a-zA-Z0-9]{3,25}$";
 		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		//No acepta campos vacios
 		
