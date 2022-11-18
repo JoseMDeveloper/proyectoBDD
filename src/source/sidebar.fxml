@@ -55,9 +55,9 @@
             <Button fx:id="btnMiCuenta" layoutX="7.0" mnemonicParsing="false" onMouseEntered="#mostrarOpcionesCuenta" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #BAEAC3;" text="Mi cuenta" />
          </children>
       </AnchorPane>
-      <BorderPane fx:id="bp" layoutY="68.0" prefHeight="633.0" prefWidth="770.0">
+      <BorderPane fx:id="bp" layoutY="69.0" prefHeight="632.0" prefWidth="754.0">
          <center>
-            <AnchorPane fx:id="ap" prefHeight="633.0" prefWidth="559.0" BorderPane.alignment="CENTER" />
+            <AnchorPane fx:id="ap" prefHeight="597.0" prefWidth="512.0" BorderPane.alignment="CENTER" />
          </center>
          <left>
             <AnchorPane prefHeight="633.0" prefWidth="204.0" BorderPane.alignment="CENTER">

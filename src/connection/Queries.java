@@ -46,12 +46,42 @@ public class Queries {
 		DBConnection.connect();
 		String insert = "INSERT INTO usuario"
 				+ "(IDusuario, Nombre, Apellido, NombreUsuario, Contrasena, Correo, Estado, Fecha, MaxPorOfrecer, Salario, IDtipoUsuario, IDubicacion, IDagencia) "
-				+ "VALUES(default, 'n', 'a', ?, ?, ?, default, default, null, null, ?, null, null)";
+				+ "VALUES(default, null, null, ?, ?, ?, default, default, null, null, ?, null, null)";
 		DBConnection.createStatement(insert);
 		DBConnection.getStatement().setString(1,username);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
 		DBConnection.getStatement().setString(3,mail);
 		DBConnection.getStatement().setInt(4, userType);// 1: cliente, 2: dueno, 3: empleado
+		DBConnection.getStatement().executeUpdate();
+		DBConnection.desconnect();
+	}
+	public static void updateUser(String username, String mail, String password,String nombre, String Apellido,Float maximo) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+		DBConnection.connect();
+		String UPDATE = "UPDATE usuario"
+					  + " set ";
+		if(mail!=null) 
+		{
+			UPDATE +="correo='"+mail+"',";
+		}
+		if(password!=null)
+		{
+			UPDATE +="Contrasena='"+Encrypter.encryptString(password)+"',";	
+		}
+		if(nombre!=null)
+		{
+			UPDATE +="Nombre='"+nombre+"',";	
+		}
+		if(Apellido!=null)
+		{
+			UPDATE +="Apellido='"+Apellido+"',";	
+		}
+		if(maximo!=null)
+		{
+			UPDATE +="MaxPorOfrecer='"+maximo+"',";	
+		}
+		UPDATE=UPDATE.substring(0,UPDATE.length()-1);
+		UPDATE+="WHERE NombreUsuario='"+username+"'";
+		DBConnection.createStatement(UPDATE);
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}

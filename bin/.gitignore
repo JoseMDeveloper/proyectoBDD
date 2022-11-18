@@ -1,5 +1,10 @@
 /dataClass/
 /source/
+<<<<<<< HEAD
 /module-info.class
 /application/
 /connection/
+=======
+/connection/
+/dataClass/
+>>>>>>> 18e9e1066757806900f3ca2dc5e09b2c6f266d92
