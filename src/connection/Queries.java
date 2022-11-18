@@ -8,6 +8,7 @@ import java.util.List;
 
 import application.Encrypter;
 import dataClass.Ubicacion;
+import dataClass.Usuario;
 import dataClass.Vivienda;
 
 public class Queries {
@@ -23,6 +24,20 @@ public class Queries {
 		boolean valid = rs.next();
 		DBConnection.desconnect();
 		return valid;
+	}
+	
+	public static Usuario getUser(String nombreUsuario) throws SQLException, ClassNotFoundException {
+		DBConnection.connect();
+		String query = "SELECT IDusuario, Nombre, Apellido, NombreUsuario, Contrasena, Correo, Estado, Fecha, MaxPorOfrecer, Salario, IDtipoUsuario, IDubicacion, IDagencia "
+				+ "FROM usuario "
+				+ "WHERE nombreUsuario=?";
+		DBConnection.createStatement(query);
+		DBConnection.getStatement().setString(1,nombreUsuario);
+		ResultSet rs = DBConnection.getStatement().executeQuery();
+		rs.next();
+		Usuario user = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), null);
+		DBConnection.desconnect();
+		return user;
 	}
 	
 	public static void createUser(String username, String mail, String password, int userType) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
@@ -48,21 +63,21 @@ public class Queries {
 				+ " JOIN Ubicacion ON Vivienda.IDubicacion = Ubicacion.IDubicacion "
 				+ " JOIN TipoVivienda ON Vivienda.IDtipoViv = TipoVivienda.IDtipoViv "
 				+ "WHERE Vivienda.Estado = 1";
-		if (!(paises==null)) {
+		if (!(paises==null) && !(paises.isEmpty())) {
 			query += " AND (Ubicacion.pais = '" + paises.get(0) + "'";
 			for (int i=1; i<paises.size(); i++) {
 				query += " OR Ubicacion.pais = '" + paises.get(i) + "'";
 			}
 			query += ")";
 		}
-		if (!(departamentos==null)) {
+		if (!(departamentos==null) && !(departamentos.isEmpty())) {
 			query += " AND (Ubicacion.departamento = '" + departamentos.get(0) + "'";
 			for (int i=1; i<departamentos.size(); i++) {
 				query += " OR Ubicacion.departamento = '" + departamentos.get(i) + "'";
 			}
 			query += ")";
 		}
-		if (!(municipios==null)) {
+		if (!(municipios==null) && !(municipios.isEmpty())) {
 			query += "AND (Ubicacion.municipio = '" + municipios.get(0)+ "'";
 			for (int i=1; i<municipios.size(); i++) {
 				query += " OR Ubicacion.municipio = '" + municipios.get(i) + "'";
@@ -111,12 +126,12 @@ public class Queries {
 	public static List<Ubicacion> obtenerUbicacion() throws SQLException, ClassNotFoundException {
 		DBConnection.connect();
 		List<Ubicacion> ubicaciones = new ArrayList<>();
-		String query = "SELECT pais, departamento, municipio "
+		String query = "SELECT IDubicacion, pais, departamento, municipio "
 				+ "FROM ubicacion";
 		DBConnection.createStatement(query);
 		ResultSet rs = DBConnection.getStatement().executeQuery();
 		while (rs.next()) {
-			Ubicacion ubicacion = new Ubicacion(rs.getString(1),rs.getString(2),rs.getString(3));
+			Ubicacion ubicacion = new Ubicacion(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getString(4));
 			ubicaciones.add(ubicacion);
 		}
 		DBConnection.desconnect();

@@ -1,5 +1,5 @@
 package dataClass;
-public abstract class Usuario {
+public class Usuario {
 	private Integer Id;
 	private String Nombre;
 	private String Apellido;

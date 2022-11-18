@@ -14,7 +14,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import connection.Queries;
-
+import dataClass.Sesion;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -128,10 +128,10 @@ public class RegisterSceneController implements Initializable{
 			if(!iniciandoSesion) {//Iniciar sesion
 				if(Queries.validSesion(nombre, contra)) {
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
+					Sesion.setUser(Queries.getUser(nombre));
 					cambiaVentanaPrincipal(event);
 				} else {
 					error.setVisible(true);
-
 				}
 			} 	
 			else if(!mail.isEmpty()) {

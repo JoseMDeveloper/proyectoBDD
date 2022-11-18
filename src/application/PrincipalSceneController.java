@@ -1,9 +1,19 @@
 package application;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import connection.Queries;
+import dataClass.Departamento;
+import dataClass.Municipio;
+import dataClass.Pais;
+import dataClass.Usuario;
+import dataClass.Vivienda;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 //import javafx.animation.TranslateTransition;
@@ -44,12 +54,21 @@ public class PrincipalSceneController implements Initializable{
 
     @FXML
     private Button nuevaUbicacion;
+    
+    @FXML
+    private ComboBox<String> cmbDeptos;
+
+    @FXML
+    private ComboBox<String> cmbMunicipios;
+
+    @FXML
+    private ComboBox<String> cmbPaises;
 
     @FXML
     private Spinner<Integer> selectNumRooms;
 
     @FXML
-    private ComboBox<?> selectTipoPropiedad;
+    private ComboBox<String> selectTipoPropiedad;
     
 //    @FXML
 //    private Button btnCerrarSesion;
@@ -59,6 +78,13 @@ public class PrincipalSceneController implements Initializable{
 //    
 //	@FXML
 //	private AnchorPane anchorpanecuenta;
+    
+    @FXML
+    private Usuario user;
+    
+    private List<String> paises = new ArrayList<>();
+    private List<String> deptos = new ArrayList<>();
+    private List<String> municipios = new ArrayList<>();
 	
 	@Override
  	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -66,15 +92,31 @@ public class PrincipalSceneController implements Initializable{
 		SpinnerValueFactory <Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 50);
 		valueFactory.setValue(1);
 		selectNumRooms.setValueFactory(valueFactory);
+		String[] options = {"Casa","Apartamento"};
+		selectTipoPropiedad.getItems().addAll(options);
 	}
 	
-	public void search() throws IOException {
+	public void search() throws IOException, NumberFormatException, ClassNotFoundException, SQLException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/SearchScene.fxml"));
         Parent root = loader.load();
         
         SearchSceneController controlador = loader.getController();
 //        controlador.initAttributtes(personas);
-
+        
+        Integer arrMin = null;
+        Integer arrMax = null;
+        
+        if(!ArriendoMin.getText().isBlank()) {
+        	arrMin = Integer.parseInt(ArriendoMin.getText());
+        }
+        if (!ArriendoMax.getText().isBlank()) {
+        	arrMax = Integer.parseInt(ArriendoMax.getText());
+        }
+        
+        List<Vivienda> viviendas = Queries.buscarPropiedades(paises, deptos, municipios, selectTipoPropiedad.getValue(), selectNumRooms.getValue(),
+        		arrMin, arrMax);
+        controlador.search(viviendas);
+        
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -94,6 +136,18 @@ public class PrincipalSceneController implements Initializable{
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.showAndWait();
+        
+        List<String> ubicaciones = controlador.getResult();
+        
+        ubicaciones.forEach(u -> {
+        	String[] us = u.split(",");
+        	cmbPaises.getItems().add(us[0]);
+        	paises.add(us[0]);
+        	cmbDeptos.getItems().add(us[1]);
+        	deptos.add(us[1]);
+        	cmbMunicipios.getItems().add(us[2]);
+        	municipios.add(us[2]);
+        });
 	}
 	
 //	public void mostrarOpcionesCuenta(MouseEvent event)

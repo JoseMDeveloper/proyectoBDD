@@ -1,11 +1,13 @@
 package dataClass;
 
 public class Ubicacion {
+	private int index;
 	private Pais pais;
 	private Departamento departamento;
 	private Municipio municipio;
 	
-	public Ubicacion(String pais, String departamento, String municipio) {
+	public Ubicacion(int index, String pais, String departamento, String municipio) {
+		this.index = index;
 		this.pais = new Pais(pais);
 		this.departamento = new Departamento(departamento);
 		this.municipio = new Municipio(municipio);
