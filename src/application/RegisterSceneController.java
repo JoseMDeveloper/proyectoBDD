@@ -23,6 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -36,7 +37,7 @@ import javafx.stage.Stage;
 
 public class RegisterSceneController implements Initializable{
 	
-	private boolean iniciandoSesion = false;//Iniciar sesion = false, Registrar = true
+	private boolean iniciandoSesion = true;//Iniciar sesion = false, Registrar = true
 	
 	@FXML private Pane selectTipo;
 	@FXML private ToggleButton botonCliente;
@@ -68,7 +69,7 @@ public class RegisterSceneController implements Initializable{
 	//Cambia la posicion y hace la traslacion cuando se le da al boton registrar 
 	@FXML
 	public void registrar(MouseEvent event) {
-		if(iniciandoSesion==false) {
+		if(iniciandoSesion==true) {
 			if(enterName.getTranslateY()<=35) {
 				enterName.setTranslateY(5);
 				enterPassword.setTranslateY(10);
@@ -87,7 +88,7 @@ public class RegisterSceneController implements Initializable{
 	
 	//Cambia la posicion y hace la traslacion cuando se le da al boton iniciar sesion 
 	public void iniciarSesion(MouseEvent event) {
-		if(iniciandoSesion==true){	
+		if(iniciandoSesion==false){	
 			seTeOlvido.setVisible(true);
 			if(enterName.getLayoutX()>=52.8){
 				enterName.setTranslateY(-30);
@@ -109,18 +110,23 @@ public class RegisterSceneController implements Initializable{
 	
 	//Interaccion con el boton siguiente para crear o ingresar un usuario
 	public void siguiente(MouseEvent event) throws NoSuchAlgorithmException, IOException, InvalidKeyException, 
-
 			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, ClassNotFoundException, SQLException {
 		//obtener texto de los fields
 		error.setAlignment(Pos.CENTER);
 		String nombre = enterName.getText().strip();
 		String mail = enterMail.getText().strip();
 		String contra = enterPassword.getText();
-		int tipoUsuario;
+		Integer tipoUsuario = null;
 		if(botonCliente.selectedProperty().get()) {
 			tipoUsuario = 1;
-		}else {
+		}else if(botonDueno.selectedProperty().get()) {
 			tipoUsuario = 2;
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debe seleccionar un tipo de cuenta");
+            alert.showAndWait();
 		}
 		String nombreRegex="^([\\w]){3,25}";
 		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
@@ -130,22 +136,34 @@ public class RegisterSceneController implements Initializable{
 			if(!nombre.matches(nombreRegex)){
 				showEventMessage("Nombre invalido", "#fcc0bf", "#b12727");
 			}
-			if(!iniciandoSesion) {//Iniciar sesion
-				if((nombre.equals("Admin") && contra.equals("teamo")) || Queries.validSesion(nombre, contra)) {
+			if(iniciandoSesion) {//Iniciar sesion
+				if((nombre.equals("Admin") && contra.equals("teamo"))) {
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					Sesion.setUser(Queries.getUser(nombre));
 					cambiaVentanaPrincipal(event);
-				} else {
+				}else if(Queries.validSesion(nombre, contra)){
+					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
+					Sesion.setUser(Queries.getUser(nombre));
+					cambiaVentanaPrincipal(event);
+				}
+				else {
 					error.setVisible(true);
 				}
 			} 	
 			else if(!mail.isEmpty()) {
 				if(!mail.matches(mailRegex)) {
-
 					showEventMessage("Mail invalido", "#fcc0bf", "#b12727");
 
 				} else {
-					Queries.createUser(nombre, mail, contra, tipoUsuario);
+					try {
+						Queries.createUser(nombre, mail, contra, tipoUsuario);
+					}catch(java.sql.SQLIntegrityConstraintViolationException e) {
+						Alert alert = new Alert(Alert.AlertType.ERROR);
+			            alert.setHeaderText(null);
+			            alert.setTitle("Error");
+			            alert.setContentText("El nombre de usuario ya existe");
+			            alert.showAndWait();
+					}
 					showEventMessage("!Usuario creado correctamente!", "#91e291", "#578857");
 				}
 			}
@@ -184,7 +202,7 @@ public class RegisterSceneController implements Initializable{
 		error.setVisible(false);
 		selectTipo.setVisible(false);
 		enterMail.setVisible(false);
-		iniciandoSesion = false;
+		iniciandoSesion = true;
 		
 		boton3.setText("Iniciar sesion");
 		recibir.setText("Hola de Nuevo!");
@@ -200,7 +218,7 @@ public class RegisterSceneController implements Initializable{
 		selectTipo.setVisible(true);
 		enterMail.setVisible(true);
 		seTeOlvido.setVisible(false);
-		iniciandoSesion=true;
+		iniciandoSesion=false;
 		
 		boton3.setText("Registrar");
 		recibir.setText("Bienvenido!");

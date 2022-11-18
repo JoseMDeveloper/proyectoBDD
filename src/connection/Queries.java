@@ -55,6 +55,7 @@ public class Queries {
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
+	
 	public static void updateUser(String username, String mail, String password,String nombre, String Apellido,Float maximo) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
 		String UPDATE = "UPDATE usuario"
