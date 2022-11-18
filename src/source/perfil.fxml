@@ -22,31 +22,31 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField editable="false" />
+            <TextField fx:id="textfieldUsuario" editable="false" />
             <Label text="Nombre">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField />
+            <TextField fx:id="textfieldNombre" />
             <Label prefHeight="21.0" prefWidth="67.0" text="Apellido">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField />
+            <TextField fx:id="textfieldApeliido" />
             <Label prefHeight="21.0" prefWidth="141.0" text="Correo Electronico">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField />
+            <TextField fx:id="textfieldCorreo" />
             <Label prefHeight="21.0" prefWidth="141.0" text="Tipo de cuenta">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField editable="false" />
+            <TextField fx:id="textfieldTipoCuenta" editable="false" />
          </children>
       </VBox>
       <Button fx:id="guardar" layoutX="122.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#Guardar" text="Guardar" />

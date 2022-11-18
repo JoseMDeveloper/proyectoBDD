@@ -63,7 +63,7 @@
             <AnchorPane prefHeight="633.0" prefWidth="204.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="perfil" layoutX="7.0" layoutY="333.0" mnemonicParsing="false" onMouseClicked="#cargarperfil" prefHeight="40.0" prefWidth="191.0" style="-fx-background-radius: 12;" text="Perfil" />
-                  <Button layoutX="7.0" layoutY="220.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="191.0" style="-fx-background-radius: 12;" text="Visitas" />
+                  <Button fx:id="visitas" layoutX="7.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#cargarvisits" prefHeight="40.0" prefWidth="191.0" style="-fx-background-radius: 12;" text="Visitas" />
                </children>
             </AnchorPane>
          </left>
