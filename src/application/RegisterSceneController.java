@@ -137,7 +137,7 @@ public class RegisterSceneController implements Initializable{
 			else if(!mail.isEmpty()) {
 				if(!mail.matches(mailRegex)) {
 
-					showEventMessage("Nombre de usuario invalido", "#fcc0bf", "#b12727");
+					showEventMessage("Mail invalido", "#fcc0bf", "#b12727");
 
 				} else {
 					Queries.createUser(nombre, mail, contra, tipoUsuario);
