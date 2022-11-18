@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.concurrent.Executors;
+
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.Alert;
 
@@ -14,7 +17,7 @@ public class DBConnection {
     private static String password  ="qOqI64e0LT";
     private static String url = "jdbc:oracle:thin:@orion.javeriana.edu.co:1521/LAB";
     
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
 		return connection;
     }
     
