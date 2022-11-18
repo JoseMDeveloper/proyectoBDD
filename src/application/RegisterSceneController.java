@@ -120,27 +120,14 @@ public class RegisterSceneController implements Initializable{
 		String contra = enterPassword.getText();
 
 		Integer tipoUsuario = null;
-
-		if(botonCliente.selectedProperty().get()) {
-			tipoUsuario = 1;
-		}else if(botonDueno.selectedProperty().get()) {
-			tipoUsuario = 2;
-		}else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Debe seleccionar un tipo de cuenta");
-            alert.showAndWait();
-		}
-		String nombreRegex="^[a-z0-9]{3,25}$";
+		String nombreRegex="^[a-zA-Z0-9]{3,25}";
 		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		//No acepta campos vacios
 		
 		if(!(nombre.isEmpty() || contra.isBlank())) {
 			if(!nombre.matches(nombreRegex)){
 				showEventMessage("Nombre invalido", "#fcc0bf", "#b12727");
-			}
-			if(iniciandoSesion) {//Iniciar sesion
+			}else if(iniciandoSesion) {//Iniciar sesion
 				if((nombre.equals("Admin") && contra.equals("teamo"))) {
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					Sesion.setUser(Queries.getUser(nombre));
@@ -155,6 +142,17 @@ public class RegisterSceneController implements Initializable{
 				}
 			} 	
 			else if(!mail.isEmpty()) {
+				if(botonCliente.selectedProperty().get()) {
+					tipoUsuario = 1;
+				}else if(botonDueno.selectedProperty().get()) {
+					tipoUsuario = 2;
+				}else {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setHeaderText(null);
+		            alert.setTitle("Error");
+		            alert.setContentText("Debe seleccionar un tipo de cuenta");
+		            alert.showAndWait();
+				}
 				if(!mail.matches(mailRegex)) {
 					showEventMessage("Mail invalido", "#fcc0bf", "#b12727");
 
