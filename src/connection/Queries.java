@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.Encrypter;
+import dataClass.Ubicacion;
 import dataClass.Vivienda;
 
 public class Queries {
@@ -107,8 +108,18 @@ public class Queries {
 		return viviendas;
 	}
 	
-	public static ResultSet totPagadoDuenoPorPeriodo() throws SQLException {
-		String query = "";
-		return DBConnection.getStatement().executeQuery(query);
+	public static List<Ubicacion> obtenerUbicacion() throws SQLException, ClassNotFoundException {
+		DBConnection.connect();
+		List<Ubicacion> ubicaciones = new ArrayList<>();
+		String query = "SELECT pais, departamento, municipio "
+				+ "FROM ubicacion";
+		DBConnection.createStatement(query);
+		ResultSet rs = DBConnection.getStatement().executeQuery();
+		while (rs.next()) {
+			Ubicacion ubicacion = new Ubicacion(rs.getString(1),rs.getString(2),rs.getString(3));
+			ubicaciones.add(ubicacion);
+		}
+		DBConnection.desconnect();
+		return ubicaciones;
 	}
 }

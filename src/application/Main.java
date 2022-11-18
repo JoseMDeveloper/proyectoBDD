@@ -4,12 +4,14 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-//admin@gmail.com teamo
+//Admin teamo
 
 public class Main extends Application {
+	
     public void start(Stage stage) throws Exception{
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));

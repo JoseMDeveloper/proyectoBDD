@@ -13,6 +13,7 @@ public abstract class Usuario {
 	private Integer IDtipousuario;
 	private Integer IDubicacion;
 	private Integer IDagencia;
+	
 	public Usuario(Integer id, String nombre, String apellido, String nombredeusuario, String contrasena, String correo,
 			Integer estado, String fecha, Integer maximo, Integer salario, Integer iDtipousuario, Integer iDubicacion,
 			Integer iDagencia) {
@@ -30,9 +31,11 @@ public abstract class Usuario {
 		IDubicacion = iDubicacion;
 		IDagencia = iDagencia;
 	}
+	
 	public Integer getId() {
 		return Id;
 	}
+	
 	public void setId(Integer id) {
 		Id = id;
 	}

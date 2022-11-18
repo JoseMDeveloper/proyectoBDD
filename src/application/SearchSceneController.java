@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,12 +13,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Spinner;
@@ -62,6 +68,7 @@ public class SearchSceneController implements Initializable{
 		SpinnerValueFactory <Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 50);
 		valueFactory.setValue(1);
 		selectNumRooms.setValueFactory(valueFactory);
+		tblViviendas.setItems(viviendas);
 	}
 	
 	public void noSelection(ActionEvent event) {
@@ -81,6 +88,20 @@ public class SearchSceneController implements Initializable{
 		List<String> paises = new ArrayList<>();
 		paises.add("Colombia");
 		viviendas.addAll(Queries.buscarPropiedades(paises, null, null, null, null, null, null));
-		tblViviendas.setItems(viviendas);
+		tblViviendas.refresh();
+	}
+	
+	public void addLocation(MouseEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/AddLocationScene.fxml"));
+        Parent root = loader.load();
+        
+        AddLocationSceneController controlador = loader.getController();
+//        controlador.initAttributtes(personas);
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
 	}
 }
