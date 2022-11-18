@@ -51,18 +51,18 @@ public class PrincipalSceneController implements Initializable{
     @FXML
     private ComboBox<?> selectTipoPropiedad;
     
-//    @FXML
-//    private Button btnCerrarSesion;
-//    
-//    @FXML
-//    private Button btnGuardados;
-//    
-//	@FXML
-//	private AnchorPane anchorpanecuenta;
+    @FXML
+    private Button btnCerrarSesion;
+     
+	@FXML
+	private AnchorPane anchorpanecuenta;
+	@FXML
+	private AnchorPane anchorpanenoti;
 	
 	@Override
  	public void initialize(URL arg0, ResourceBundle arg1) {
-//		anchorpanecuenta.setVisible(false);
+		anchorpanecuenta.setVisible(false);
+		anchorpanenoti.setVisible(false);
 		SpinnerValueFactory <Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 50);
 		valueFactory.setValue(1);
 		selectNumRooms.setValueFactory(valueFactory);
@@ -96,45 +96,60 @@ public class PrincipalSceneController implements Initializable{
         stage.showAndWait();
 	}
 	
-//	public void mostrarOpcionesCuenta(MouseEvent event)
-//	{
-//	
-//		anchorpanecuenta.setVisible(true);
-//		FadeTransition fade=new FadeTransition();
-//		fade.setNode(anchorpanecuenta);
-//		fade.setDuration(Duration.millis(300));
-//		fade.setFromValue(0);
-//		fade.setToValue(1);
-//		fade.play();
-//	}
-//	public void perfil(MouseEvent event) throws IOException
-//	{
+	public void sidebar(MouseEvent event) throws IOException
+	{
+		Parent root = FXMLLoader.load(getClass().getResource("/source/sidebar.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.centerOnScreen();
+	}
+
+	public void mostrarOpcionesCuenta(MouseEvent event)
+	{
+		anchorpanecuenta.setVisible(true);
+		FadeTransition fade=new FadeTransition();
+		fade.setNode(anchorpanecuenta);
+		fade.setDuration(Duration.millis(300));
+		fade.setFromValue(0);
+		fade.setToValue(1);
+		fade.play();
+	}
+	public void quitarOpcionesCuenta(MouseEvent event)
+	{
+		
+		anchorpanecuenta.setVisible(false); 
+		
+	}
+	public void mostrarnoti(MouseEvent event)
+	{
+		
+		anchorpanenoti.setVisible(true);
+		FadeTransition fade=new FadeTransition();
+		fade.setNode(anchorpanenoti);
+		fade.setDuration(Duration.millis(300));
+		fade.setFromValue(0);
+		fade.setToValue(1);
+		fade.play();
+		
+	}
+	public void quitarnoti(MouseEvent event)
+	{
+		
+		anchorpanenoti.setVisible(false); 
+		
+	}
+
+	public void cerrarSesion(MouseEvent event)
+	{
+		
+		Platform.exit();
+	}
+//	public void misVisitas(MouseEvent event) throws IOException {
 //		Parent root = FXMLLoader.load(getClass().getResource("/source/ProfileScene.fxml"));
 //		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 //		Scene scene = new Scene(root);
 //		stage.setScene(scene);
 //		stage.centerOnScreen();
-//	}
-	
-	
-	//hay un error, que si te sales por los lados del boton no se quita, y es porque el anchorpane no llega hasta alla arriba y si lo hace tapa el boton, 
-	//y si se le pone el comando de salir al boton apenas se intenta seleccinar una opcion se quita
-//	public void quitarOpcionesCuenta(MouseEvent event)
-//	{
-//		
-//		anchorpanecuenta.setVisible(false);
-//	}
-
-//	public void cerrarSesion(MouseEvent event)
-//	{
-//		
-//		Platform.exit();
-//	}
-	//ehhh si encontramos la manera de hacer que algo ocurra cada cierto tiempo creo que puedo hacer que se haga una transicion de imagenes del fondo
-//	public void transionImagenes(Node nodo)
-//	{
-//		TranslateTransition imagenes=new TranslateTransition();
-//		imagenes.setNode(nodo);
-//		imagenes.setDuration(Duration.seconds(5));	
 //	}
 }
