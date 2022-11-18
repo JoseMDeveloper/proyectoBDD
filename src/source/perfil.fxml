@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="934.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.perfilController">
+   <children>
+      <Label layoutX="151.0" prefHeight="43.0" prefWidth="98.0" text="Perfil">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <VBox layoutX="121.0" layoutY="45.0" prefHeight="236.0" prefWidth="210.0">
+         <children>
+            <Label text="Usuario">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfieldUsuario" editable="false" />
+            <Label text="Nombre">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfieldNombre" />
+            <Label prefHeight="21.0" prefWidth="67.0" text="Apellido">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfieldApeliido" />
+            <Label prefHeight="21.0" prefWidth="141.0" text="Correo Electronico">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfieldCorreo" />
+            <Label prefHeight="21.0" prefWidth="141.0" text="Tipo de cuenta">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfieldTipoCuenta" editable="false" />
+         </children>
+      </VBox>
+      <Button fx:id="guardar" layoutX="122.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#Guardar" text="Guardar" />
+   </children>
+</AnchorPane>
