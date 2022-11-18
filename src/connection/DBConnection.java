@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javafx.scene.control.Alert;
+
 public class DBConnection {
 	private static Connection connection;
 	private static PreparedStatement statement;
@@ -26,7 +28,11 @@ public class DBConnection {
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("No se pudo establecer conexion con la base de datos");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }

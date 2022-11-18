@@ -36,6 +36,8 @@ public class sidebarController implements Initializable{
 	
 	@FXML
 	private Button perfil;
+	@FXML
+	private Button visitas;
 	
 	@FXML
 	private BorderPane bp;
@@ -79,7 +81,10 @@ public class sidebarController implements Initializable{
 	public void cargarperfil(MouseEvent event) {
 		cargarPagina("perfil");
 	}
-	
+	@FXML
+	public void cargarvisits(MouseEvent event) {
+		cargarPagina("visitas");
+	}
 	@FXML
 	public void mostrarOpcionesCuenta(MouseEvent event) {
 		anchorpanecuenta.setVisible(true);

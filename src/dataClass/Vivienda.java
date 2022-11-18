@@ -1,6 +1,14 @@
 package dataClass;
 
 public class Vivienda {
+	@Override
+	public String toString() {
+		return "Vivienda [id=" + id + ", tipo=" + tipo + ", direccion=" + direccion + ", cantHabitaciones="
+				+ cantHabitaciones + ", precioRentaMensual=" + precioRentaMensual + ", fecha=" + fecha + ", estado="
+				+ estado + ", descripcion=" + descripcion + ", pais=" + pais + ", departamento=" + departamento
+				+ ", municipio=" + municipio + "]";
+	}
+
 	private Integer id;
 	private String tipo;
 	private String direccion;

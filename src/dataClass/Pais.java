@@ -34,6 +34,9 @@ public class Pais {
 
 	@Override
 	public boolean equals(Object o) {
-		return nombre.equals(o.toString());
+		if (o!=null) {			
+			return nombre.equals(o.toString());
+		}
+		return false;
 	}
 }

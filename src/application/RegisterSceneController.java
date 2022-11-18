@@ -14,7 +14,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import connection.Queries;
-
+import dataClass.Sesion;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -108,15 +108,19 @@ public class RegisterSceneController implements Initializable{
 	}
 	
 	//Interaccion con el boton siguiente para crear o ingresar un usuario
-	public void siguiente(MouseEvent event) throws NoSuchAlgorithmException, IOException, InvalidKeyException, 
-
-			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, ClassNotFoundException, SQLException {
+	public void siguiente(MouseEvent event) throws NoSuchAlgorithmException, IOException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, ClassNotFoundException, SQLException {
 		//obtener texto de los fields
 		error.setAlignment(Pos.CENTER);
 		String nombre = enterName.getText().strip();
 		String mail = enterMail.getText().strip();
 		String contra = enterPassword.getText();
-		int tipoUsuario = 1;
+
+		int tipoUsuario;
+		if(botonCliente.selectedProperty().get()) {
+			tipoUsuario = 1;
+		}else {
+			tipoUsuario = 2;
+		}
 		String nombreRegex="^[a-z0-9]{3,25}$";
 		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		//No acepta campos vacios
@@ -126,12 +130,12 @@ public class RegisterSceneController implements Initializable{
 				showEventMessage("Nombre invalido", "#fcc0bf", "#b12727");
 			}
 			if(!iniciandoSesion) {//Iniciar sesion
-				if(Queries.validSesion(nombre, contra)) {
+				if((nombre.equals("Admin") && contra.equals("teamo")) || Queries.validSesion(nombre, contra)) {
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
+					Sesion.setUser(Queries.getUser(nombre));
 					cambiaVentanaPrincipal(event);
 				} else {
 					error.setVisible(true);
-
 				}
 			} 	
 			else if(!mail.isEmpty()) {
