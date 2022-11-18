@@ -15,6 +15,7 @@ import javax.crypto.NoSuchPaddingException;
 
 import connection.Queries;
 import dataClass.Sesion;
+import dataClass.Usuario;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -130,7 +131,8 @@ public class RegisterSceneController implements Initializable{
 			}else if(iniciandoSesion) {//Iniciar sesion
 				if((nombre.equals("Admin") && contra.equals("teamo"))) {
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
-					Sesion.setUser(Queries.getUser(nombre));
+					Sesion.setUser(new Usuario(1, "admin", "1", "Admin", Encrypter.encryptString("teamo"),
+							"admin@gmail.com", 1,null, 10000000, null, 3, 1, null));
 					cambiaVentanaPrincipal(event);
 				}else if(Queries.validSesion(nombre, contra)){
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
@@ -147,11 +149,7 @@ public class RegisterSceneController implements Initializable{
 				}else if(botonDueno.selectedProperty().get()) {
 					tipoUsuario = 2;
 				}else {
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-		            alert.setHeaderText(null);
-		            alert.setTitle("Error");
-		            alert.setContentText("Debe seleccionar un tipo de cuenta");
-		            alert.showAndWait();
+					showEventMessage("Seleccione un tipo de cuenta", "#fcc0bf", "#b12727");
 				}
 				if(!mail.matches(mailRegex)) {
 					showEventMessage("Mail invalido", "#fcc0bf", "#b12727");
@@ -159,14 +157,10 @@ public class RegisterSceneController implements Initializable{
 				} else {
 					try {
 						Queries.createUser(nombre, mail, contra, tipoUsuario);
+						showEventMessage("!Usuario creado correctamente!", "#91e291", "#578857");
 					}catch(java.sql.SQLIntegrityConstraintViolationException e) {
-						Alert alert = new Alert(Alert.AlertType.ERROR);
-			            alert.setHeaderText(null);
-			            alert.setTitle("Error");
-			            alert.setContentText("El nombre de usuario ya existe");
-			            alert.showAndWait();
+						showEventMessage("Usuario existente", "#fcc0bf", "#b12727");
 					}
-					showEventMessage("!Usuario creado correctamente!", "#91e291", "#578857");
 				}
 			}
 			else{
