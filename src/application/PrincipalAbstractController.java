@@ -58,7 +58,7 @@ public abstract class PrincipalAbstractController implements Initializable{
 	}
 	
 	@FXML
-	public void cerrarSesion(MouseEvent event) throws IOException {
+	public void cerrarSesion(MouseEvent event) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("Cerrar Sesion");
@@ -67,11 +67,21 @@ public abstract class PrincipalAbstractController implements Initializable{
         
         Sesion.setUser(null);
         
-        Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
-		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.centerOnScreen();
+        Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+		} catch (IOException e) {
+			Alert alert1 = new Alert(Alert.AlertType.ERROR);
+	        alert1.setHeaderText(null);
+	        alert1.setTitle("Error");
+	        alert1.setContentText("Se ha cerrado sesion correctamente");
+	        alert1.showAndWait();
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML

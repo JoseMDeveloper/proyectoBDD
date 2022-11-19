@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import connection.Queries;
@@ -56,6 +57,8 @@ public class PerfilController implements Initializable{
     private Button editarRenta;
 	@FXML
     private ImageView cerrar;
+	@FXML
+    private Button eliminar;
 	String contra;
 	float maximo=0;
 	
@@ -161,5 +164,42 @@ public class PerfilController implements Initializable{
 	
 	public void mostrar(MouseEvent event){
 
+	}
+	
+	@FXML
+	public void eliminar(MouseEvent event) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setHeaderText(null);
+		alert.setTitle("Confirmación");
+		alert.setContentText("¿Esta suguro de eliminar su cuenta?\nEsta accion no se puede revertir");
+		Optional<ButtonType> action = alert.showAndWait();
+		if (action.get() == ButtonType.OK) {
+			try {
+				Queries.eliminarCuenta();
+				Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+				alert1.setHeaderText(null);
+				alert1.setTitle("Cuenta Eliminada");
+				alert1.setContentText("Sea ha eliminado su cuenta\nSe le desconectará de la aplicacion");
+				alert1.showAndWait();
+				
+				Sesion.setUser(null);
+		        
+		        Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
+				Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.centerOnScreen();
+			} catch (ClassNotFoundException | SQLException e) {
+				Alert alert2 = new Alert(Alert.AlertType.ERROR);
+				alert2.setHeaderText(null);
+				alert2.setTitle("Error");
+				alert2.setContentText("La eliminacion no pudo realizarse");
+				alert2.showAndWait();
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

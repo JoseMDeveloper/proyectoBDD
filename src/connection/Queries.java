@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import application.Encrypter;
+import dataClass.Sesion;
 import dataClass.Ubicacion;
 import dataClass.Usuario;
 import dataClass.Visita;
@@ -19,7 +20,7 @@ public class Queries {
 		DBConnection.connect();
 		String query = "SELECT nombreUsuario, contrasena "
 				+ "FROM usuario "
-				+ "WHERE nombreUsuario=? AND contrasena=?";
+				+ "WHERE nombreUsuario=? AND contrasena=? AND Estado=1";
 		DBConnection.createStatement(query);
 		DBConnection.getStatement().setString(1,name);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
@@ -192,5 +193,16 @@ public class Queries {
 		}
 		DBConnection.desconnect();
 		return visitas;
+	}
+	
+	public static void eliminarCuenta() throws SQLException, ClassNotFoundException {
+		DBConnection.connect();
+		String update = "UPDATE usuario"
+				+ " SET estado=0"
+				+ " WHERE IDusuario='"+Sesion.getUser().getId()+"'";
+		List<Visita> visitas = new ArrayList<>();
+		DBConnection.createStatement(update);
+		ResultSet res = DBConnection.getStatement().executeQuery();
+		DBConnection.desconnect();
 	}
 }
