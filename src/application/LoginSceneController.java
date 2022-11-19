@@ -37,7 +37,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class RegisterSceneController implements Initializable{
+public class LoginSceneController implements Initializable{
 	
 	private boolean iniciandoSesion = true;//Iniciar sesion = false, Registrar = true
 	
@@ -230,7 +230,7 @@ public class RegisterSceneController implements Initializable{
 	}
 	
 	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/source/PrincipalScene.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);

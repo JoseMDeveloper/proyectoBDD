@@ -44,7 +44,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 
-public class PrincipalSceneController implements Initializable{
+public class ClientSceneController implements Initializable{
 	
 	@FXML
     private TextField ArriendoMax;
@@ -78,8 +78,10 @@ public class PrincipalSceneController implements Initializable{
 
     @FXML
     private ComboBox<String> selectTipoPropiedad;
+    
     @FXML
     private ImageView cerrar;
+    
     @FXML
     private Button visitas;
     
@@ -209,8 +211,7 @@ public class PrincipalSceneController implements Initializable{
 		cmbMunicipios.setValue("Municipio");
     }
 	
-	public void sidebar(MouseEvent event) throws IOException
-	{
+	public void sidebar(MouseEvent event) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("/source/sidebar.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
@@ -230,7 +231,6 @@ public class PrincipalSceneController implements Initializable{
 	}
 	
 	public void quitarOpcionesCuenta(MouseEvent event){
-		
 		anchorpanecuenta.setVisible(false); 
 		
 	}
@@ -251,8 +251,20 @@ public class PrincipalSceneController implements Initializable{
 		anchorpanenoti.setVisible(false); 
 	}
 
-	public void cerrarSesion(MouseEvent event){
-		Platform.exit();
+	public void cerrarSesion(MouseEvent event) throws IOException{
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Cerrar Sesion");
+        alert.setContentText("Se ha cerrado sesion correctamente");
+        alert.showAndWait();
+        
+        Sesion.setUser(null);
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.centerOnScreen();
 	}
 	
 //	public void misVisitas(MouseEvent event) throws IOException {

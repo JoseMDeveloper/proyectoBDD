@@ -45,8 +45,10 @@ public class SidebarController implements Initializable{
 	
 	@FXML
 	private AnchorPane ap;
+	
 	@FXML
     private ImageView cerrar;
+	
 	@FXML
     private ImageView pantallaPrinci;
 	
@@ -114,11 +116,13 @@ public class SidebarController implements Initializable{
 		}
 		bp.setCenter(root);
 	}
+	
 	public void cerrar(MouseEvent event) {
 		Platform.exit();
 	}
+	
 	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/source/PrincipalScene.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
