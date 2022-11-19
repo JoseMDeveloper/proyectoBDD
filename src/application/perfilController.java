@@ -36,7 +36,15 @@ public class perfilController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Usuario usuario;
 		usuario=Sesion.getUser();
+		String Regex="^[a-zA-Z0-9]{3,25}$";
 		textfieldUsuario.setText(usuario.getNombredeusuario());
+		if (!usuario.getNombredeusuario().equals(Regex)) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Nombre de usuario no valido");
+            alert.showAndWait();
+		}
 		textfieldNombre.setText(usuario.getNombre());
 		textfieldApeliido.setText(usuario.getApellido());
 		textfieldCorreo.setText(usuario.getCorreo());

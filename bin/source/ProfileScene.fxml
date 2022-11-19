@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PrincipalSceneController">
+   <children>
+      <Pane prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: transparent;">
+         <children>
+            <Accordion layoutX="246.0" layoutY="120.0" />
+      		<AnchorPane prefHeight="69.0" prefWidth="1300.0" style="-fx-background-color: #76a77c;">
+               <children>
+                  <ImageView fitHeight="65.0" fitWidth="103.0" layoutX="57.0" layoutY="2.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/logoSinMarco.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorpanecuenta" layoutX="769.0" layoutY="14.0" onMouseExited="#quitarnoti" prefHeight="176.0" prefWidth="134.0" style="-fx-background-color: transparent; -fx-background-radius: 9;">
+               <children>
+                  <AnchorPane fx:id="anchorpanenoti" layoutY="48.0" prefHeight="132.0" prefWidth="134.0" style="-fx-background-color: #76a77c; -fx-background-radius: 9;">
+                     <children>
+                        <VBox prefHeight="132.0" prefWidth="134.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="59.0" prefWidth="120.0" />
+                              <ListView prefHeight="259.0" prefWidth="134.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="btnNotificaciones" layoutX="7.0" mnemonicParsing="false" onMouseEntered="#mostrarnoti" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #BAEAC3;" text="Notificaciones" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorpanecuenta" layoutX="987.0" layoutY="14.0" onMouseExited="#quitarOpcionesCuenta" prefHeight="176.0" prefWidth="134.0" style="-fx-background-color: transparent; -fx-background-radius: 9;">
+               <children>
+                  <AnchorPane fx:id="anchorpanecuenta" layoutY="48.0" prefHeight="120.0" prefWidth="134.0" style="-fx-background-color: #76a77c; -fx-background-radius: 9;">
+                     <children>
+                        <VBox prefHeight="132.0" prefWidth="134.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="59.0" prefWidth="120.0">
+                                 <children>
+                                    <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onMouseClicked="#cerrarSesion" prefHeight="35.0" prefWidth="110.0" style="-fx-background-radius: 9; -fx-border-color: #9dc198; -fx-background-color: ffff; -fx-border-radius: 9;" text="Cerrar sesion" />
+                                 </children>
+                              </HBox>
+                              <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="136.0" style="-fx-background-color: transparent;" text="Mis visitas" />
+                              <Button fx:id="btnMiCuenta" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: transparent;" text="Mi perfil" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="btnMiCuenta" layoutX="7.0" mnemonicParsing="false" onMouseEntered="#mostrarOpcionesCuenta" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #BAEAC3;" text="Mi cuenta" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="69.0" prefHeight="632.0" prefWidth="191.0">
+               <children>
+                  <Button layoutY="175.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="191.0" text="Visitas" />
+                  <Button fx:id="perfil" layoutY="316.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="191.0" text="Perfil" />
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
+      <Pane layoutX="840.0" layoutY="15.0" prefHeight="40.0" prefWidth="10.0" />
+      <Pane layoutX="970.0" layoutY="15.0" prefHeight="40.0" prefWidth="10.0" />
+   </children>
+</AnchorPane>
