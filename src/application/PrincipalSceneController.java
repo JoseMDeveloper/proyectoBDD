@@ -238,13 +238,10 @@ public class PrincipalSceneController implements Initializable{
 	}
 	
 	public void quitarnoti(MouseEvent event){
-		
 		anchorpanenoti.setVisible(false); 
-		
 	}
 
 	public void cerrarSesion(MouseEvent event){
-		
 		Platform.exit();
 	}
 	
