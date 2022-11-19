@@ -166,4 +166,43 @@ public class Queries {
 		DBConnection.desconnect();
 		return ubicaciones;
 	}
+	//de aqui pa abajo son nuevas
+	public static void Crearvisitas(String username,Integer visita) throws ClassNotFoundException, SQLException
+	{
+		DBConnection.connect();
+		String crear="INSERT INTO visitas"
+		+ "(IDusuario, IDvivienda, Fecha) "
+		+ "VALUES(?, ?,default)";
+		String buscar="select IDusuario"
+				+ "From usuario"
+				+ "where nombreusuario='"+username+"'";
+		DBConnection.createStatement(crear);
+		DBConnection.getStatement().setString(1,buscar);
+		DBConnection.getStatement().setLong(2,visita);
+		DBConnection.getStatement().executeUpdate();
+		DBConnection.desconnect();
+	}
+	public static List<Visita> visitasUsu(String username) throws ClassNotFoundException, SQLException
+	{
+		DBConnection.connect();
+		String consulta="SELECT visita.IDvivienda,IDusuario,fecha"
+				+"From usuario join visita on (usuario.IDusuario=visita.IDusuario)"
+				+"where IDusuario in(select IDusuario"
+				                  	+"From usuario"
+				                  	+"where nombreusuario='"+username+"') and (SELECT idvivienda"
+				                  											+ "From vivienda"
+				                  											+ "where estado=1";
+		List<Visita> visitas = new ArrayList<>();
+		DBConnection.createStatement(consulta);
+		ResultSet res = DBConnection.getStatement().executeQuery();
+		while (res.next()) {
+			Integer IDvivienda = res.getInt(1);
+			Integer IDusuario = res.getInt(2);
+			String fecha = res.getString(3).substring(0,10);;
+			
+			visitas.add(new Visita(IDvivienda, IDusuario, fecha));
+		}
+		DBConnection.desconnect();
+		return visitas;
+	}
 }

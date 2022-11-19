@@ -19,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import application.editarContraController;
@@ -52,13 +53,14 @@ public class perfilController implements Initializable{
     private Button editarContra;
 	@FXML
     private Button editarRenta;
+	@FXML
+    private ImageView cerrar;
 	String contra;
 	float maximo=0;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Usuario usuario;
 		usuario=Sesion.getUser();
-		System.out.println(usuario.getNombre());
 		textfieldUsuario.setText(usuario.getNombredeusuario());
 		textfieldNombre.setText(usuario.getNombre());
 		textfieldApeliido.setText(usuario.getApellido());
