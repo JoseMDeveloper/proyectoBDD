@@ -11,6 +11,7 @@ import java.util.Map;
 import application.Encrypter;
 import dataClass.Ubicacion;
 import dataClass.Usuario;
+import dataClass.Visita;
 import dataClass.Vivienda;
 
 public class Queries {
@@ -86,7 +87,11 @@ public class Queries {
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
-	
+	public static List<Visita> listaEspera(List<Vivienda> viviendas)
+	{
+		List<Visita> visitas=new ArrayList<>();
+		return visitas;
+	}
 	public static List<Vivienda> buscarPropiedades(List<String> paises, List<String> departamentos, List<String> municipios,
 			String tipoPropiedad, Integer cantHabitaciones, Integer minRent, Integer maxRent) throws SQLException, ClassNotFoundException {
 		DBConnection.connect();
