@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="462.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchSceneController">
+   <children>
+      <TableView fx:id="tblViviendas" fixedCellSize="0.0" layoutX="46.0" layoutY="81.0" prefHeight="300.0" prefWidth="689.0" stylesheets="@../application/application.css">
+         <columns>
+            <TableColumn fx:id="colID" editable="false" minWidth="0.0" prefWidth="24.0" text="ID" />
+            <TableColumn fx:id="colDireccion" editable="false" prefWidth="97.0" sortable="false" text="Direccion" />
+            <TableColumn fx:id="colHabitaciones" editable="false" text="Habitaciones" />
+            <TableColumn fx:id="colTipoPropiedad" editable="false" prefWidth="107.0" text="Tipo De Vivienda" />
+            <TableColumn fx:id="colRentaMensual" editable="false" prefWidth="101.0" text="Renta mensual" />
+            <TableColumn fx:id="colPais" editable="false" prefWidth="66.0" text="Pais" />
+            <TableColumn fx:id="colFecha" editable="false" prefWidth="82.0" text="Fecha" />
+            <TableColumn fx:id="colDescripcion" editable="false" prefWidth="131.0" text="Descripcion" />
+         </columns>
+      </TableView>
+      <Label layoutX="299.0" layoutY="33.0" text="Resulatado de la Consulta">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="aceptar" layoutX="364.0" layoutY="403.0" mnemonicParsing="false" onMouseClicked="#aceptarConsultas" text="Aceptar" />
+   </children>
+</AnchorPane>
