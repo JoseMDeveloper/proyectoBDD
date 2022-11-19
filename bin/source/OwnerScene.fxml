@@ -118,7 +118,7 @@
                                  </children>
                               </HBox>
                               <Button fx:id="visitas" mnemonicParsing="false" onMouseClicked="#sidebar" prefHeight="35.0" prefWidth="136.0" style="-fx-background-color: transparent;" text="Mis visitas" />
-                              <Button fx:id="btnMiCuenta" mnemonicParsing="false" onMouseClicked="#sidebar" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: transparent;" text="Mi perfil" />
+                              <Button fx:id="btnMiPerfil" mnemonicParsing="false" onMouseClicked="#sidebar" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: transparent;" text="Mi perfil" />
                            </children>
                         </VBox>
                      </children>

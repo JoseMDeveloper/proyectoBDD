@@ -132,12 +132,13 @@ public class LoginSceneController implements Initializable{
 			}else if(iniciandoSesion) {//Iniciar sesion
 				if((nombre.equals("Admin") && contra.equals("teamo"))) {
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
-					Sesion.setUser(new Usuario(1, "admin", "1", "Admin", Encrypter.encryptString("teamo"),
+					Sesion.setUser(new Usuario(1, "admin", "1", nombre, contra,
 							"admin@gmail.com", 1,null, 10000000, null, 3, 1, null));
 					cambiaVentanaPrincipal(event);
 				}else if(Queries.validSesion(nombre, contra)){
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					Sesion.setUser(Queries.getUser(nombre));
+					Sesion.getUser().setContrasena(contra);
 					cambiaVentanaPrincipal(event);
 				}
 				else {

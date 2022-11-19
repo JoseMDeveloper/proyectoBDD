@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dataClass.Sesion;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.ImageView;
@@ -22,23 +24,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.input.MouseEvent;
 
-public class SidebarController implements Initializable{
-	@FXML
-	private AnchorPane anchorpanecuenta;
-	@FXML
-	private AnchorPane anchorpanenoti;
-	@FXML
-	private Button btnNotificaciones;
-	
-	@FXML
-	private Button btnCerrarSesion;
-	@FXML
-	private Button btnMiCuenta;
+public class SidebarController extends PrincipalAbstractController implements Initializable{
 	
 	@FXML
 	private Button perfil;
-	@FXML
-	private Button visitas;
 	
 	@FXML
 	private BorderPane bp;
@@ -47,80 +36,29 @@ public class SidebarController implements Initializable{
 	private AnchorPane ap;
 	
 	@FXML
-    private ImageView cerrar;
-	
-	@FXML
     private ImageView pantallaPrinci;
-	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		anchorpanecuenta.setVisible(false);
-		anchorpanenoti.setVisible(false);
-		
-	}
-	@FXML
-	public void quitarnoti(MouseEvent event) {
-		anchorpanenoti.setVisible(false);
-	}
-	
-	@FXML
-	public void mostrarnoti(MouseEvent event) {
-		anchorpanenoti.setVisible(true);
-		FadeTransition fade=new FadeTransition();
-		fade.setNode(anchorpanenoti);
-		fade.setDuration(Duration.millis(300));
-		fade.setFromValue(0);
-		fade.setToValue(1);
-		fade.play();
-	}
-	
-	@FXML
-	public void quitarOpcionesCuenta(MouseEvent event) {
-		anchorpanecuenta.setVisible(false); 
-	}
-
-	@FXML
-	public void cerrarSesion(MouseEvent event) {
-		Platform.exit();
-	}
 	
 	@FXML
 	public void cargarperfil(MouseEvent event) {
 		cargarPagina("perfil");
 	}
+	
+	
 	@FXML
 	public void cargarvisits(MouseEvent event) {
 		cargarPagina("visitas");
 	}
-	@FXML
-	public void mostrarOpcionesCuenta(MouseEvent event) {
-		anchorpanecuenta.setVisible(true);
-		FadeTransition fade=new FadeTransition();
-		fade.setNode(anchorpanecuenta);
-		fade.setDuration(Duration.millis(300));
-		fade.setFromValue(0);
-		fade.setToValue(1);
-		fade.play();
-	}
-	private void cargarPagina(String string)
-	{
+	
+	private void cargarPagina(String string){
 		Parent root =null;
-		try
-		{
+		try{
 			root=FXMLLoader.load(getClass().getResource("/source/"+string+".fxml"));
-			
 		}
-		catch(IOException ex)
-		{
-			
-		}
+		catch(IOException ex){}
 		bp.setCenter(root);
 	}
 	
-	public void cerrar(MouseEvent event) {
-		Platform.exit();
-	}
-	
+	@FXML
 	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

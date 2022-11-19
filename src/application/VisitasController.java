@@ -26,18 +26,13 @@ public class VisitasController implements Initializable{
 
 	}
 	
-	private void cargarPagina(String string)
-	{
+	private void cargarPagina(String string){
 		Parent root =null;
-		try
-		{
+		try{
 			root=FXMLLoader.load(getClass().getResource("/source/"+string+".fxml"));
 			
 		}
-		catch(IOException ex)
-		{
-			
-		}
+		catch(IOException ex){}
 		bp.setCenter(root);
 	}
 	@FXML

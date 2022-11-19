@@ -23,8 +23,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import application.EditarContraController;
-public class PerfilController implements Initializable{
 
+public class PerfilController implements Initializable{
 	@FXML
     private Button guardar;
 	@FXML
@@ -66,7 +66,7 @@ public class PerfilController implements Initializable{
 		textfieldNombre.setText(usuario.getNombre());
 		textfieldApeliido.setText(usuario.getApellido());
 		textfieldCorreo.setText(usuario.getCorreo());
-		textfieldContra.setText("abcdefgh");
+		textfieldContra.setText(usuario.getContrasena());
 		
 		if(usuario.getIDtipousuario()==1){
 			textfieldTipoCuenta.setText("Arrendatario");	
@@ -78,6 +78,7 @@ public class PerfilController implements Initializable{
 		textfieldrenta.setText(maximo+"");
 
 	}
+	
 	
 	public void Guardar(MouseEvent event) throws NumberFormatException, ClassNotFoundException, NoSuchAlgorithmException, SQLException, IOException{
 //		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/editarContra.fxml"));
