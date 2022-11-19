@@ -11,6 +11,7 @@ import java.util.Map;
 import application.Encrypter;
 import dataClass.Ubicacion;
 import dataClass.Usuario;
+import dataClass.Visita;
 import dataClass.Vivienda;
 
 public class Queries {
@@ -60,24 +61,19 @@ public class Queries {
 		DBConnection.connect();
 		String UPDATE = "UPDATE usuario"
 					  + " set ";
-		if(mail!=null) 
-		{
+		if(mail!=null) {
 			UPDATE +="correo='"+mail+"',";
 		}
-		if(password!=null)
-		{
+		if(password!=null){
 			UPDATE +="Contrasena='"+Encrypter.encryptString(password)+"',";	
 		}
-		if(nombre!=null)
-		{
+		if(nombre!=null){
 			UPDATE +="Nombre='"+nombre+"',";	
 		}
-		if(Apellido!=null)
-		{
+		if(Apellido!=null){
 			UPDATE +="Apellido='"+Apellido+"',";	
 		}
-		if(maximo!=null)
-		{
+		if(maximo!=null){
 			UPDATE +="MaxPorOfrecer='"+maximo+"',";	
 		}
 		UPDATE=UPDATE.substring(0,UPDATE.length()-1);
@@ -160,5 +156,41 @@ public class Queries {
 		}
 		DBConnection.desconnect();
 		return ubicaciones;
+	}
+	
+	//de aqui pa abajo son nuevas
+	public static void CrearVisitas(String userName, Integer visita) throws ClassNotFoundException, SQLException {
+		DBConnection.connect();
+		String crear="INSERT INTO visitas"
+		+ "(IDusuario, IDvivienda, Fecha) "
+		+ "VALUES(?, ?,default)";
+		Usuario user = getUser(userName);
+		DBConnection.createStatement(crear);
+		DBConnection.getStatement().setInt(1,user.getId());
+		DBConnection.getStatement().setInt(2,visita);
+		DBConnection.getStatement().executeUpdate();
+		DBConnection.desconnect();
+	}
+	
+	public static List<Visita> visitasUsuario(String userName) throws ClassNotFoundException, SQLException{
+		DBConnection.connect();
+		String consulta="SELECT visita.IDvivienda, IDusuario, fecha"
+				+"FROM Usuario"
+				+ " JOIN Visita ON (Usuario.IDusuario=Visita.IDusuario)"
+				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivenda"
+				+"WHERE usuario.nombreUsuario=? AND Vivienda.estado=1";
+		List<Visita> visitas = new ArrayList<>();
+		DBConnection.createStatement(consulta);
+		DBConnection.getStatement().setString(1,userName);
+		ResultSet res = DBConnection.getStatement().executeQuery();
+		while (res.next()) {
+			Integer IDvivienda = res.getInt(1);
+			Integer IDusuario = res.getInt(2);
+			String fecha = res.getString(3).substring(0,10);;
+			
+			visitas.add(new Visita(IDvivienda, IDusuario, fecha));
+		}
+		DBConnection.desconnect();
+		return visitas;
 	}
 }

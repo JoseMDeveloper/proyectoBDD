@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.swing.filechooser.FileView;
+
 import connection.Queries;
 import dataClass.Departamento;
 import dataClass.Municipio;
@@ -33,14 +35,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 
-public class PrincipalSceneController implements Initializable{
+public class ClientSceneController implements Initializable{
 	
 	@FXML
     private TextField ArriendoMax;
@@ -74,6 +78,12 @@ public class PrincipalSceneController implements Initializable{
 
     @FXML
     private ComboBox<String> selectTipoPropiedad;
+    
+    @FXML
+    private ImageView cerrar;
+    
+    @FXML
+    private Button visitas;
     
 //    @FXML
 //    private Button btnCerrarSesion;
@@ -122,6 +132,7 @@ public class PrincipalSceneController implements Initializable{
 			e.printStackTrace();
 		}
 		setUserLocation();
+		
 	}
 	
 	public void search() throws IOException, NumberFormatException, ClassNotFoundException, SQLException {
@@ -200,14 +211,14 @@ public class PrincipalSceneController implements Initializable{
 		cmbMunicipios.setValue("Municipio");
     }
 	
-	public void sidebar(MouseEvent event) throws IOException
-	{
+	public void sidebar(MouseEvent event) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("/source/sidebar.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.centerOnScreen();
 	}
+	
 
 	public void mostrarOpcionesCuenta(MouseEvent event){
 		anchorpanecuenta.setVisible(true);
@@ -220,7 +231,6 @@ public class PrincipalSceneController implements Initializable{
 	}
 	
 	public void quitarOpcionesCuenta(MouseEvent event){
-		
 		anchorpanecuenta.setVisible(false); 
 		
 	}
@@ -238,14 +248,23 @@ public class PrincipalSceneController implements Initializable{
 	}
 	
 	public void quitarnoti(MouseEvent event){
-		
 		anchorpanenoti.setVisible(false); 
-		
 	}
 
-	public void cerrarSesion(MouseEvent event){
-		
-		Platform.exit();
+	public void cerrarSesion(MouseEvent event) throws IOException{
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Cerrar Sesion");
+        alert.setContentText("Se ha cerrado sesion correctamente");
+        alert.showAndWait();
+        
+        Sesion.setUser(null);
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.centerOnScreen();
 	}
 	
 //	public void misVisitas(MouseEvent event) throws IOException {
@@ -293,5 +312,8 @@ public class PrincipalSceneController implements Initializable{
 		cmbMunicipios.getItems().clear();
 		cmbMunicipios.getItems().add("Municipio");
 		cmbMunicipios.valueProperty().set(null);
+	}
+	public void cerrar(MouseEvent event) {
+		Platform.exit();
 	}
 }

@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.input.MouseEvent;
 
-public class sidebarController implements Initializable{
+public class SidebarController implements Initializable{
 	@FXML
 	private AnchorPane anchorpanecuenta;
 	@FXML
@@ -45,11 +46,17 @@ public class sidebarController implements Initializable{
 	@FXML
 	private AnchorPane ap;
 	
+	@FXML
+    private ImageView cerrar;
+	
+	@FXML
+    private ImageView pantallaPrinci;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		anchorpanecuenta.setVisible(false);
 		anchorpanenoti.setVisible(false);
-
+		
 	}
 	@FXML
 	public void quitarnoti(MouseEvent event) {
@@ -108,5 +115,23 @@ public class sidebarController implements Initializable{
 			
 		}
 		bp.setCenter(root);
+	}
+	
+	public void cerrar(MouseEvent event) {
+		Platform.exit();
+	}
+	
+	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.centerOnScreen();
+		
+//		ventanaPrinci.setX(-10);
+//		ventanaPrinci.setY(0);
+//		stage.setMaximized(true);
+//		stage.setResizable(false);
+//		ventanaPrinci.showAndWait();
 	}
 }

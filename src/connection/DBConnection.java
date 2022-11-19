@@ -8,8 +8,6 @@ import java.util.concurrent.Executors;
 
 import javafx.scene.control.Alert;
 
-import javafx.scene.control.Alert;
-
 public class DBConnection {
 	private static Connection connection;
 	private static PreparedStatement statement;

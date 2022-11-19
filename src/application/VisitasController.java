@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-public class visitasController implements Initializable{
+public class VisitasController implements Initializable{
 	@FXML
 	private Button Agendadas;
 	@FXML
