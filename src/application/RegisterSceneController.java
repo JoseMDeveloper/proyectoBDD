@@ -35,6 +35,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class RegisterSceneController implements Initializable{
 	
@@ -234,6 +235,7 @@ public class RegisterSceneController implements Initializable{
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.centerOnScreen();
+		
 //		ventanaPrinci.setX(-10);
 //		ventanaPrinci.setY(0);
 //		stage.setMaximized(true);

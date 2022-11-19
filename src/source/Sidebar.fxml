@@ -9,13 +9,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.sidebarController">
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SidebarController">
    <children>
 		<AnchorPane prefHeight="69.0" prefWidth="1300.0" style="-fx-background-color: #76a77c;">
          <children>
-            <ImageView fitHeight="65.0" fitWidth="103.0" layoutX="57.0" layoutY="2.0" pickOnBounds="true">
+            <ImageView fx:id="cerrar" fitHeight="40.0" fitWidth="46.0" layoutX="1240.0" layoutY="15.0" onMouseClicked="#cerrar" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Downloads/logoSinMarco.png" />
+                  <Image url="@imgs/exit.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pantallaPrinci" fitHeight="49.0" fitWidth="54.0" layoutX="33.0" layoutY="10.0" onMouseClicked="#cambiaVentanaPrincipal" pickOnBounds="true">
+               <image>
+                  <Image url="@imgs/home.png" />
                </image>
             </ImageView>
          </children>

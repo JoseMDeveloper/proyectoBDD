@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.swing.filechooser.FileView;
+
 import connection.Queries;
 import dataClass.Departamento;
 import dataClass.Municipio;
@@ -33,10 +35,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 
@@ -74,6 +78,10 @@ public class PrincipalSceneController implements Initializable{
 
     @FXML
     private ComboBox<String> selectTipoPropiedad;
+    @FXML
+    private ImageView cerrar;
+    @FXML
+    private Button visitas;
     
 //    @FXML
 //    private Button btnCerrarSesion;
@@ -122,6 +130,7 @@ public class PrincipalSceneController implements Initializable{
 			e.printStackTrace();
 		}
 		setUserLocation();
+		
 	}
 	
 	public void search() throws IOException, NumberFormatException, ClassNotFoundException, SQLException {
@@ -208,6 +217,7 @@ public class PrincipalSceneController implements Initializable{
 		stage.setScene(scene);
 		stage.centerOnScreen();
 	}
+	
 
 	public void mostrarOpcionesCuenta(MouseEvent event){
 		anchorpanecuenta.setVisible(true);
@@ -290,5 +300,8 @@ public class PrincipalSceneController implements Initializable{
 		cmbMunicipios.getItems().clear();
 		cmbMunicipios.getItems().add("Municipio");
 		cmbMunicipios.valueProperty().set(null);
+	}
+	public void cerrar(MouseEvent event) {
+		Platform.exit();
 	}
 }
