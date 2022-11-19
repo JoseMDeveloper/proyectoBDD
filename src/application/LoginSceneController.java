@@ -122,7 +122,7 @@ public class LoginSceneController implements Initializable{
 		String contra = enterPassword.getText();
 
 		Integer tipoUsuario = null;
-		String nombreRegex="^[a-zA-Z0-9]{3,25}";
+		String nombreRegex="^[a-zA-Z0-9]{3,25}$";
 		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		//No acepta campos vacios
 		
