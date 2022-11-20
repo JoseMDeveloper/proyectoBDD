@@ -12,7 +12,7 @@ import javafx.scene.Parent;
 
 public class Main extends Application {
 	
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage) throws Exception {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
 			Scene scene = new Scene(root);

@@ -5,6 +5,7 @@ public class Pago {
 	private Integer Numero;
 	private Integer Monto;
 	private Integer NumeroAutorizacion;
+	
 	public Pago(Integer idfactura, String tipopago, Integer numero, Integer monto, Integer numeroAutorizacion) {
 		Idfactura = idfactura;
 		Tipopago = tipopago;

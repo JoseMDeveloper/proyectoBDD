@@ -18,7 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class editarContraController implements Initializable{
+public class EditarContraController implements Initializable{
 	@FXML
 	private PasswordField viejaContra;
 	@FXML

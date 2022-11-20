@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import application.Encrypter;
+import dataClass.Sesion;
 import dataClass.Ubicacion;
 import dataClass.Usuario;
 import dataClass.Visita;
@@ -19,7 +20,7 @@ public class Queries {
 		DBConnection.connect();
 		String query = "SELECT nombreUsuario, contrasena "
 				+ "FROM usuario "
-				+ "WHERE nombreUsuario=? AND contrasena=?";
+				+ "WHERE nombreUsuario=? AND contrasena=? AND Estado=1";
 		DBConnection.createStatement(query);
 		DBConnection.getStatement().setString(1,name);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
@@ -61,24 +62,19 @@ public class Queries {
 		DBConnection.connect();
 		String UPDATE = "UPDATE usuario"
 					  + " set ";
-		if(mail!=null) 
-		{
+		if(mail!=null) {
 			UPDATE +="correo='"+mail+"',";
 		}
-		if(password!=null)
-		{
+		if(password!=null){
 			UPDATE +="Contrasena='"+Encrypter.encryptString(password)+"',";	
 		}
-		if(nombre!=null)
-		{
+		if(nombre!=null){
 			UPDATE +="Nombre='"+nombre+"',";	
 		}
-		if(Apellido!=null)
-		{
+		if(Apellido!=null){
 			UPDATE +="Apellido='"+Apellido+"',";	
 		}
-		if(maximo!=null)
-		{
+		if(maximo!=null){
 			UPDATE +="MaxPorOfrecer='"+maximo+"',";	
 		}
 		UPDATE=UPDATE.substring(0,UPDATE.length()-1);
@@ -87,11 +83,7 @@ public class Queries {
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
-	public static List<Visita> listaEspera(List<Vivienda> viviendas)
-	{
-		List<Visita> visitas=new ArrayList<>();
-		return visitas;
-	}
+	
 	public static List<Vivienda> buscarPropiedades(List<String> paises, List<String> departamentos, List<String> municipios,
 			String tipoPropiedad, Integer cantHabitaciones, Integer minRent, Integer maxRent) throws SQLException, ClassNotFoundException {
 		DBConnection.connect();
@@ -166,34 +158,31 @@ public class Queries {
 		DBConnection.desconnect();
 		return ubicaciones;
 	}
+	
 	//de aqui pa abajo son nuevas
-	public static void Crearvisitas(String username,Integer visita) throws ClassNotFoundException, SQLException
-	{
+	public static void CrearVisitas(String userName, Integer visita) throws ClassNotFoundException, SQLException {
 		DBConnection.connect();
 		String crear="INSERT INTO visitas"
 		+ "(IDusuario, IDvivienda, Fecha) "
 		+ "VALUES(?, ?,default)";
-		String buscar="select IDusuario"
-				+ "From usuario"
-				+ "where nombreusuario='"+username+"'";
+		Usuario user = getUser(userName);
 		DBConnection.createStatement(crear);
-		DBConnection.getStatement().setString(1,buscar);
-		DBConnection.getStatement().setLong(2,visita);
+		DBConnection.getStatement().setInt(1,user.getId());
+		DBConnection.getStatement().setInt(2,visita);
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
-	public static List<Visita> visitasUsu(String username) throws ClassNotFoundException, SQLException
-	{
+	
+	public static List<Visita> visitasUsuario(String userName) throws ClassNotFoundException, SQLException{
 		DBConnection.connect();
-		String consulta="SELECT visita.IDvivienda,IDusuario,fecha"
-				+"From usuario join visita on (usuario.IDusuario=visita.IDusuario)"
-				+"where IDusuario in(select IDusuario"
-				                  	+"From usuario"
-				                  	+"where nombreusuario='"+username+"') and (SELECT idvivienda"
-				                  											+ "From vivienda"
-				                  											+ "where estado=1";
+		String consulta="SELECT visita.IDvivienda, IDusuario, fecha"
+				+"FROM Usuario"
+				+ " JOIN Visita ON (Usuario.IDusuario=Visita.IDusuario)"
+				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivenda"
+				+"WHERE usuario.nombreUsuario=? AND Vivienda.estado=1";
 		List<Visita> visitas = new ArrayList<>();
 		DBConnection.createStatement(consulta);
+		DBConnection.getStatement().setString(1,userName);
 		ResultSet res = DBConnection.getStatement().executeQuery();
 		while (res.next()) {
 			Integer IDvivienda = res.getInt(1);
@@ -204,5 +193,16 @@ public class Queries {
 		}
 		DBConnection.desconnect();
 		return visitas;
+	}
+	
+	public static void eliminarCuenta() throws SQLException, ClassNotFoundException {
+		DBConnection.connect();
+		String update = "UPDATE usuario"
+				+ " SET estado=0"
+				+ " WHERE IDusuario='"+Sesion.getUser().getId()+"'";
+		List<Visita> visitas = new ArrayList<>();
+		DBConnection.createStatement(update);
+		ResultSet res = DBConnection.getStatement().executeQuery();
+		DBConnection.desconnect();
 	}
 }

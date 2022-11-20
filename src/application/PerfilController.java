@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import connection.Queries;
@@ -22,8 +23,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import application.editarContraController;
-public class perfilController implements Initializable{
+import application.EditarContraController;
+
+public class PerfilController implements Initializable{
 
 	@FXML
     private Button guardar;
@@ -55,8 +57,11 @@ public class perfilController implements Initializable{
     private Button editarRenta;
 	@FXML
     private ImageView cerrar;
+	@FXML
+    private Button eliminar;
 	String contra;
 	float maximo=0;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Usuario usuario;
@@ -67,15 +72,18 @@ public class perfilController implements Initializable{
 		textfieldCorreo.setText(usuario.getCorreo());
 		textfieldContra.setText("abcdefgh");
 		
-		if(usuario.getIDtipousuario()==1)
-		{
+		if(usuario.getIDtipousuario()==1){
 			textfieldTipoCuenta.setText("Arrendatario");	
+		}else if(usuario.getIDtipousuario()==2){
+			textfieldTipoCuenta.setText("Propietario");	
+		}else if(usuario.getIDtipousuario()==3){
+			textfieldTipoCuenta.setText("Administrador");	
 		}
 		textfieldrenta.setText(maximo+"");
 
 	}
-	public void Guardar(MouseEvent event) throws NumberFormatException, ClassNotFoundException, NoSuchAlgorithmException, SQLException, IOException
-	{
+	
+	public void Guardar(MouseEvent event) throws NumberFormatException, ClassNotFoundException, NoSuchAlgorithmException, SQLException, IOException{
 //		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/editarContra.fxml"));
 //		editarContraController controlador= fxmlLoader.getController();
 		
@@ -97,71 +105,101 @@ public class perfilController implements Initializable{
         
         });
 	}
+	
 	public void editarNombre(MouseEvent event)
 	{
-		if(editarNombre.getText().equals("Editar"))
-		{
+		if(editarNombre.getText().equals("Editar")){
 			textfieldNombre.setEditable(true);
 			editarNombre.setText("Guardar");
 		}
-		else if(editarNombre.getText().equals("Guardar"))
-		{
+		else if(editarNombre.getText().equals("Guardar")){
 			textfieldNombre.setEditable(false);
 			editarNombre.setText("Editar");
 		}
 	}
-	public void editarApe(MouseEvent event)
-	{
-		if(editarApe.getText().equals("Editar"))
-		{
+	
+	public void editarApe(MouseEvent event){
+		if(editarApe.getText().equals("Editar")){
 			textfieldApeliido.setEditable(true);
 			editarApe.setText("Guardar");
 		}
-		else if(editarApe.getText().equals("Guardar"))
-		{
+		else if(editarApe.getText().equals("Guardar")){
 			textfieldApeliido.setEditable(false);
 			editarApe.setText("Editar");
 		}
 	}
-	public void editarCorreo(MouseEvent event)
-	{
-		if(editarCorreo.getText().equals("Editar"))
-		{
+	
+	public void editarCorreo(MouseEvent event){
+		if(editarCorreo.getText().equals("Editar")){
 			textfieldCorreo.setEditable(true);
 			editarCorreo.setText("Guardar");
 		}
-		else if(editarCorreo.getText().equals("Guardar"))
-		{
+		else if(editarCorreo.getText().equals("Guardar")){
 			textfieldCorreo.setEditable(false);
 			editarCorreo.setText("Editar");
 		}
 	}
-	public void editarRenta(MouseEvent event)
-	{
-		if(editarRenta.getText().equals("Editar"))
-		{
+	
+	public void editarRenta(MouseEvent event){
+		if(editarRenta.getText().equals("Editar")){
 			textfieldrenta.setEditable(true);
 			editarRenta.setText("Guardar");
 		}
-		else if(editarRenta.getText().equals("Guardar"))
-		{
+		else if(editarRenta.getText().equals("Guardar")){
 			textfieldrenta.setEditable(false);
 			editarRenta.setText("Editar");
 		}
 	}
-	public void editarContra(MouseEvent event) throws IOException, ClassNotFoundException, NoSuchAlgorithmException, SQLException
-	{
+	
+	public void editarContra(MouseEvent event) throws IOException, ClassNotFoundException, NoSuchAlgorithmException, SQLException{
 		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/editarContra.fxml"));
 		Parent root1=(Parent)fxmlLoader.load();
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root1));
 		stage.centerOnScreen();
 		stage.showAndWait();
-		editarContraController controlador1= fxmlLoader.getController();
+		EditarContraController controlador1= fxmlLoader.getController();
 		contra=controlador1.getResultado();
 	}
-	public void mostrar(MouseEvent event)
-	{
+	
+	public void mostrar(MouseEvent event){
 
+	}
+	
+	@FXML
+	public void eliminar(MouseEvent event) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setHeaderText(null);
+		alert.setTitle("Confirmación");
+		alert.setContentText("¿Esta suguro de eliminar su cuenta?\nEsta accion no se puede revertir");
+		Optional<ButtonType> action = alert.showAndWait();
+		if (action.get() == ButtonType.OK) {
+			try {
+				Queries.eliminarCuenta();
+				Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+				alert1.setHeaderText(null);
+				alert1.setTitle("Cuenta Eliminada");
+				alert1.setContentText("Sea ha eliminado su cuenta\nSe le desconectará de la aplicacion");
+				alert1.showAndWait();
+				
+				Sesion.setUser(null);
+		        
+		        Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
+				Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.centerOnScreen();
+			} catch (ClassNotFoundException | SQLException e) {
+				Alert alert2 = new Alert(Alert.AlertType.ERROR);
+				alert2.setHeaderText(null);
+				alert2.setTitle("Error");
+				alert2.setContentText("La eliminacion no pudo realizarse");
+				alert2.showAndWait();
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

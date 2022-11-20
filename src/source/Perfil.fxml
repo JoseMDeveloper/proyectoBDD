@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.perfilController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PerfilController">
    <children>
       <Label layoutX="103.0" prefHeight="43.0" prefWidth="98.0" text="Perfil">
          <font>
@@ -95,6 +95,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="guardar" layoutX="27.0" layoutY="389.0" mnemonicParsing="false" onMouseClicked="#Guardar" text="Guardar" />
+      <Button fx:id="guardar" layoutX="103.0" layoutY="392.0" mnemonicParsing="false" onMouseClicked="#Guardar" text="Guardar" />
+      <Button fx:id="eliminar" layoutX="84.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#eliminar" text="Eliminar cuenta" />
    </children>
 </AnchorPane>

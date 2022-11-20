@@ -37,7 +37,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class RegisterSceneController implements Initializable{
+public class LoginSceneController implements Initializable{
 	
 	private boolean iniciandoSesion = true;//Iniciar sesion = false, Registrar = true
 	
@@ -122,7 +122,7 @@ public class RegisterSceneController implements Initializable{
 		String contra = enterPassword.getText();
 
 		Integer tipoUsuario = null;
-		String nombreRegex="^[a-zA-Z0-9]{3,25}";
+		String nombreRegex="^[a-zA-Z0-9]{3,25}$";
 		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		//No acepta campos vacios
 		
@@ -132,12 +132,13 @@ public class RegisterSceneController implements Initializable{
 			}else if(iniciandoSesion) {//Iniciar sesion
 				if((nombre.equals("Admin") && contra.equals("teamo"))) {
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
-					Sesion.setUser(new Usuario(1, "admin", "1", "Admin", Encrypter.encryptString("teamo"),
+					Sesion.setUser(new Usuario(1, "admin", "1", nombre, contra,
 							"admin@gmail.com", 1,null, 10000000, null, 3, 1, null));
 					cambiaVentanaPrincipal(event);
 				}else if(Queries.validSesion(nombre, contra)){
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					Sesion.setUser(Queries.getUser(nombre));
+					Sesion.getUser().setContrasena(contra);
 					cambiaVentanaPrincipal(event);
 				}
 				else {
@@ -230,7 +231,7 @@ public class RegisterSceneController implements Initializable{
 	}
 	
 	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/source/PrincipalScene.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
