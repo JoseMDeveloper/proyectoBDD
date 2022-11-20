@@ -60,7 +60,6 @@ public class PerfilController implements Initializable{
 	@FXML
     private Button eliminar;
 	String contra;
-	float maximo=0;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -70,7 +69,7 @@ public class PerfilController implements Initializable{
 		textfieldNombre.setText(usuario.getNombre());
 		textfieldApeliido.setText(usuario.getApellido());
 		textfieldCorreo.setText(usuario.getCorreo());
-		textfieldContra.setText("abcdefgh");
+		textfieldContra.setText(usuario.getContrasena());
 		
 		if(usuario.getIDtipousuario()==1){
 			textfieldTipoCuenta.setText("Arrendatario");	
@@ -79,7 +78,7 @@ public class PerfilController implements Initializable{
 		}else if(usuario.getIDtipousuario()==3){
 			textfieldTipoCuenta.setText("Administrador");	
 		}
-		textfieldrenta.setText(maximo+"");
+		textfieldrenta.setText(usuario.getMaximo()+"");
 
 	}
 	
@@ -91,8 +90,7 @@ public class PerfilController implements Initializable{
         alert.setHeaderText(null);
         alert.setTitle("Error");
         alert.setContentText("Seguro que desea guardar los cambios?");
-        alert.showAndWait().ifPresent(response -> 
-        {
+        alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
             	try {
 					Queries.updateUser(textfieldUsuario.getText(),textfieldCorreo.getText(),contra,textfieldNombre.getText(),

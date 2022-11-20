@@ -39,7 +39,8 @@ public class Queries {
 		DBConnection.getStatement().setString(1,nombreUsuario);
 		ResultSet rs = DBConnection.getStatement().executeQuery();
 		rs.next();
-		Usuario user = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), null);
+		Usuario user = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+				rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), null);
 		DBConnection.desconnect();
 		return user;
 	}
@@ -48,17 +49,18 @@ public class Queries {
 		DBConnection.connect();
 		String insert = "INSERT INTO usuario"
 				+ "(IDusuario, Nombre, Apellido, NombreUsuario, Contrasena, Correo, Estado, Fecha, MaxPorOfrecer, Salario, IDtipoUsuario, IDubicacion, IDagencia) "
-				+ "VALUES(default, null, null, ?, ?, ?, default, default, null, null, ?, null, null)";
+				+ "VALUES(default, null, null, ?, ?, ?, default, default, ?, null, ?, null, null)";
 		DBConnection.createStatement(insert);
 		DBConnection.getStatement().setString(1,username);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
 		DBConnection.getStatement().setString(3,mail);
-		DBConnection.getStatement().setInt(4, userType);// 1: cliente, 2: dueno, 3: empleado
+		DBConnection.getStatement().setInt(4, 0);
+		DBConnection.getStatement().setInt(5, userType);// 1: cliente, 2: dueno, 3: empleado
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
 	
-	public static void updateUser(String username, String mail, String password,String nombre, String Apellido,Float maximo) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public static void updateUser(String username, String mail, String password,String nombre, String Apellido, Float maximo) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
 		String UPDATE = "UPDATE usuario"
 					  + " set ";
@@ -75,7 +77,7 @@ public class Queries {
 			UPDATE +="Apellido='"+Apellido+"',";	
 		}
 		if(maximo!=null){
-			UPDATE +="MaxPorOfrecer='"+maximo+"',";	
+			UPDATE +="MaxPorOfrecer="+maximo+",";	
 		}
 		UPDATE=UPDATE.substring(0,UPDATE.length()-1);
 		UPDATE+="WHERE NombreUsuario='"+username+"'";
@@ -160,14 +162,13 @@ public class Queries {
 	}
 	
 	//de aqui pa abajo son nuevas
-	public static void CrearVisitas(String userName, Integer visita) throws ClassNotFoundException, SQLException {
+	public static void CrearVisita(Integer id, Integer visita) throws ClassNotFoundException, SQLException {
 		DBConnection.connect();
-		String crear="INSERT INTO visitas"
+		String crear="INSERT INTO visita"
 		+ "(IDusuario, IDvivienda, Fecha) "
 		+ "VALUES(?, ?,default)";
-		Usuario user = getUser(userName);
 		DBConnection.createStatement(crear);
-		DBConnection.getStatement().setInt(1,user.getId());
+		DBConnection.getStatement().setInt(1,id);
 		DBConnection.getStatement().setInt(2,visita);
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
@@ -202,7 +203,21 @@ public class Queries {
 				+ " WHERE IDusuario='"+Sesion.getUser().getId()+"'";
 		List<Visita> visitas = new ArrayList<>();
 		DBConnection.createStatement(update);
-		ResultSet res = DBConnection.getStatement().executeQuery();
+		DBConnection.getStatement().executeQuery();
 		DBConnection.desconnect();
+	}
+	
+	public static boolean visitaUsuarioVivienda(Integer idUsuario, Integer idVivienda) throws SQLException, ClassNotFoundException {
+		DBConnection.connect();
+		String query = "SELECT idUsuario, idVivienda "
+				+ "FROM visita "
+				+ "WHERE idUsuario=? AND idVivienda=?";
+		DBConnection.createStatement(query);
+		DBConnection.getStatement().setInt(1,idUsuario);
+		DBConnection.getStatement().setInt(2,idVivienda);
+		ResultSet rs = DBConnection.getStatement().executeQuery();
+		boolean valid = rs.next();
+		DBConnection.desconnect();
+		return valid;
 	}
 }

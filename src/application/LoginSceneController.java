@@ -162,6 +162,7 @@ public class LoginSceneController implements Initializable{
 						showEventMessage("!Usuario creado correctamente!", "#91e291", "#578857");
 					}catch(java.sql.SQLIntegrityConstraintViolationException e) {
 						showEventMessage("Usuario existente", "#fcc0bf", "#b12727");
+						e.printStackTrace();
 					}
 				}
 			}
@@ -173,18 +174,16 @@ public class LoginSceneController implements Initializable{
 			showEventMessage("Debe llenar todos los campos", "#fcc0bf", "#b12727");
 		}
 	}
+	
 	public void Dueno(){
-		
 		if(botonDueno.isSelected() && botonCliente.isSelected()){
 			botonCliente.setSelected(!botonCliente.isSelected());;
 		}
-		
-		
 	}
+	
 	public void Cliente(){
 		if(botonCliente.isSelected() && botonDueno.isSelected()){
-			
-			botonDueno.setSelected(!botonDueno.isSelected());;	
+			botonDueno.setSelected(!botonDueno.isSelected());
 		}
 	}
 	
