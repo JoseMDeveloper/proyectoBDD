@@ -1,4 +1,8 @@
 package dataClass;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
 	private Integer Id;
 	private String Nombre;
@@ -111,6 +115,4 @@ public class Usuario {
 	public void setIDagencia(Integer iDagencia) {
 		IDagencia = iDagencia;
 	}
-	
-	
 }

@@ -12,17 +12,21 @@ import dataClass.Vivienda;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.ScrollPane;
 
 import javafx.scene.image.ImageView;
-
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-public class SearchScene2Controller implements Initializable{
+public class SearchScene2Controller extends PrincipalAbstractController implements Initializable{
 	@FXML
 	private VBox chosenFruitCard;
 	@FXML
@@ -35,6 +39,13 @@ public class SearchScene2Controller implements Initializable{
 	private ScrollPane scroll;
 	@FXML
 	private GridPane grid;
+	@FXML
+	private ImageView cerrar;
+	@FXML
+	private ImageView inicio;
+	
+	@FXML
+	private Label cuenta;
 
 	private List<Vivienda> vivienda=new ArrayList<>();
 	// Santi aca debes conectar el buscador, y ponerle a vivi los datos de cada vivienda que encontro, el resto se hace solo
@@ -50,6 +61,7 @@ public class SearchScene2Controller implements Initializable{
 		 }
 		 return vivienda;
 	}
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -75,5 +87,22 @@ public class SearchScene2Controller implements Initializable{
 		{
 			e.printStackTrace();
 		}
+	}
+	@FXML
+	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.centerOnScreen();
+	}
+	@FXML
+	public void cambiaVentanaPerfil(MouseEvent event)throws IOException
+	{
+		Parent root = FXMLLoader.load(getClass().getResource("/source/Sidebar.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.centerOnScreen();	
 	}
 }

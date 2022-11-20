@@ -1,0 +1,114 @@
+
+.search-box{
+    -fx-background-color:#FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.search-button{
+    -fx-background-color: #828282;
+    -fx-background-radius: 30;
+}
+
+.right-bar{
+    -fx-background-color: #D3D3D3;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+
+.chosen-fruit-card{
+    -fx-background-color: #BAEAC3;
+    -fx-background-radius: 30;
+}
+
+.comboBox{
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-radius: 30;
+}
+
+.add-btn{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.free-delivery-card{
+    -fx-background-color: #D3D3D3;
+    -fx-background-radius: 30;
+}
+
+.shopping-online-card{
+    -fx-background-color: #BAEAC3;
+    -fx-background-radius: 30;
+}
+
+.fruit-item{
+    -fx-background-color: #FFFFFF;
+        -fx-background-radius: 30;
+}
+
+.spinner{
+	-fx-background-radius: 30;
+	-fx-background-color: rgba(255,255,255,0.3);
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-body-color: #BAEAC3;
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    /* interpolate color between yellow and red based on first color brightness */
+    -fx-body-color: ladder(#444, #BAEAC3 0%,  #76a77c 100%);
+}
+
+.spinner .increment-arrow-button:hover:pressed,
+.spinner .decrement-arrow-button:hover:pressed,
+.spinner .increment-arrow-button:pressed,
+.spinner .decrement-arrow-button:pressed {
+    /* interpolate color between yellow and red based on first color brightness */
+    -fx-body-color: ladder(#AAA, #BAEAC3 0%,  #76a77c 100%);
+}
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-cell-size : 20;
+    -fx-background-color:   #76a77c;
+}
+.table-view .column-header .label{
+
+   -fx-text-fill: white;
+   -fx-font-weight: bold;
+   -fx-alignment: CENTER_LEFT;
+}
+.table-view .cell{
+   -fx-cell-size: 30;
+  -fx-alignment: center-left;
+  -fx-text-fill: #000000;
+  -fx-alignment: CENTER_LEFT;
+}
+
+.table-row-cell:selected .text {
+        -fx-fill : white ;
+}
+
+/* scroll bar starts here */
+
+/* The increment and decrement button CSS class of scrollbar */
+.table-view .increment-button ,.table-view .decrement-button {
+	-fx-background-radius: 2em;
+
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+
+}

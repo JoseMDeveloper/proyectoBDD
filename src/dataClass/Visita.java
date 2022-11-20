@@ -4,6 +4,7 @@ public class Visita {
 	private Integer IDusuario;
 	private Integer IDvivienda;
 	private String fecha;
+	
 	public Visita(Integer iDusuario, Integer iDvivienda, String fecha) {
 		IDusuario = iDusuario;
 		IDvivienda = iDvivienda;

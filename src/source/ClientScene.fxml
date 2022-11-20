@@ -90,6 +90,7 @@
                         <Image url="@imgs/exit.png" />
                      </image>
                   </ImageView>
+                  <Button fx:id="buscador2" layoutX="471.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#buscador2" text="Button" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPaneCuenta" layoutX="769.0" layoutY="14.0" onMouseExited="#ocultarNotificaciones" prefHeight="176.0" prefWidth="134.0" style="-fx-background-color: transparent; -fx-background-radius: 9;">

@@ -52,6 +52,8 @@ public class ClientSceneController extends PrincipalAbstractController implement
 
     @FXML
     private Button btnSearch;
+    @FXML
+    private Button buscador2;
 
     @FXML
     private Button nuevaUbicacion;
@@ -192,6 +194,14 @@ public class ClientSceneController extends PrincipalAbstractController implement
 	@FXML
 	public void sidebar(MouseEvent event) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("/source/sidebar.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.centerOnScreen();
+	}
+	@FXML
+	public void buscador2(MouseEvent event) throws IOException{
+		Parent root = FXMLLoader.load(getClass().getResource("/source/SearchScene2.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);

@@ -8,7 +8,9 @@ import javafx.scene.text.Font;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-//Admin teamo
+//Admin teamo (empleado)
+//cliente0 teamo (cliente)
+//propietario0 teamo (propietario)
 
 public class Main extends Application {
 	

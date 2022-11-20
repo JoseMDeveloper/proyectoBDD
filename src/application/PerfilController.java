@@ -60,17 +60,18 @@ public class PerfilController implements Initializable{
 	@FXML
     private Button eliminar;
 	String contra;
-	float maximo=0;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Usuario usuario;
+		String Regex="^[a-zA-Z0-9]{3,25}$",RegexC="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		usuario=Sesion.getUser();
 		textfieldUsuario.setText(usuario.getNombredeusuario());
+		
 		textfieldNombre.setText(usuario.getNombre());
 		textfieldApeliido.setText(usuario.getApellido());
 		textfieldCorreo.setText(usuario.getCorreo());
-		textfieldContra.setText("abcdefgh");
+		textfieldContra.setText(usuario.getContrasena());
 		
 		if(usuario.getIDtipousuario()==1){
 			textfieldTipoCuenta.setText("Arrendatario");	
@@ -79,7 +80,7 @@ public class PerfilController implements Initializable{
 		}else if(usuario.getIDtipousuario()==3){
 			textfieldTipoCuenta.setText("Administrador");	
 		}
-		textfieldrenta.setText(maximo+"");
+		textfieldrenta.setText(usuario.getMaximo()+"");
 
 	}
 	
@@ -91,8 +92,7 @@ public class PerfilController implements Initializable{
         alert.setHeaderText(null);
         alert.setTitle("Error");
         alert.setContentText("Seguro que desea guardar los cambios?");
-        alert.showAndWait().ifPresent(response -> 
-        {
+        alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
             	try {
 					Queries.updateUser(textfieldUsuario.getText(),textfieldCorreo.getText(),contra,textfieldNombre.getText(),
@@ -105,14 +105,23 @@ public class PerfilController implements Initializable{
         
         });
 	}
-	
+//----------------Cambiar estado del boton ------------------------------------------	
 	public void editarNombre(MouseEvent event)
 	{
+		String Regex="^[a-zA-Z0-9]{3,25}$";
 		if(editarNombre.getText().equals("Editar")){
 			textfieldNombre.setEditable(true);
 			editarNombre.setText("Guardar");
 		}
 		else if(editarNombre.getText().equals("Guardar")){
+			if(!textfieldNombre.getText().matches(Regex)) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("Nombre de usuario no valido");
+	            alert.showAndWait();
+	            textfieldNombre.setText(Sesion.getUser().getNombre());
+			}
 			textfieldNombre.setEditable(false);
 			editarNombre.setText("Editar");
 		}
@@ -130,11 +139,20 @@ public class PerfilController implements Initializable{
 	}
 	
 	public void editarCorreo(MouseEvent event){
+		String RegexC="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		if(editarCorreo.getText().equals("Editar")){
 			textfieldCorreo.setEditable(true);
 			editarCorreo.setText("Guardar");
 		}
 		else if(editarCorreo.getText().equals("Guardar")){
+			if(!textfieldCorreo.getText().matches(RegexC)) {
+			  	Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("Correo no valido");
+	            alert.showAndWait();
+	            textfieldCorreo.setText(Sesion.getUser().getCorreo());
+			}
 			textfieldCorreo.setEditable(false);
 			editarCorreo.setText("Editar");
 		}
@@ -150,7 +168,7 @@ public class PerfilController implements Initializable{
 			editarRenta.setText("Editar");
 		}
 	}
-	
+//---------------------------------------------------------------------------------------------------------------------------------------//
 	public void editarContra(MouseEvent event) throws IOException, ClassNotFoundException, NoSuchAlgorithmException, SQLException{
 		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/editarContra.fxml"));
 		Parent root1=(Parent)fxmlLoader.load();
