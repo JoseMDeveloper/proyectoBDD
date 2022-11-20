@@ -25,24 +25,20 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorpanenoti" layoutX="769.0" layoutY="14.0" onMouseExited="#quitarnoti" prefHeight="176.0" prefWidth="134.0" style="-fx-background-color: transparent; -fx-background-radius: 9;">
+      <AnchorPane fx:id="anchorPaneNotificaciones" layoutX="769.0" layoutY="14.0" onMouseExited="#ocultarNotificaciones" prefHeight="176.0" prefWidth="134.0" style="-fx-background-color: transparent; -fx-background-radius: 9;">
          <children>
-            <AnchorPane fx:id="anchorpanenoti" layoutY="48.0" prefHeight="132.0" prefWidth="134.0" style="-fx-background-color: #76a77c; -fx-background-radius: 9;">
+            <VBox layoutY="48.0" prefHeight="132.0" prefWidth="134.0">
                <children>
-                  <VBox prefHeight="132.0" prefWidth="134.0">
-                     <children>
-                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="120.0" />
-                        <ListView prefHeight="259.0" prefWidth="134.0" />
-                     </children>
-                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="59.0" prefWidth="120.0" />
+                  <ListView fx:id="notificaciones" prefHeight="259.0" prefWidth="134.0" />
                </children>
-            </AnchorPane>
-            <Button fx:id="btnNotificaciones" layoutX="7.0" mnemonicParsing="false" onMouseEntered="#mostrarnoti" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #BAEAC3;" text="Notificaciones" />
+            </VBox>
+            <Button fx:id="btnNotificaciones" layoutX="7.0" mnemonicParsing="false" onMouseEntered="#mostrarNotificaciones" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #BAEAC3;" text="Notificaciones" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorpanecuenta" layoutX="987.0" layoutY="14.0" onMouseExited="#quitarOpcionesCuenta" prefHeight="176.0" prefWidth="134.0" style="-fx-background-color: transparent; -fx-background-radius: 9;">
+      <AnchorPane fx:id="anchorPaneCuenta" layoutX="987.0" layoutY="14.0" onMouseExited="#ocultarOpcionesCuenta" prefHeight="176.0" prefWidth="134.0" style="-fx-background-color: transparent; -fx-background-radius: 9;">
          <children>
-            <AnchorPane fx:id="anchorpanecuenta" layoutY="48.0" prefHeight="120.0" prefWidth="134.0" style="-fx-background-color: #76a77c; -fx-background-radius: 9;">
+            <AnchorPane fx:id="opcionesMiCuenta" layoutY="48.0" prefHeight="120.0" prefWidth="134.0" style="-fx-background-color: #76a77c; -fx-background-radius: 9;">
                <children>
                   <VBox prefHeight="132.0" prefWidth="134.0">
                      <children>
@@ -52,7 +48,7 @@
                            </children>
                         </HBox>
                         <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="136.0" style="-fx-background-color: transparent;" text="Mis visitas" />
-                        <Button fx:id="btnMiCuenta" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: transparent;" text="Mi perfil" />
+                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: transparent;" text="Mi perfil" />
                      </children>
                   </VBox>
                </children>
@@ -68,7 +64,7 @@
             <AnchorPane prefHeight="633.0" prefWidth="204.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="perfil" layoutX="7.0" layoutY="333.0" mnemonicParsing="false" onMouseClicked="#cargarperfil" prefHeight="40.0" prefWidth="191.0" style="-fx-background-radius: 12;" text="Perfil" />
-                  <Button fx:id="visitas" layoutX="7.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#cargarvisits" prefHeight="40.0" prefWidth="191.0" style="-fx-background-radius: 12;" text="Visitas" />
+                  <Button fx:id="btnVisitas" layoutX="7.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#cargarvisits" prefHeight="40.0" prefWidth="191.0" style="-fx-background-radius: 12;" text="Visitas" />
                </children>
             </AnchorPane>
          </left>

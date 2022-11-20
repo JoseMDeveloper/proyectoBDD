@@ -122,19 +122,6 @@ public class LoginSceneController implements Initializable{
 		String contra = enterPassword.getText();
 
 		Integer tipoUsuario = null;
-
-
-		if(botonCliente.selectedProperty().get()) {
-			tipoUsuario = 1;
-		}else if(botonDueno.selectedProperty().get()) {
-			tipoUsuario = 2;
-		}else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Debe seleccionar un tipo de cuenta");
-            alert.showAndWait();
-		}
 		String nombreRegex="^[a-zA-Z0-9]{3,25}$";
 		String mailRegex="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		//No acepta campos vacios
@@ -145,12 +132,13 @@ public class LoginSceneController implements Initializable{
 			}else if(iniciandoSesion) {//Iniciar sesion
 				if((nombre.equals("Admin") && contra.equals("teamo"))) {
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
-					Sesion.setUser(new Usuario(1, "admin", "1", "Admin", Encrypter.encryptString("teamo"),
+					Sesion.setUser(new Usuario(1, "admin", "1", nombre, contra,
 							"admin@gmail.com", 1,null, 10000000, null, 3, 1, null));
 					cambiaVentanaPrincipal(event);
 				}else if(Queries.validSesion(nombre, contra)){
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					Sesion.setUser(Queries.getUser(nombre));
+					Sesion.getUser().setContrasena(contra);
 					cambiaVentanaPrincipal(event);
 				}
 				else {

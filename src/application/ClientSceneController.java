@@ -43,20 +43,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-
-public class ClientSceneController implements Initializable{
-	
+public class ClientSceneController extends PrincipalAbstractController implements Initializable{
 	@FXML
     private TextField ArriendoMax;
 
     @FXML
     private TextField ArriendoMin;
-
-    @FXML
-    private Button btnMiCuenta;
-
-    @FXML
-    private Button btnNotificaciones;
 
     @FXML
     private Button btnSearch;
@@ -82,17 +74,8 @@ public class ClientSceneController implements Initializable{
     @FXML
     private ImageView cerrar;
     
-    @FXML
-    private Button visitas;
-    
-//    @FXML
-//    private Button btnCerrarSesion;
-//    
-//    @FXML
-//    private Button btnGuardados;
-//    
-//	@FXML
-//	private AnchorPane anchorpanecuenta;
+//  @FXML
+//  private Button btnGuardados;
     
     @FXML
     private Usuario user;
@@ -106,17 +89,10 @@ public class ClientSceneController implements Initializable{
     
     @FXML
     private Button btnCerrarSesion;
-     
-	@FXML
-	private AnchorPane anchorpanecuenta;
-	
-	@FXML
-	private AnchorPane anchorpanenoti;
 	
 	@Override
  	public void initialize(URL arg0, ResourceBundle arg1) {
-		anchorpanecuenta.setVisible(false);
-		anchorpanenoti.setVisible(false);
+		super.initialize(arg0, arg1);
 		SpinnerValueFactory <Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50);
 		valueFactory.setValue(0);
 		selectNumRooms.setValueFactory(valueFactory);
@@ -135,7 +111,8 @@ public class ClientSceneController implements Initializable{
 		
 	}
 	
-	public void search() throws IOException, NumberFormatException, ClassNotFoundException, SQLException {
+	@FXML
+	public void search(MouseEvent event) throws IOException, NumberFormatException, ClassNotFoundException, SQLException {
 		if(!ubis.isEmpty()) {			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/SearchScene.fxml"));
 			Parent root = loader.load();
@@ -170,6 +147,7 @@ public class ClientSceneController implements Initializable{
 		}
 	}
 	
+	@FXML
 	public void addLocation(MouseEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/AddLocationScene.fxml"));
         Parent root = loader.load();
@@ -211,56 +189,9 @@ public class ClientSceneController implements Initializable{
 		cmbMunicipios.setValue("Municipio");
     }
 	
+	@FXML
 	public void sidebar(MouseEvent event) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("/source/sidebar.fxml"));
-		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.centerOnScreen();
-	}
-	
-
-	public void mostrarOpcionesCuenta(MouseEvent event){
-		anchorpanecuenta.setVisible(true);
-		FadeTransition fade=new FadeTransition();
-		fade.setNode(anchorpanecuenta);
-		fade.setDuration(Duration.millis(300));
-		fade.setFromValue(0);
-		fade.setToValue(1);
-		fade.play();
-	}
-	
-	public void quitarOpcionesCuenta(MouseEvent event){
-		anchorpanecuenta.setVisible(false); 
-		
-	}
-	
-	public void mostrarnoti(MouseEvent event){
-		
-		anchorpanenoti.setVisible(true);
-		FadeTransition fade=new FadeTransition();
-		fade.setNode(anchorpanenoti);
-		fade.setDuration(Duration.millis(300));
-		fade.setFromValue(0);
-		fade.setToValue(1);
-		fade.play();
-		
-	}
-	
-	public void quitarnoti(MouseEvent event){
-		anchorpanenoti.setVisible(false); 
-	}
-
-	public void cerrarSesion(MouseEvent event) throws IOException{
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
-        alert.setTitle("Cerrar Sesion");
-        alert.setContentText("Se ha cerrado sesion correctamente");
-        alert.showAndWait();
-        
-        Sesion.setUser(null);
-        
-        Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -312,8 +243,5 @@ public class ClientSceneController implements Initializable{
 		cmbMunicipios.getItems().clear();
 		cmbMunicipios.getItems().add("Municipio");
 		cmbMunicipios.valueProperty().set(null);
-	}
-	public void cerrar(MouseEvent event) {
-		Platform.exit();
 	}
 }

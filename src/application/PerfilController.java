@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import connection.Queries;
@@ -23,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import application.EditarContraController;
+
 public class PerfilController implements Initializable{
 
 	@FXML
@@ -55,17 +57,35 @@ public class PerfilController implements Initializable{
     private Button editarRenta;
 	@FXML
     private ImageView cerrar;
+	@FXML
+    private Button eliminar;
 	String contra;
 	float maximo=0;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Usuario usuario;
+		String Regex="^[a-zA-Z0-9]{3,25}$",RegexC="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 		usuario=Sesion.getUser();
 		textfieldUsuario.setText(usuario.getNombredeusuario());
+		
 		textfieldNombre.setText(usuario.getNombre());
+		if(!usuario.getNombre().equals(Regex)) {
+			  Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("Nombre de usuario no valido");
+	            alert.showAndWait();
+		}
 		textfieldApeliido.setText(usuario.getApellido());
 		textfieldCorreo.setText(usuario.getCorreo());
+		if(!usuario.getCorreo().equals(RegexC)) {
+			  	Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("Correo no valido");
+	            alert.showAndWait();
+		}
 		textfieldContra.setText("abcdefgh");
 		
 		if(usuario.getIDtipousuario()==1){
@@ -101,7 +121,7 @@ public class PerfilController implements Initializable{
         
         });
 	}
-	
+//----------------Cambiar estado del boton ------------------------------------------	
 	public void editarNombre(MouseEvent event)
 	{
 		if(editarNombre.getText().equals("Editar")){
@@ -146,7 +166,7 @@ public class PerfilController implements Initializable{
 			editarRenta.setText("Editar");
 		}
 	}
-	
+//---------------------------------------------------------------------------------------------------------------------------------------//
 	public void editarContra(MouseEvent event) throws IOException, ClassNotFoundException, NoSuchAlgorithmException, SQLException{
 		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/editarContra.fxml"));
 		Parent root1=(Parent)fxmlLoader.load();
@@ -160,5 +180,42 @@ public class PerfilController implements Initializable{
 	
 	public void mostrar(MouseEvent event){
 
+	}
+	
+	@FXML
+	public void eliminar(MouseEvent event) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setHeaderText(null);
+		alert.setTitle("Confirmación");
+		alert.setContentText("¿Esta suguro de eliminar su cuenta?\nEsta accion no se puede revertir");
+		Optional<ButtonType> action = alert.showAndWait();
+		if (action.get() == ButtonType.OK) {
+			try {
+				Queries.eliminarCuenta();
+				Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+				alert1.setHeaderText(null);
+				alert1.setTitle("Cuenta Eliminada");
+				alert1.setContentText("Sea ha eliminado su cuenta\nSe le desconectará de la aplicacion");
+				alert1.showAndWait();
+				
+				Sesion.setUser(null);
+		        
+		        Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
+				Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.centerOnScreen();
+			} catch (ClassNotFoundException | SQLException e) {
+				Alert alert2 = new Alert(Alert.AlertType.ERROR);
+				alert2.setHeaderText(null);
+				alert2.setTitle("Error");
+				alert2.setContentText("La eliminacion no pudo realizarse");
+				alert2.showAndWait();
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
