@@ -82,7 +82,7 @@
                   <Button fx:id="editarContra" mnemonicParsing="false" onMouseClicked="#editarContra" text="Editar" />
                </children>
             </HBox>
-            <Label prefHeight="21.0" prefWidth="141.0" text="Maxima renta">
+            <Label fx:id="maximatexto" prefHeight="21.0" prefWidth="141.0" text="Maxima renta">
                <font>
                   <Font size="15.0" />
                </font>
