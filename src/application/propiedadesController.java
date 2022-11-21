@@ -41,7 +41,7 @@ public class propiedadesController {
 		nombrepropi.setText("ID: "+vivienda.getId()+"");
 		ubicacion.setText(vivienda.getPais());
 		descripcion.setText("Descripcion: "+vivienda.getDescripcion());
-		precio.setText("Precio: "+vivienda.getPrecioRentaMensual()+"$");
+		precio.setText("Precio: $"+vivienda.getPrecioRentaMensual());
 		habi.setText("Cantidad habitaciones: "+vivienda.getCantHabitaciones()+"");
 		tipo.setText("Tipo: "+vivienda.getTipo());
 	}

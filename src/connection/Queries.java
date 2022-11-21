@@ -96,23 +96,29 @@ public class Queries {
 				+ " JOIN TipoVivienda ON Vivienda.IDtipoViv = TipoVivienda.IDtipoViv "
 				+ "WHERE Vivienda.Estado = 1";
 		if (!(paises==null) && !(paises.isEmpty())) {
-			query += " AND (Ubicacion.pais = '" + paises.get(0) + "'";
+			query += " AND ((Ubicacion.pais = '" + paises.get(0) + "'";
+			if (departamentos.get(0).equals("sin filtro")) {
+				query += ")";
+			}else {
+				query += " AND Ubicacion.departamento = '" + departamentos.get(0) + "'";
+				if (municipios.get(0).equals("sin filtro")) {
+					query += ")";
+				}else {
+					query += " AND Ubicacion.municipio = '" + municipios.get(0)+ "')";
+				}
+			}
 			for (int i=1; i<paises.size(); i++) {
-				query += " OR Ubicacion.pais = '" + paises.get(i) + "'";
-			}
-			query += ")";
-		}
-		if (!(departamentos==null) && !(departamentos.isEmpty())) {
-			query += " AND (Ubicacion.departamento = '" + departamentos.get(0) + "'";
-			for (int i=1; i<departamentos.size(); i++) {
-				query += " OR Ubicacion.departamento = '" + departamentos.get(i) + "'";
-			}
-			query += ")";
-		}
-		if (!(municipios==null) && !(municipios.isEmpty())) {
-			query += "AND (Ubicacion.municipio = '" + municipios.get(0)+ "'";
-			for (int i=1; i<municipios.size(); i++) {
-				query += " OR Ubicacion.municipio = '" + municipios.get(i) + "'";
+				query += " OR (Ubicacion.pais = '" + paises.get(i) + "'";
+				if (departamentos.get(i).equals("sin filtro")) {
+					query += ")";
+				}else {
+					query += " AND Ubicacion.departamento = '" + departamentos.get(0) + "'";
+					if (municipios.get(i).equals("sin filtro")) {
+						query += ")";
+					}else {
+						query += " AND Ubicacion.municipio = '" + municipios.get(0)+ "')";
+					}
+				}
 			}
 			query += ")";
 		}

@@ -52,8 +52,6 @@ public class ClientSceneController extends PrincipalAbstractController implement
 
     @FXML
     private Button btnSearch;
-    @FXML
-    private Button buscador2;
 
     @FXML
     private Button nuevaUbicacion;
@@ -110,7 +108,6 @@ public class ClientSceneController extends PrincipalAbstractController implement
 			e.printStackTrace();
 		}
 		setUserLocation();
-		
 	}
 	
 	@FXML
@@ -132,6 +129,7 @@ public class ClientSceneController extends PrincipalAbstractController implement
 			
 			List<Vivienda> viviendas = Queries.buscarPropiedades(paises, deptos, municipios, selectTipoPropiedad.getValue(), selectNumRooms.getValue(),
 					arrMin, arrMax);
+			controlador.setLocations(paises, deptos, municipios);
 			controlador.search(viviendas);
 			
 			Scene scene = new Scene(root);
@@ -179,7 +177,15 @@ public class ClientSceneController extends PrincipalAbstractController implement
         		if(us.length==3) {
         			cmbMunicipios.getItems().add(us[2]);
         			municipios.add(us[2]);        			
-        		}
+        		}else {
+        			cmbMunicipios.getItems().add("sin filtro");
+            		municipios.add("sin filtro");
+            	}
+        	}else {
+        		cmbDeptos.getItems().add("sin filtro");
+        		deptos.add("sin filtro");
+        		cmbMunicipios.getItems().add("sin filtro");
+        		municipios.add("sin filtro");
         	}
         });
 	}
@@ -194,14 +200,6 @@ public class ClientSceneController extends PrincipalAbstractController implement
 	@FXML
 	public void sidebar(MouseEvent event) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("/source/sidebar.fxml"));
-		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.centerOnScreen();
-	}
-	@FXML
-	public void buscador2(MouseEvent event) throws IOException{
-		Parent root = FXMLLoader.load(getClass().getResource("/source/SearchScene2.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);

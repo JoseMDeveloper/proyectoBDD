@@ -43,7 +43,7 @@
                                           <Image url="@imgs/ubi.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="ubicacion" prefHeight="25.0" prefWidth="286.0" text="Ubicacion">
+                                    <Label fx:id="ubicacion" prefHeight="25.0" prefWidth="286.0" text="Ubicacion" textAlignment="CENTER">
                                        <font>
                                           <Font name="Consolas" size="16.0" />
                                        </font>
