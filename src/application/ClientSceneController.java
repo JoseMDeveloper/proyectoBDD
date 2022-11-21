@@ -116,11 +116,10 @@ public class ClientSceneController extends PrincipalAbstractController implement
 	@FXML
 	public void search(MouseEvent event) throws IOException, NumberFormatException, ClassNotFoundException, SQLException {
 		if(!ubis.isEmpty()) {			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/SearchScene.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/SearchScene2.fxml"));
 			Parent root = loader.load();
 			
-			SearchSceneController controlador = loader.getController();
-			
+			SearchScene2Controller controlador = loader.getController();
 			Integer arrMin = null;
 			Integer arrMax = null;
 			
@@ -137,14 +136,15 @@ public class ClientSceneController extends PrincipalAbstractController implement
 			
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setScene(scene);
-			stage.showAndWait();
+			stage.show();
+			Stage thisStage = (Stage) this.btnSearch.getScene().getWindow();
+			thisStage.close();
 		}else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setTitle("Error");
-            alert.setContentText("Debes seleccionar una ubicacion");
+            alert.setContentText("Debe seleccionar una ubicacion");
             alert.showAndWait();
 		}
 	}

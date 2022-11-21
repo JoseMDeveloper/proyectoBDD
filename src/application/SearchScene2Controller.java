@@ -3,6 +3,7 @@ package application;
 import java.awt.Insets;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 
 public class SearchScene2Controller extends PrincipalAbstractController implements Initializable{
 	@FXML
@@ -43,51 +45,20 @@ public class SearchScene2Controller extends PrincipalAbstractController implemen
 	private ImageView cerrar;
 	@FXML
 	private ImageView inicio;
+	@FXML
+    private Label cantHabitaciones;
 	
 	@FXML
 	private Label cuenta;
 
-	private List<Vivienda> vivienda=new ArrayList<>();
+	private List<Vivienda> viviendas=new ArrayList<>();
 	// Santi aca debes conectar el buscador, y ponerle a vivi los datos de cada vivienda que encontro, el resto se hace solo
-	private List<Vivienda> obtenerInfo()
-	{
-		 List<Vivienda> vivienda=new ArrayList<>();
-		 Vivienda vivi;
-		 for(int i=0;i<5;i++)
-		 {
-			 vivi=new Vivienda(1,"casa","calle3",3,4123124F,"15 abril","activo","la casa es super bonita"
-					 ,"Colombia"); 
-			 vivienda.add(vivi);
-		 }
-		 return vivienda;
-	}
-	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		vivienda.addAll(obtenerInfo());
-		int column=0;
-		int row=0;
-		try
-		{
-			for(int i=0;i<vivienda.size();i++)
-			{
-				FXMLLoader fxmlLoader=new FXMLLoader();		
-				fxmlLoader.setLocation(getClass().getResource("/source/propiedades.fxml"));
-					AnchorPane anchorpane=fxmlLoader.load();		
-				propiedadesController propiController= fxmlLoader.getController();
-				propiController.setData(vivienda.get(i));
-				row++;
-				grid.add(anchorpane, 1, row);
-				
-			}
-			
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
+		updateViviendas();
 	}
+	
 	@FXML
 	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
@@ -96,6 +67,7 @@ public class SearchScene2Controller extends PrincipalAbstractController implemen
 		stage.setScene(scene);
 		stage.centerOnScreen();
 	}
+	
 	@FXML
 	public void cambiaVentanaPerfil(MouseEvent event)throws IOException
 	{
@@ -104,5 +76,26 @@ public class SearchScene2Controller extends PrincipalAbstractController implemen
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.centerOnScreen();	
+	}
+	
+	public void search(List<Vivienda> vivs) throws SQLException, ClassNotFoundException {
+		viviendas.addAll(vivs);
+		updateViviendas();
+	}
+	
+	public void updateViviendas() {
+		try{
+			for(int i=0;i<viviendas.size();i++){
+				FXMLLoader fxmlLoader=new FXMLLoader();		
+				fxmlLoader.setLocation(getClass().getResource("/source/propiedades.fxml"));
+				AnchorPane anchorpane=fxmlLoader.load();		
+				propiedadesController propiController = fxmlLoader.getController();
+				propiController.setData(viviendas.get(i));
+				grid.add(anchorpane, 1, i+1);
+			}
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 }
