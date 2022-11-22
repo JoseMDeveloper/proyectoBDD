@@ -40,7 +40,7 @@ public class Queries {
 		ResultSet rs = DBConnection.getStatement().executeQuery();
 		rs.next();
 		Usuario user = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
-				rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), null);
+				rs.getInt(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), null);
 		DBConnection.desconnect();
 		return user;
 	}
@@ -305,4 +305,6 @@ public class Queries {
 		DBConnection.desconnect();
 		return vivs;
 	}
+	
+//	public void 
 }

@@ -1,8 +1,8 @@
-CREATE TABLE TipoServicio ( 
+CREATE TABLE TipoServicio (
     IDTipoServicio number(10) DEFAULT NULL,
     TipoServicio varchar2(25) NOT NULL,
     PRIMARY KEY (IDtipoServicio)
-); --Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
 CREATE TABLE TipoComision (
     IDtipoCom number(10) DEFAULT NULL,
@@ -10,32 +10,32 @@ CREATE TABLE TipoComision (
     Porcentaje number(10, 1) NOT NULL,
     CHECK (Porcentaje>0),
     PRIMARY KEY (IDtipoCom)
-);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
 CREATE TABLE TipoImpuesto (
     IDtipoImp number(10) DEFAULT NULL,
     TipoImp varchar2(255) NOT NULL,
     Porcentaje number(3, 1) NOT NULL,
     PRIMARY KEY (IDtipoImp)
-);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
 CREATE TABLE TipoPago (
     IDtipoPago number(10) DEFAULT NULL,
     TipoPago varchar2(25) NOT NULL,
     PRIMARY KEY (IDtipoPago)
-);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
 CREATE TABLE TipoUsuario (
     IDtipoUs number(10) DEFAULT NULL,
     TipoUs varchar2(255) NOT NULL,
     PRIMARY KEY (IDtipoUs)
-);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
 CREATE TABLE TipoVivienda (
     IDtipoViv number(10) DEFAULT NULL,
     Tipo varchar2(25) NOT NULL,
     PRIMARY KEY (IDtipoViv)
-);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
 CREATE TABLE Ubicacion (
     IDubicacion number(10) DEFAULT NULL,
@@ -103,12 +103,11 @@ CREATE TABLE Comentario (
 CREATE TABLE Factura (
     IDfactura number(10) DEFAULT NULL,
     Correo varchar2(25) NOT NULL,
-    TotalaPagar float(10) NOT NULL,
+    TotalAPagar float(10) NOT NULL,
     FechaInicio date NOT NULL,
     FechaFin date NOT NULL,
     IDusuario number(10) NOT NULL,
     IDvivienda number(10) NOT NULL,
-    IDServ number(10) NOT NULL,
     CHECK (TotalaPagar>0),
     PRIMARY KEY (IDfactura),
     FOREIGN KEY (IDusuario) REFERENCES Usuario (IDusuario) ON DELETE CASCADE,
@@ -121,7 +120,7 @@ CREATE TABLE Factura_TipoComision (
     PRIMARY KEY (IDtipoCom, IDfactura),
     FOREIGN KEY (IDtipoCom) REFERENCES TipoComision (IDtipoCom) ON DELETE CASCADE,
     FOREIGN KEY (IDfactura) REFERENCES Factura (IDfactura) ON DELETE CASCADE
-);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
 CREATE TABLE Pago (
     IDfactura number(10) NOT NULL,
@@ -129,6 +128,9 @@ CREATE TABLE Pago (
     Numero number(16), --nullable
     Monto number(30, 2) NOT NULL,
     NumeroAutorizacion number(25), --nullable
+    nombrePoseedor VARCHAR2(25),
+    mesVencimiento number(4),
+    anoVencimiento number(4),
     CHECK (Monto>0),
     PRIMARY KEY (IDfactura, IDtipoPago),
     FOREIGN KEY (IDfactura) REFERENCES Factura (IDfactura) ON DELETE CASCADE,
@@ -141,7 +143,7 @@ CREATE TABLE TipoImpuesto_Factura (
     PRIMARY KEY (IDtipoImp, IDfactura),
     FOREIGN KEY (IDfactura) REFERENCES Factura (IDfactura) ON DELETE CASCADE,
     FOREIGN KEY (IDtipoImp) REFERENCES TipoImpuesto (IDtipoImp) ON DELETE CASCADE
-); --Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
 CREATE TABLE Servicio (
     IDfactura number(10) NOT NULL,
@@ -160,7 +162,7 @@ CREATE TABLE Visita (
     PRIMARY KEY (IDusuario, IDvivienda),
     FOREIGN KEY (IDusuario) REFERENCES Usuario (IDusuario) ON DELETE CASCADE,
     FOREIGN KEY (IDvivienda) REFERENCES Vivienda (IDvivienda) ON DELETE CASCADE
-);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
 CREATE TABLE SolicitudRenta (
     IDusuario number(10) NOT NULL,
@@ -169,8 +171,19 @@ CREATE TABLE SolicitudRenta (
     PRIMARY KEY (IDusuario, IDvivienda),
     FOREIGN KEY (IDusuario) REFERENCES Usuario (IDusuario) ON DELETE CASCADE,
     FOREIGN KEY (IDvivienda) REFERENCES Vivienda (IDvivienda) ON DELETE CASCADE
-);--Esta no --------------------------------------------------------------------------------------------------------------------------------------------------------
+);
 
+CREATE TABLE Notificaciones(
+    IDusuario number(10) NOT NULL,
+    fecha date default SYSDATE NOT NULL,
+    mensaje varchar2 NOT NULL,
+    PRIMARY KEY (IDusuario, fecha),
+    FOREIGN KEY (IDusuario) REFERENCES Usuario (IDusuario) ON DELETE CASCADE
+);
+
+DROP TABLE Notificaciones;
+DROP TABLE SolicitudRenta;
+DROP TABLE Visita;
 DROP TABLE Servicio;
 DROP TABLE TipoImpuesto_Factura;
 DROP TABLE Pago;
