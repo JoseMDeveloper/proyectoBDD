@@ -195,16 +195,36 @@ public class Queries {
 		DBConnection.desconnect();
 	}
 	
-	public static List<Visita> visitasUsuario(String userName) throws ClassNotFoundException, SQLException{
+	public static List<Visita> visitasCliente(Integer ID) throws ClassNotFoundException, SQLException{
 		DBConnection.connect();
-		String consulta="SELECT visita.IDvivienda, usuario.IDusuario, visita.fecha"
-				+" FROM Usuario"
-				+ " JOIN Visita ON (Usuario.IDusuario=Visita.IDusuario)"
-				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivienda"
-				+" WHERE usuario.nombreUsuario=? AND Vivienda.estado=1";
+		String consulta="SELECT visita.IDvivienda, visita.IDusuario, visita.fecha "
+				+ "FROM Visita"
+				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivienda "
+				+ "WHERE visita.IDusuario=? AND visita.fecha>sysdate";
 		List<Visita> visitas = new ArrayList<>();
 		DBConnection.createStatement(consulta);
-		DBConnection.getStatement().setString(1,userName);
+		DBConnection.getStatement().setInt(1,ID);
+		ResultSet res = DBConnection.getStatement().executeQuery();
+		while (res.next()) {
+			Integer IDvivienda = res.getInt(1);
+			Integer IDusuario = res.getInt(2);
+			String fecha = res.getString(3).substring(0,10);;
+			
+			visitas.add(new Visita(IDvivienda, IDusuario, fecha));
+		}
+		DBConnection.desconnect();
+		return visitas;
+	}
+	
+	public static List<Visita> historialVisitasCliente(Integer ID) throws ClassNotFoundException, SQLException{
+		DBConnection.connect();
+		String consulta="SELECT visita.IDvivienda, visita.IDusuario, visita.fecha "
+				+ "FROM Visita"
+				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivienda "
+				+ "WHERE visita.IDusuario=? AND visita.fecha<=sysdate";
+		List<Visita> visitas = new ArrayList<>();
+		DBConnection.createStatement(consulta);
+		DBConnection.getStatement().setInt(1,ID);
 		ResultSet res = DBConnection.getStatement().executeQuery();
 		while (res.next()) {
 			Integer IDvivienda = res.getInt(1);
@@ -222,7 +242,6 @@ public class Queries {
 		String update = "UPDATE usuario"
 				+ " SET estado=0"
 				+ " WHERE IDusuario='"+Sesion.getUser().getId()+"'";
-		List<Visita> visitas = new ArrayList<>();
 		DBConnection.createStatement(update);
 		DBConnection.getStatement().executeQuery();
 		DBConnection.desconnect();
