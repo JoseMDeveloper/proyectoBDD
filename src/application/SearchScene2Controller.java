@@ -258,10 +258,28 @@ public class SearchScene2Controller extends PrincipalAbstractController implemen
 			Integer arrMax = null;
 			
 			if(!ArriendoMin.getText().isBlank()) {
-				arrMin = Integer.parseInt(ArriendoMin.getText());
+				try {
+					arrMin = Integer.parseInt(ArriendoMin.getText());
+				}catch(NumberFormatException e) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setHeaderText(null);
+		            alert.setTitle("Error");
+		            alert.setContentText("El valor de arriendo minimo ingresado no es un numero\n"
+		            		+ "Se conciderara como nulo");
+		            alert.showAndWait();
+				}
 			}
 			if (!ArriendoMax.getText().isBlank()) {
-				arrMax = Integer.parseInt(ArriendoMax.getText());
+				try {
+					arrMax = Integer.parseInt(ArriendoMax.getText());
+				}catch(NumberFormatException e) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setHeaderText(null);
+		            alert.setTitle("Error");
+		            alert.setContentText("El valor de arriendo maximo ingresado no es un numero\n"
+		            		+ "Se conciderara como nulo");
+		            alert.showAndWait();
+				}
 			}
 			viviendas.clear();
 			viviendas.addAll(Queries.buscarPropiedades(paises, deptos, municipios, tipoVivienda, cantHabs,

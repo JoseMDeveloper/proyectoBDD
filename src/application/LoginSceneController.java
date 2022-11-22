@@ -146,7 +146,7 @@ public class LoginSceneController implements Initializable{
 					}
 					else if(Sesion.getUser().getIDtipousuario()==2)
 					{
-						cambiaVentanaPrincipaldueño(event);
+						cambiaVentanaPrincipaldueno(event);
 					}
 				}
 				else {
@@ -244,7 +244,7 @@ public class LoginSceneController implements Initializable{
 		stage.setScene(scene);
 		stage.centerOnScreen();
 	}
-		public void cambiaVentanaPrincipaldueño(MouseEvent event) throws IOException {
+		public void cambiaVentanaPrincipaldueno(MouseEvent event) throws IOException {
 			Parent root = FXMLLoader.load(getClass().getResource("/source/OwnerScene.fxml"));
 			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
