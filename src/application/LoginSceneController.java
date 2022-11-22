@@ -134,12 +134,20 @@ public class LoginSceneController implements Initializable{
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					Sesion.setUser(new Usuario(1, "admin", "1", nombre, contra,
 							"admin@gmail.com", 1,null, 10000000, null, 3, 1, null));
-					cambiaVentanaPrincipal(event);
-				}else if(Queries.validSesion(nombre, contra)){
+					cambiaVentanaPrincipalusuario(event);
+				}else if(Queries.validSesion(nombre, contra) ){
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					Sesion.setUser(Queries.getUser(nombre));
 					Sesion.getUser().setContrasena(contra);
-					cambiaVentanaPrincipal(event);
+					if(Sesion.getUser().getIDtipousuario()==1)
+					{
+						
+						cambiaVentanaPrincipalusuario(event);
+					}
+					else if(Sesion.getUser().getIDtipousuario()==2)
+					{
+						cambiaVentanaPrincipaldueno(event);
+					}
 				}
 				else {
 					error.setVisible(true);
@@ -229,12 +237,19 @@ public class LoginSceneController implements Initializable{
 		error.setVisible(true);
 	}
 	
-	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
+	public void cambiaVentanaPrincipalusuario(MouseEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.centerOnScreen();
+	}
+		public void cambiaVentanaPrincipaldueno(MouseEvent event) throws IOException {
+			Parent root = FXMLLoader.load(getClass().getResource("/source/OwnerScene.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.centerOnScreen();
 		
 //		ventanaPrinci.setX(-10);
 //		ventanaPrinci.setY(0);
