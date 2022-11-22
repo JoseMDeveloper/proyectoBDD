@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="276.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PerfilController">
+   <children>
+      <Label layoutX="103.0" prefHeight="43.0" prefWidth="98.0" text="Perfil">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <VBox layoutX="27.0" layoutY="45.0" prefHeight="322.0" prefWidth="225.0">
+         <children>
+            <Label prefHeight="21.0" prefWidth="141.0" text="Tipo de cuenta">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <HBox>
+               <children>
+                  <TextField fx:id="textfieldTipoCuenta" editable="false" prefWidth="170.0" />
+               </children>
+            </HBox>
+            <Label text="Usuario">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <HBox>
+               <children>
+                  <TextField fx:id="textfieldUsuario" editable="false" prefWidth="170.0" />
+               </children>
+            </HBox>
+            <Label text="Nombre">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <HBox>
+               <children>
+                  <TextField fx:id="textfieldNombre" editable="false" prefWidth="170.0" />
+                  <Button fx:id="editarNombre" mnemonicParsing="false" onMouseClicked="#editarNombre" text="Editar" />
+               </children>
+            </HBox>
+            <Label prefHeight="21.0" prefWidth="67.0" text="Apellido">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <HBox>
+               <children>
+                  <TextField fx:id="textfieldApeliido" editable="false" prefWidth="170.0" />
+                  <Button fx:id="editarApe" mnemonicParsing="false" onMouseClicked="#editarApe" text="Editar" />
+               </children>
+            </HBox>
+            <Label prefHeight="21.0" prefWidth="141.0" text="Correo Electronico">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <HBox>
+               <children>
+                  <TextField fx:id="textfieldCorreo" editable="false" prefWidth="170.0" />
+                  <Button fx:id="editarCorreo" mnemonicParsing="false" onMouseClicked="#editarCorreo" text="Editar" />
+               </children>
+            </HBox>
+            <Label prefHeight="21.0" prefWidth="141.0" text="Contraseña">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <HBox>
+               <children>
+                  <PasswordField fx:id="textfieldContra" editable="false" prefWidth="170.0" />
+                  <Button fx:id="editarContra" mnemonicParsing="false" onMouseClicked="#editarContra" text="Editar" />
+               </children>
+            </HBox>
+            <Label fx:id="maximatexto" prefHeight="21.0" prefWidth="141.0" text="Maxima renta">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <HBox>
+               <children>
+                  <TextField fx:id="textfieldrenta" editable="false" prefWidth="170.0" />
+                  <Button fx:id="editarRenta" mnemonicParsing="false" onMouseClicked="#editarRenta" text="Editar" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="guardar" layoutX="103.0" layoutY="392.0" mnemonicParsing="false" onMouseClicked="#Guardar" text="Guardar" />
+      <Button fx:id="eliminar" layoutX="84.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#eliminar" text="Eliminar cuenta" />
+   </children>
+</AnchorPane>

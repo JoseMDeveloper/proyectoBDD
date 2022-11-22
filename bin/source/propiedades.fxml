@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="338.0" prefWidth="648.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.propiedadesController">
+   <children>
+      <AnchorPane layoutX="30.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="299.0" prefWidth="585.0" style="-fx-background-radius: 20; -fx-background-color: white;" styleClass="shadow" stylesheets="@../application/application.css">
+         <children>
+            <HBox prefHeight="299.0" prefWidth="582.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane prefHeight="299.0" prefWidth="51.0" />
+                  <VBox prefHeight="300.0" prefWidth="276.0">
+                     <children>
+                        <Pane>
+                           <children>
+                              <ImageView fx:id="imagenpropi" fitHeight="280.0" fitWidth="279.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" styleClass="ra">
+                                 <image>
+                                    <Image url="@imgs/casaVenta.jpg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <VBox prefHeight="20.0" prefWidth="297.0" />
+                     </children>
+                  </VBox>
+                  <Pane prefHeight="299.0" prefWidth="104.0" />
+                  <AnchorPane prefHeight="299.0" prefWidth="325.0">
+                     <children>
+                        <VBox layoutX="14.0" prefHeight="299.0" prefWidth="186.0">
+                           <children>
+                              <HBox prefHeight="36.0" prefWidth="374.0">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@imgs/ubi.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="ubicacion" prefHeight="25.0" prefWidth="286.0" text="Ubicacion" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Consolas" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="nombrepropi" contentDisplay="CENTER" prefHeight="36.0" prefWidth="286.0" text="Nombre" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Consolas" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="descripcion" alignment="TOP_LEFT" prefHeight="124.0" prefWidth="262.0" text="Descripcion" wrapText="true">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="precio" prefHeight="30.0" prefWidth="306.0" text="Precio: $$$$">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="tipo" prefHeight="30.0" prefWidth="346.0" text="Tipo: casa">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="habi" prefHeight="30.0" prefWidth="312.0" text="Habitaciones: ">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <Button fx:id="agregarVisita" layoutX="165.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#agregarVisita" prefHeight="47.0" prefWidth="95.0" styleClass="add-button" stylesheets="@../application/application.css" text="Agregar a la lista de visitas" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="rentar" layoutX="187.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#rentar" style="-fx-background-color: #BAEAC3; -fx-background-radius: 20;" text="Rentar" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
