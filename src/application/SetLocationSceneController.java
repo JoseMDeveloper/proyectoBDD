@@ -21,13 +21,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class AddLocationSceneController implements Initializable{
+public class SetLocationSceneController implements Initializable{
 	
 	@FXML
 	private ComboBox<Pais> cboxPais;
@@ -42,13 +44,7 @@ public class AddLocationSceneController implements Initializable{
     private Button agregar;
 
     @FXML
-    private Button borrar;
-    
-    @FXML
-    private Button aceptar;
-    
-    @FXML
-    private ListView<String> lista;
+    private Label ubi;
     
     private List<Pais> paises = new ArrayList<>();
     private List<Departamento> deptos = new ArrayList<>();
@@ -61,13 +57,14 @@ public class AddLocationSceneController implements Initializable{
     private ObservableList<Departamento> obsDeptos = FXCollections.observableArrayList();
     private ObservableList<Municipio> obsMunicipios = FXCollections.observableArrayList();
     
-    private List<String> result = new ArrayList<>();
+    private String result;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		cboxPais.setItems(obsPaises);
 		cboxDepto.setItems(obsDeptos);
 		cboxMunicipio.setItems(obsMunicipios);
+		ubi.setTextAlignment(TextAlignment.CENTER);
 	}
 	
 	@FXML
@@ -173,57 +170,16 @@ public class AddLocationSceneController implements Initializable{
     
     @FXML
     void agregarUbicacion(MouseEvent event) {
-    	if (!(cboxPais.getValue()+"").isBlank()) {
-    		String ubi = "Pais: "+cboxPais.getValue();
-    		String rUbi = cboxPais.getValue()+"";
-    		if(cboxDepto.getValue()!=null) {
-    			ubi += " | Departamento: "+ cboxDepto.getValue();
-    			rUbi += ","+cboxDepto.getValue();
-    			if(cboxMunicipio.getValue()!=null) {
-    				ubi += " | Municipio: "+ cboxMunicipio.getValue();
-    				rUbi += ","+cboxMunicipio.getValue();
-    			}
-    		}
-    		lista.getItems().add(ubi);
-    		result.add(rUbi);
-    	}else {
-    		Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Debes seleccionar al menos un pais");
-            alert.showAndWait();
-    	}
-    }
-    
-
-	@FXML
-    void borrarUbicacion(MouseEvent event) {
-    	String ubi = lista.getSelectionModel().getSelectedItem();
-    	int i = lista.getSelectionModel().getSelectedIndex();
-    	if (ubi == null) {
-    		Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Debes seleccionar una ubicacion");
-            alert.showAndWait();
-    	}else {
-    		lista.getItems().remove(ubi);
-    		result.remove(i);
-    	}
-    }
-	
-    
-    @FXML
-    void aceptarUbicaciones(MouseEvent event) {
-    	if(result.isEmpty()) {
-    		Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Debes seleccionar una ubicacion");
-            alert.showAndWait();
-    	}else {
-    		Stage stage = (Stage) this.aceptar.getScene().getWindow();
+    	if (!(cboxPais.getValue()==null) && !(cboxDepto.getValue()==null) && !(cboxMunicipio.getValue()==null)) {
+    		result = cboxPais.getValue()+","+cboxDepto.getValue()+","+cboxMunicipio.getValue();
+    		Stage stage = (Stage) this.agregar.getScene().getWindow();
     		stage.close();
+    	}else {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debe llenar todo los campos");
+            alert.showAndWait();
     	}
     }
     
@@ -247,22 +203,7 @@ public class AddLocationSceneController implements Initializable{
 	}
 	
 	
-	public List<String> getResult() {
+	public String getResult() {
 		return result;
-	}
-	
-	public void setSelectedUbicaciones(List<String> selectedUbis) {
-		selectedUbis.forEach(u->{
-			String[] us = u.split(",");
-			result.add(u);
-			String ubi = "Pais: "+us[0];
-			if(us.length>1) {
-				ubi += " | Departamento: "+us[1];
-				if(us.length==3) {
-					ubi += " | Municipio: "+us[2];
-				}
-			}
-			lista.getItems().add(ubi);
-		});
 	}
 }

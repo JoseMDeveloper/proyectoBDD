@@ -230,7 +230,7 @@ public class Queries {
 		while (res.next()) {
 			Integer IDvivienda = res.getInt(1);
 			Integer IDusuario = res.getInt(2);
-			String fecha = res.getString(3).substring(0,10);;
+			String fecha = res.getString(3).substring(0,10);
 			
 			visitas.add(new Visita(IDvivienda, IDusuario, fecha));
 		}
@@ -269,5 +269,40 @@ public class Queries {
 		boolean valid = rs.next();
 		DBConnection.desconnect();
 		return valid;
+	}
+	
+	public static List<Vivienda> viviendasPropietario(Integer id) throws ClassNotFoundException, SQLException{
+		DBConnection.connect();
+		String consulta="SELECT Vivienda.IDvivienda, TipoVivienda.tipo, Vivienda.Direccion, Vivienda.CantHabitaciones, "
+				+ "Vivienda.PrecioRentaMensual, Vivienda.fecha, Vivienda.Descripcion, Ubicacion.pais, Vivienda.estado "
+				+ "FROM Vivienda "
+				+ " JOIN Ubicacion ON Vivienda.IDubicacion = Ubicacion.IDubicacion "
+				+ " JOIN TipoVivienda ON Vivienda.IDtipoViv = TipoVivienda.IDtipoViv "
+				+ " JOIN Factura ON Vivienda.IDvivienda = Factura.IDvivienda "
+				+ " JOIN Usuario ON Factura.IDusuario = Usuario.IDusuario"
+				+ "WHERE IDusuario=? AND NOT vivienda.estado=0";
+		List<Vivienda> vivs = new ArrayList<>();
+		DBConnection.createStatement(consulta);
+		DBConnection.getStatement().setInt(1,id);
+		ResultSet rs = DBConnection.getStatement().executeQuery();
+		while (rs.next()) {
+			Integer ID = rs.getInt(1);
+			String tipo = rs.getString(2);
+			String direccion = rs.getString(3);
+			Integer numHabitaciones = rs.getInt(4);
+			Float rentaMensual = rs.getFloat(5);
+			String fecha = rs.getString(6).substring(0,10);
+			String descripcion = rs.getString(7);
+			String pais = rs.getString(8);
+			String estado;
+			if(rs.getInt(9)==1) {
+				estado = "Disponible";
+			}else {
+				estado = "Arrendada";
+			}
+			vivs.add(new Vivienda(ID, tipo, direccion, numHabitaciones, rentaMensual, fecha, estado, descripcion, pais));
+		}
+		DBConnection.desconnect();
+		return vivs;
 	}
 }

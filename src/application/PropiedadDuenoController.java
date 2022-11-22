@@ -73,7 +73,7 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
     @FXML
     private TextField arriendo;
     @FXML
-    private Button btnSearch;
+    private Button btnArrendar;
     @FXML
     private Pane btnApto;
     @FXML
@@ -90,7 +90,7 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
     private List<String> deptos = new ArrayList<>();
     private List<String> municipios = new ArrayList<>();
     
-    private List<String> ubis = new ArrayList<>();
+    private String ubi;
 	private List<Vivienda> viviendas = new ArrayList<>();
 	private Map<Integer, Ubicacion> ubicaciones;
 
@@ -202,14 +202,13 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
 	
 	@FXML
 	public void addLocation(MouseEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/AddLocationScene.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/SetLocationScene.fxml"));
         Parent root = loader.load();
         
-        AddLocationSceneController controlador = loader.getController();
+        SetLocationSceneController controlador = loader.getController();
 //      controlador.initAttributtes(personas);
         
         controlador.updateLocations(ubicaciones);
-        controlador.setSelectedUbicaciones(ubis);
         
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -218,59 +217,26 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
         stage.showAndWait();
         
         clearUbicaciones();
-        ubis.addAll(controlador.getResult());
-        
-        ubis.forEach(u -> {
-        	String[] us = u.split(",");
-        	cmbPaises.getItems().add(us[0]);
-        	paises.add(us[0]);
-        	if(us.length>1) {
-        		cmbDeptos.getItems().add(us[1]);
-        		deptos.add(us[1]);
-        		if(us.length==3) {
-        			cmbMunicipios.getItems().add(us[2]);
-        			municipios.add(us[2]);        			
-        		}else {
-        			cmbMunicipios.getItems().add("sin filtro");
-            		municipios.add("sin filtro");
-            	}
-        	}else {
-        		cmbDeptos.getItems().add("sin filtro");
-        		deptos.add("sin filtro");
-        		cmbMunicipios.getItems().add("sin filtro");
-        		municipios.add("sin filtro");
-        	}
-        });
+        ubi=controlador.getResult();
 	}
 	
 	public void updateLocations() throws ClassNotFoundException, SQLException {
 		this.ubicaciones = Queries.obtenerUbicacion();
 	}
 	
-	public void setLocations(List<String> ps, List<String> ds, List<String> ms) {
-		paises.addAll(ps);
-		cmbPaises.getItems().addAll(ps);
+	public void setLocations(String p, String d, String m) {
+		paises.add(p);
+		cmbPaises.getItems().add(p);
 		
-		deptos.addAll(ds);
-		cmbDeptos.getItems().addAll(ds);
+		deptos.add(d);
+		cmbDeptos.getItems().add(d);
 		
-		municipios.addAll(ms);
-		cmbMunicipios.getItems().addAll(ms);
-		
-		for(int i=0;i<ps.size();i++) {
-			String ubi = ps.get(i);
-			if (!ds.get(i).equals("sin filtro")) {
-				ubi += ","+ds.get(i);
-				if(!ms.get(i).equals("sin filtro")) {
-					ubi += ","+ms.get(i);
-				}
-			}
-			ubis.add(ubi);
-		}
+		municipios.add(m);
+		cmbMunicipios.getItems().add(m);
 	}
 	
 	public void clearUbicaciones() {
-		ubis.clear();
+		ubi=null;
 		paises.clear();
 		cmbPaises.getItems().clear();
 		cmbPaises.getItems().add("Pais");
@@ -285,5 +251,18 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
 		cmbMunicipios.getItems().clear();
 		cmbMunicipios.getItems().add("Municipio");
 		cmbMunicipios.valueProperty().set(null);
+	}
+	
+	@FXML
+	public void arrendar(MouseEvent event) {
+		if (ubi==null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debe seleccionar una ubicacion");
+            alert.showAndWait();
+		}else {
+			
+		}
 	}
 }
