@@ -26,7 +26,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
                      <children>
-                        <Label prefHeight="50.0" prefWidth="79.0" text="Donde" textFill="#858585">
+                        <Label prefHeight="50.0" prefWidth="84.0" text="Donde" textFill="#858585">
                            <font>
                               <Font name="Consolas Bold" size="26.0" />
                            </font>
@@ -60,7 +60,7 @@
                               </HBox>
                            </children>
                         </AnchorPane>
-                        <Button fx:id="btnSearch" mnemonicParsing="false" onMouseClicked="#searchVivs" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" text="Buscar" textFill="WHITE">
+                        <Button fx:id="btnArrendar" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" text="Arrendar" textFill="WHITE">
                            <font>
                               <Font name="Consolas" size="12.0" />
                            </font></Button>
@@ -110,15 +110,14 @@
                               <Font name="Consolas Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="39.0" layoutY="295.0" text="Minimo" />
                         <Button fx:id="clearSelect" layoutX="150.0" layoutY="208.0" mnemonicParsing="false" onMouseClicked="#clearSelection" style="-fx-background-color: #f0f0f0; -fx-background-radius: 30;" text="Borrar seleccion" />
                      </children></Pane>
                   <Pane prefHeight="58.0" prefWidth="435.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox layoutX="40.0" layoutY="14.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;">
+                        <HBox layoutX="76.0" layoutY="21.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: black;">
                            <children>
                               <Label prefHeight="40.0" prefWidth="30.0" text="COP$" textAlignment="CENTER" />
-                              <TextField fx:id="ArriendoMin" prefHeight="40.0" prefWidth="118.0" promptText="Precio" style="-fx-border-color: white;" />
+                              <TextField fx:id="arriendo" prefHeight="40.0" prefWidth="118.0" promptText="Precio" style="-fx-border-color: white;" />
                            </children>
                         </HBox>
                         <Label layoutX="14.0" layoutY="87.0" prefHeight="17.0" prefWidth="310.0" text="Caracteristicas">

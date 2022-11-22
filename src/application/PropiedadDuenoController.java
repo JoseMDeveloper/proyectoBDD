@@ -71,9 +71,7 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
     @FXML
     private ComboBox<String> cmbPaises;
     @FXML
-    private TextField ArriendoMax;
-    @FXML
-    private TextField ArriendoMin;
+    private TextField arriendo;
     @FXML
     private Button btnSearch;
     @FXML
@@ -93,7 +91,7 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
     private List<String> municipios = new ArrayList<>();
     
     private List<String> ubis = new ArrayList<>();
-	private List<Vivienda> viviendas=new ArrayList<>();
+	private List<Vivienda> viviendas = new ArrayList<>();
 	private Map<Integer, Ubicacion> ubicaciones;
 
 	@Override
@@ -101,6 +99,7 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
 		cmbPaises.getItems().add("Pais");
 		cmbDeptos.getItems().add("Depto");
 		cmbMunicipios.getItems().add("Municipio");
+//		viviendas.addAll();
 		updateViviendas();
 		try {
 			updateLocations();
@@ -128,15 +127,10 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
 		stage.centerOnScreen();	
 	}
 	
-	public void search(List<Vivienda> vivs) throws SQLException, ClassNotFoundException {
-		viviendas.addAll(vivs);
-		updateViviendas();
-	}
-	
 	public void updateViviendas() {
 		grid.getChildren().clear();
 		try{
-			numPropiedades.setText(viviendas.size()+" Viviendas encontradas con el filtro especificado");
+			numPropiedades.setText("Usted tiene "+viviendas.size()+" Viviendas");
 			for(int i=0;i<viviendas.size();i++){
 				FXMLLoader fxmlLoader=new FXMLLoader();		
 				fxmlLoader.setLocation(getClass().getResource("/source/propiedades.fxml"));
@@ -247,49 +241,6 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
         		municipios.add("sin filtro");
         	}
         });
-	}
-	
-	@FXML
-	public void searchVivs(MouseEvent event) throws IOException, NumberFormatException, ClassNotFoundException, SQLException {
-		if(!ubis.isEmpty()) {
-			Integer arrMin = null;
-			Integer arrMax = null;
-			
-			if(!ArriendoMin.getText().isBlank()) {
-				try {
-					arrMin = Integer.parseInt(ArriendoMin.getText());
-				}catch(NumberFormatException e) {
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-		            alert.setHeaderText(null);
-		            alert.setTitle("Error");
-		            alert.setContentText("El valor de arriendo minimo ingresado no es un numero\n"
-		            		+ "Se conciderara como nulo");
-		            alert.showAndWait();
-				}
-			}
-			if (!ArriendoMax.getText().isBlank()) {
-				try {
-					arrMax = Integer.parseInt(ArriendoMax.getText());
-				}catch(NumberFormatException e) {
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-		            alert.setHeaderText(null);
-		            alert.setTitle("Error");
-		            alert.setContentText("El valor de arriendo maximo ingresado no es un numero\n"
-		            		+ "Se conciderara como nulo");
-		            alert.showAndWait();
-				}
-			}
-			viviendas.clear();
-			viviendas.addAll(Queries.buscarPropiedades(paises, deptos, municipios, tipoVivienda, cantHabs,
-					arrMin, arrMax));
-			updateViviendas();
-		}else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Debe seleccionar una ubicacion");
-            alert.showAndWait();
-		}
 	}
 	
 	public void updateLocations() throws ClassNotFoundException, SQLException {

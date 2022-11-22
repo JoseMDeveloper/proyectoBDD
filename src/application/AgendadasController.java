@@ -34,7 +34,6 @@ public class AgendadasController implements Initializable{
     	try {
 			visitas=Queries.visitasCliente(Sesion.getUser().getId());
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	tablita.addAll(visitas);
