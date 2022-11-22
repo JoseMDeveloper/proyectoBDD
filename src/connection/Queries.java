@@ -182,11 +182,11 @@ public class Queries {
 	
 	public static List<Visita> visitasUsuario(String userName) throws ClassNotFoundException, SQLException{
 		DBConnection.connect();
-		String consulta="SELECT visita.IDvivienda, IDusuario, fecha"
-				+"FROM Usuario"
+		String consulta="SELECT visita.IDvivienda, usuario.IDusuario, visita.fecha"
+				+" FROM Usuario"
 				+ " JOIN Visita ON (Usuario.IDusuario=Visita.IDusuario)"
-				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivenda"
-				+"WHERE usuario.nombreUsuario=? AND Vivienda.estado=1";
+				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivienda"
+				+" WHERE usuario.nombreUsuario=? AND Vivienda.estado=1";
 		List<Visita> visitas = new ArrayList<>();
 		DBConnection.createStatement(consulta);
 		DBConnection.getStatement().setString(1,userName);
