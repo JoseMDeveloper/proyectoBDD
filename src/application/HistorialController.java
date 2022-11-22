@@ -17,7 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class AgendadasController implements Initializable{
+public class HistorialController implements Initializable {
 	@FXML
 	private TableView <Visita>tabla;
 	@FXML
@@ -26,13 +26,13 @@ public class AgendadasController implements Initializable{
 	private TableColumn<Visita, String> fecha;
 	
 	private List <Visita> visitas=new ArrayList<>();
-	
+
 	private ObservableList<Visita> tablita = FXCollections.observableArrayList();  
-	 
-    @Override
+	
+	@Override
     public void initialize(URL url, ResourceBundle rb) {
     	try {
-			visitas=Queries.visitasCliente(Sesion.getUser().getId());
+			visitas=Queries.historialVisitasCliente(Sesion.getUser().getId());
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -37,7 +37,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
-public class SearchScene2Controller extends PrincipalAbstractController implements Initializable{
+public class PropiedadDuenoController extends PrincipalAbstractController implements Initializable{
 	@FXML
 	private VBox chosenFruitCard;
 	@FXML
@@ -112,7 +112,7 @@ public class SearchScene2Controller extends PrincipalAbstractController implemen
 	
 	@FXML
 	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/source/OwnerScene.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
