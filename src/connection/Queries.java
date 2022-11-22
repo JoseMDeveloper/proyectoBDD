@@ -59,6 +59,7 @@ public class Queries {
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
+	
 	public static void createpropi(String direccion, int CantHabitaciones, Float precio,String descripcion,int idubicacion,int tipoviv) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
 		String insert = "INSERT INTO vivienda"
@@ -242,6 +243,15 @@ public class Queries {
 		String update = "UPDATE usuario"
 				+ " SET estado=0"
 				+ " WHERE IDusuario='"+Sesion.getUser().getId()+"'";
+		DBConnection.createStatement(update);
+		DBConnection.getStatement().executeQuery();
+		DBConnection.desconnect();
+	}
+	public static void eliminarpropi(Integer id) throws SQLException, ClassNotFoundException {
+		DBConnection.connect();
+		String update = "UPDATE vivienda"
+				+ " SET estado=0"
+				+ " WHERE IDvivienda='"+id+"'";
 		DBConnection.createStatement(update);
 		DBConnection.getStatement().executeQuery();
 		DBConnection.desconnect();
