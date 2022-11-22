@@ -1,5 +1,6 @@
 package application;
 
+import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -59,7 +60,11 @@ public class PerfilController implements Initializable{
     private ImageView cerrar;
 	@FXML
     private Button eliminar;
+	
+	@FXML
+    private Label maximatexto;
 	String contra;
+	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -74,11 +79,20 @@ public class PerfilController implements Initializable{
 		textfieldContra.setText(usuario.getContrasena());
 		
 		if(usuario.getIDtipousuario()==1){
-			textfieldTipoCuenta.setText("Arrendatario");	
+			textfieldTipoCuenta.setText("Arrendatario");
+			editarRenta.setVisible(true);
+			textfieldrenta.setVisible(true);
+			maximatexto.setVisible(true);
 		}else if(usuario.getIDtipousuario()==2){
 			textfieldTipoCuenta.setText("Propietario");	
+			textfieldrenta.setVisible(false);
+			editarRenta.setVisible(false);
+			maximatexto.setVisible(false);
 		}else if(usuario.getIDtipousuario()==3){
-			textfieldTipoCuenta.setText("Administrador");	
+			textfieldTipoCuenta.setText("Administrador");
+			textfieldrenta.setVisible(false);
+			editarRenta.setVisible(false);
+			maximatexto.setVisible(false);
 		}
 		textfieldrenta.setText(usuario.getMaximo()+"");
 
@@ -188,8 +202,8 @@ public class PerfilController implements Initializable{
 	public void eliminar(MouseEvent event) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
-		alert.setTitle("Confirmación");
-		alert.setContentText("¿Esta suguro de eliminar su cuenta?\nEsta accion no se puede revertir");
+		alert.setTitle("Confirmaciï¿½n");
+		alert.setContentText("ï¿½Esta suguro de eliminar su cuenta?\nEsta accion no se puede revertir");
 		Optional<ButtonType> action = alert.showAndWait();
 		if (action.get() == ButtonType.OK) {
 			try {
@@ -197,7 +211,7 @@ public class PerfilController implements Initializable{
 				Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
 				alert1.setHeaderText(null);
 				alert1.setTitle("Cuenta Eliminada");
-				alert1.setContentText("Sea ha eliminado su cuenta\nSe le desconectará de la aplicacion");
+				alert1.setContentText("Sea ha eliminado su cuenta\nSe le desconectarï¿½ de la aplicacion");
 				alert1.showAndWait();
 				
 				Sesion.setUser(null);
