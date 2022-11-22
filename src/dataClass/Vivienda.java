@@ -19,6 +19,10 @@ public class Vivienda {
 	private String descripcion;
 	private String pais;
 	private String departamento;
+	public String getDepartamento() {
+		return departamento;
+	}
+
 	private String municipio;
 	
 	public Vivienda(Integer id, String tipo, String direccion, Integer cantHabitaciones, Float precioRentaMensual, String fecha, String estado,
@@ -72,5 +76,52 @@ public class Vivienda {
 
 	public String getTipo() {
 		return tipo;
+	}
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public void setCantHabitaciones(Integer cantHabitaciones) {
+		this.cantHabitaciones = cantHabitaciones;
+	}
+
+	public void setPrecioRentaMensual(Float precioRentaMensual) {
+		this.precioRentaMensual = precioRentaMensual;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 }

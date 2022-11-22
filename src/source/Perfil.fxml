@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PerfilController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="347.0" style="-fx-region-border: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PerfilController">
    <children>
       <Label layoutX="103.0" prefHeight="43.0" prefWidth="98.0" text="Perfil">
          <font>
@@ -82,7 +82,7 @@
                   <Button fx:id="editarContra" mnemonicParsing="false" onMouseClicked="#editarContra" text="Editar" />
                </children>
             </HBox>
-            <Label prefHeight="21.0" prefWidth="141.0" text="Maxima renta">
+            <Label fx:id="maximatexto" prefHeight="21.0" prefWidth="141.0" text="Maxima renta">
                <font>
                   <Font size="15.0" />
                </font>

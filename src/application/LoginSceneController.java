@@ -47,7 +47,6 @@ public class LoginSceneController implements Initializable{
 	@FXML private Label error;
 	@FXML private Label slogan;
 	@FXML private Label texto;
-	@FXML private Label profe;
 	@FXML private Label recibir;
 	@FXML private BorderPane pantalla1;
 	@FXML private AnchorPane ancla2;
@@ -134,12 +133,20 @@ public class LoginSceneController implements Initializable{
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					Sesion.setUser(new Usuario(1, "admin", "1", nombre, contra,
 							"admin@gmail.com", 1,null, 10000000, null, 3, 1, null));
-					cambiaVentanaPrincipal(event);
-				}else if(Queries.validSesion(nombre, contra)){
+					cambiaVentanaPrincipalusuario(event);
+				}else if(Queries.validSesion(nombre, contra) ){
 					showEventMessage("!Ingreso Correctamente!", "#91e291", "#578857");
 					Sesion.setUser(Queries.getUser(nombre));
 					Sesion.getUser().setContrasena(contra);
-					cambiaVentanaPrincipal(event);
+					if(Sesion.getUser().getIDtipousuario()==1)
+					{
+						
+						cambiaVentanaPrincipalusuario(event);
+					}
+					else if(Sesion.getUser().getIDtipousuario()==2)
+					{
+						cambiaVentanaPrincipaldueno(event);
+					}
 				}
 				else {
 					error.setVisible(true);
@@ -162,6 +169,7 @@ public class LoginSceneController implements Initializable{
 						showEventMessage("!Usuario creado correctamente!", "#91e291", "#578857");
 					}catch(java.sql.SQLIntegrityConstraintViolationException e) {
 						showEventMessage("Usuario existente", "#fcc0bf", "#b12727");
+						e.printStackTrace();
 					}
 				}
 			}
@@ -173,18 +181,16 @@ public class LoginSceneController implements Initializable{
 			showEventMessage("Debe llenar todos los campos", "#fcc0bf", "#b12727");
 		}
 	}
+	
 	public void Dueno(){
-		
 		if(botonDueno.isSelected() && botonCliente.isSelected()){
 			botonCliente.setSelected(!botonCliente.isSelected());;
 		}
-		
-		
 	}
+	
 	public void Cliente(){
 		if(botonCliente.isSelected() && botonDueno.isSelected()){
-			
-			botonDueno.setSelected(!botonDueno.isSelected());;	
+			botonDueno.setSelected(!botonDueno.isSelected());
 		}
 	}
 	
@@ -196,7 +202,6 @@ public class LoginSceneController implements Initializable{
 		enterPassword.setTranslateY(-20);
 		seTeOlvido.setTranslateY(-20);
 		boton2.setVisible(false);
-		profe.setVisible(false);
 		error.setVisible(false);
 		selectTipo.setVisible(false);
 		enterMail.setVisible(false);
@@ -211,7 +216,6 @@ public class LoginSceneController implements Initializable{
 	public void setPerspectiveSignIn() {
 		boton1.setVisible(false);
 		boton2.setVisible(true);
-		profe.setVisible(true);
 		error.setVisible(false);
 		selectTipo.setVisible(true);
 		enterMail.setVisible(true);
@@ -230,12 +234,19 @@ public class LoginSceneController implements Initializable{
 		error.setVisible(true);
 	}
 	
-	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
+	public void cambiaVentanaPrincipalusuario(MouseEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.centerOnScreen();
+	}
+		public void cambiaVentanaPrincipaldueno(MouseEvent event) throws IOException {
+			Parent root = FXMLLoader.load(getClass().getResource("/source/OwnerScene.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.centerOnScreen();
 		
 //		ventanaPrinci.setX(-10);
 //		ventanaPrinci.setY(0);

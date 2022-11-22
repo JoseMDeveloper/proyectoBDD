@@ -26,6 +26,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="aceptar" layoutX="364.0" layoutY="403.0" mnemonicParsing="false" onMouseClicked="#aceptarConsultas" text="Aceptar" />
+      <Button fx:id="aceptar" layoutX="362.0" layoutY="401.0" mnemonicParsing="false" onMouseClicked="#aceptarConsultas" text="Aceptar" />
+      <Button fx:id="agregarVisita" layoutX="456.0" layoutY="401.0" mnemonicParsing="false" onMouseClicked="#agregarVisita" text="Agregar a la lista de visitas" />
    </children>
 </AnchorPane>

@@ -60,11 +60,32 @@ public class SidebarController extends PrincipalAbstractController implements In
 	
 	@FXML
 	public void cambiaVentanaPrincipal(MouseEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
-		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		Scene scene = new Scene(root);
-		stage.setScene(scene);
-		stage.centerOnScreen();
+		if(Sesion.getUser().getIDtipousuario()==1)
+		{
+			Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			
+		}
+		else if(Sesion.getUser().getIDtipousuario()==2)
+		{
+			Parent root = FXMLLoader.load(getClass().getResource("/source/OwnerScene.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+		}
+		if(Sesion.getUser().getIDtipousuario()==3)
+		{
+			Parent root = FXMLLoader.load(getClass().getResource("/source/ClientScene.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			
+		}
 		
 //		ventanaPrinci.setX(-10);
 //		ventanaPrinci.setY(0);

@@ -39,7 +39,8 @@ public class Queries {
 		DBConnection.getStatement().setString(1,nombreUsuario);
 		ResultSet rs = DBConnection.getStatement().executeQuery();
 		rs.next();
-		Usuario user = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), null);
+		Usuario user = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+				rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), null);
 		DBConnection.desconnect();
 		return user;
 	}
@@ -48,17 +49,34 @@ public class Queries {
 		DBConnection.connect();
 		String insert = "INSERT INTO usuario"
 				+ "(IDusuario, Nombre, Apellido, NombreUsuario, Contrasena, Correo, Estado, Fecha, MaxPorOfrecer, Salario, IDtipoUsuario, IDubicacion, IDagencia) "
-				+ "VALUES(default, null, null, ?, ?, ?, default, default, null, null, ?, null, null)";
+				+ "VALUES(default, null, null, ?, ?, ?, default, default, ?, null, ?, null, null)";
 		DBConnection.createStatement(insert);
 		DBConnection.getStatement().setString(1,username);
 		DBConnection.getStatement().setString(2,Encrypter.encryptString(password));
 		DBConnection.getStatement().setString(3,mail);
-		DBConnection.getStatement().setInt(4, userType);// 1: cliente, 2: dueno, 3: empleado
+		DBConnection.getStatement().setInt(4, 0);
+		DBConnection.getStatement().setInt(5, userType);// 1: cliente, 2: dueno, 3: empleado
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
 	
-	public static void updateUser(String username, String mail, String password,String nombre, String Apellido,Float maximo) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public static void createpropi(String direccion, int CantHabitaciones, Float precio,String descripcion,int idubicacion,int tipoviv) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+		DBConnection.connect();
+		String insert = "INSERT INTO vivienda"
+				+ "(IDvivienda, Direccion, CantHabitaciones, PrecioRentaMensual, Fecha, Estado, Descripcion, IDubicacion, IDtipoViv, IDAgencia)"
+				+ "VALUES(default, ?, ?, ?,default,default,?,?,?,null)";
+		DBConnection.createStatement(insert);
+		DBConnection.getStatement().setString(1,direccion);
+		DBConnection.getStatement().setInt(2,CantHabitaciones);
+		DBConnection.getStatement().setFloat(3,precio);
+		DBConnection.getStatement().setString(4, descripcion);
+		DBConnection.getStatement().setInt(5, idubicacion);
+		DBConnection.getStatement().setInt(6,tipoviv);
+		DBConnection.getStatement().executeUpdate();
+		DBConnection.desconnect();
+	}
+	
+	public static void updateUser(String username, String mail, String password,String nombre, String Apellido, Float maximo) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
 		String UPDATE = "UPDATE usuario"
 					  + " set ";
@@ -75,7 +93,7 @@ public class Queries {
 			UPDATE +="Apellido='"+Apellido+"',";	
 		}
 		if(maximo!=null){
-			UPDATE +="MaxPorOfrecer='"+maximo+"',";	
+			UPDATE +="MaxPorOfrecer="+maximo+",";	
 		}
 		UPDATE=UPDATE.substring(0,UPDATE.length()-1);
 		UPDATE+="WHERE NombreUsuario='"+username+"'";
@@ -94,23 +112,29 @@ public class Queries {
 				+ " JOIN TipoVivienda ON Vivienda.IDtipoViv = TipoVivienda.IDtipoViv "
 				+ "WHERE Vivienda.Estado = 1";
 		if (!(paises==null) && !(paises.isEmpty())) {
-			query += " AND (Ubicacion.pais = '" + paises.get(0) + "'";
+			query += " AND ((Ubicacion.pais = '" + paises.get(0) + "'";
+			if (departamentos.get(0).equals("sin filtro")) {
+				query += ")";
+			}else {
+				query += " AND Ubicacion.departamento = '" + departamentos.get(0) + "'";
+				if (municipios.get(0).equals("sin filtro")) {
+					query += ")";
+				}else {
+					query += " AND Ubicacion.municipio = '" + municipios.get(0)+ "')";
+				}
+			}
 			for (int i=1; i<paises.size(); i++) {
-				query += " OR Ubicacion.pais = '" + paises.get(i) + "'";
-			}
-			query += ")";
-		}
-		if (!(departamentos==null) && !(departamentos.isEmpty())) {
-			query += " AND (Ubicacion.departamento = '" + departamentos.get(0) + "'";
-			for (int i=1; i<departamentos.size(); i++) {
-				query += " OR Ubicacion.departamento = '" + departamentos.get(i) + "'";
-			}
-			query += ")";
-		}
-		if (!(municipios==null) && !(municipios.isEmpty())) {
-			query += "AND (Ubicacion.municipio = '" + municipios.get(0)+ "'";
-			for (int i=1; i<municipios.size(); i++) {
-				query += " OR Ubicacion.municipio = '" + municipios.get(i) + "'";
+				query += " OR (Ubicacion.pais = '" + paises.get(i) + "'";
+				if (departamentos.get(i).equals("sin filtro")) {
+					query += ")";
+				}else {
+					query += " AND Ubicacion.departamento = '" + departamentos.get(0) + "'";
+					if (municipios.get(i).equals("sin filtro")) {
+						query += ")";
+					}else {
+						query += " AND Ubicacion.municipio = '" + municipios.get(0)+ "')";
+					}
+				}
 			}
 			query += ")";
 		}
@@ -160,29 +184,48 @@ public class Queries {
 	}
 	
 	//de aqui pa abajo son nuevas
-	public static void CrearVisitas(String userName, Integer visita) throws ClassNotFoundException, SQLException {
+	public static void CrearVisita(Integer id, Integer visita) throws ClassNotFoundException, SQLException {
 		DBConnection.connect();
-		String crear="INSERT INTO visitas"
+		String crear="INSERT INTO visita"
 		+ "(IDusuario, IDvivienda, Fecha) "
 		+ "VALUES(?, ?,default)";
-		Usuario user = getUser(userName);
 		DBConnection.createStatement(crear);
-		DBConnection.getStatement().setInt(1,user.getId());
+		DBConnection.getStatement().setInt(1,id);
 		DBConnection.getStatement().setInt(2,visita);
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
 	
-	public static List<Visita> visitasUsuario(String userName) throws ClassNotFoundException, SQLException{
+	public static List<Visita> visitasCliente(Integer ID) throws ClassNotFoundException, SQLException{
 		DBConnection.connect();
-		String consulta="SELECT visita.IDvivienda, IDusuario, fecha"
-				+"FROM Usuario"
-				+ " JOIN Visita ON (Usuario.IDusuario=Visita.IDusuario)"
-				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivenda"
-				+"WHERE usuario.nombreUsuario=? AND Vivienda.estado=1";
+		String consulta="SELECT visita.IDvivienda, visita.IDusuario, visita.fecha "
+				+ "FROM Visita"
+				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivienda "
+				+ "WHERE visita.IDusuario=? AND visita.fecha>sysdate";
 		List<Visita> visitas = new ArrayList<>();
 		DBConnection.createStatement(consulta);
-		DBConnection.getStatement().setString(1,userName);
+		DBConnection.getStatement().setInt(1,ID);
+		ResultSet res = DBConnection.getStatement().executeQuery();
+		while (res.next()) {
+			Integer IDvivienda = res.getInt(1);
+			Integer IDusuario = res.getInt(2);
+			String fecha = res.getString(3).substring(0,10);;
+			
+			visitas.add(new Visita(IDvivienda, IDusuario, fecha));
+		}
+		DBConnection.desconnect();
+		return visitas;
+	}
+	
+	public static List<Visita> historialVisitasCliente(Integer ID) throws ClassNotFoundException, SQLException{
+		DBConnection.connect();
+		String consulta="SELECT visita.IDvivienda, visita.IDusuario, visita.fecha "
+				+ "FROM Visita"
+				+ " JOIN Vivienda ON Visita.IDvivienda=Vivienda.IDvivienda "
+				+ "WHERE visita.IDusuario=? AND visita.fecha<=sysdate";
+		List<Visita> visitas = new ArrayList<>();
+		DBConnection.createStatement(consulta);
+		DBConnection.getStatement().setInt(1,ID);
 		ResultSet res = DBConnection.getStatement().executeQuery();
 		while (res.next()) {
 			Integer IDvivienda = res.getInt(1);
@@ -200,9 +243,31 @@ public class Queries {
 		String update = "UPDATE usuario"
 				+ " SET estado=0"
 				+ " WHERE IDusuario='"+Sesion.getUser().getId()+"'";
-		List<Visita> visitas = new ArrayList<>();
 		DBConnection.createStatement(update);
-		ResultSet res = DBConnection.getStatement().executeQuery();
+		DBConnection.getStatement().executeQuery();
 		DBConnection.desconnect();
+	}
+	public static void eliminarpropi(Integer id) throws SQLException, ClassNotFoundException {
+		DBConnection.connect();
+		String update = "UPDATE vivienda"
+				+ " SET estado=0"
+				+ " WHERE IDvivienda='"+id+"'";
+		DBConnection.createStatement(update);
+		DBConnection.getStatement().executeQuery();
+		DBConnection.desconnect();
+	}
+	
+	public static boolean visitaUsuarioVivienda(Integer idUsuario, Integer idVivienda) throws SQLException, ClassNotFoundException {
+		DBConnection.connect();
+		String query = "SELECT idUsuario, idVivienda "
+				+ "FROM visita "
+				+ "WHERE idUsuario=? AND idVivienda=?";
+		DBConnection.createStatement(query);
+		DBConnection.getStatement().setInt(1,idUsuario);
+		DBConnection.getStatement().setInt(2,idVivienda);
+		ResultSet rs = DBConnection.getStatement().executeQuery();
+		boolean valid = rs.next();
+		DBConnection.desconnect();
+		return valid;
 	}
 }

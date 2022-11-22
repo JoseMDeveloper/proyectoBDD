@@ -13,6 +13,13 @@
     -fx-background-radius: 30;
 }
 
+.add-button{
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-border-color: grey;
+}
+
 .right-bar{
     -fx-background-color: #D3D3D3;
 }

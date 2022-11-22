@@ -11,6 +11,11 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SidebarController">
    <children>
+      <ImageView fitHeight="803.0" fitWidth="1174.0" layoutX="212.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-17.050000000000068" AnchorPane.rightAnchor="-86.0">
+         <image>
+            <Image url="@imgs/Sidebarimg.jpg" />
+         </image>
+      </ImageView>
 		<AnchorPane prefHeight="69.0" prefWidth="1300.0" style="-fx-background-color: #76a77c;">
          <children>
             <ImageView fx:id="cerrar" fitHeight="40.0" fitWidth="46.0" layoutX="1240.0" layoutY="15.0" onMouseClicked="#cerrar" pickOnBounds="true" preserveRatio="true">

@@ -8,7 +8,9 @@ import javafx.scene.text.Font;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-//Admin teamo
+//Admin teamo (empleado)
+//cliente0 teamo (cliente)
+//propietario0 teamo (propietario)
 
 public class Main extends Application {
 	
@@ -21,7 +23,7 @@ public class Main extends Application {
 //			stage.initStyle(StageStyle.UNDECORATED);
 //			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setResizable(false);
-			stage.setTitle("La Casa De Tus Sueños");
+			stage.setTitle("La Casa De Tus Sueï¿½os");
 			stage.setScene(scene);
 			stage.centerOnScreen();
 			stage.show();

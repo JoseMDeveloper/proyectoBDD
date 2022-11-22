@@ -108,41 +108,59 @@ public class ClientSceneController extends PrincipalAbstractController implement
 			e.printStackTrace();
 		}
 		setUserLocation();
-		
 	}
 	
 	@FXML
 	public void search(MouseEvent event) throws IOException, NumberFormatException, ClassNotFoundException, SQLException {
 		if(!ubis.isEmpty()) {			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/SearchScene.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/source/SearchScene2.fxml"));
 			Parent root = loader.load();
 			
-			SearchSceneController controlador = loader.getController();
-			
+			SearchScene2Controller controlador = loader.getController();
 			Integer arrMin = null;
 			Integer arrMax = null;
 			
 			if(!ArriendoMin.getText().isBlank()) {
-				arrMin = Integer.parseInt(ArriendoMin.getText());
+				try {					
+					arrMin = Integer.parseInt(ArriendoMin.getText());
+				}catch(NumberFormatException e) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setHeaderText(null);
+		            alert.setTitle("Error");
+		            alert.setContentText("El valor de arriendo minimo ingresado no es un numero\n"
+		            		+ "Se conciderara como nulo");
+		            alert.showAndWait();
+				}
 			}
 			if (!ArriendoMax.getText().isBlank()) {
-				arrMax = Integer.parseInt(ArriendoMax.getText());
+				try {					
+					arrMax = Integer.parseInt(ArriendoMax.getText());
+				}catch(NumberFormatException e) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setHeaderText(null);
+		            alert.setTitle("Error");
+		            alert.setContentText("El valor de arriendo maximo ingresado no es un numero\n"
+		            		+ "Se conciderara como nulo");
+		            alert.showAndWait();
+				}
 			}
 			
 			List<Vivienda> viviendas = Queries.buscarPropiedades(paises, deptos, municipios, selectTipoPropiedad.getValue(), selectNumRooms.getValue(),
 					arrMin, arrMax);
+			controlador.setLocations(paises, deptos, municipios);
 			controlador.search(viviendas);
 			
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setScene(scene);
-			stage.showAndWait();
+			stage.show();
+			Stage thisStage = (Stage) this.btnSearch.getScene().getWindow();
+			thisStage.close();
 		}else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setTitle("Error");
-            alert.setContentText("Debes seleccionar una ubicacion");
+            alert.setContentText("Debe seleccionar una ubicacion");
             alert.showAndWait();
 		}
 	}
@@ -177,7 +195,15 @@ public class ClientSceneController extends PrincipalAbstractController implement
         		if(us.length==3) {
         			cmbMunicipios.getItems().add(us[2]);
         			municipios.add(us[2]);        			
-        		}
+        		}else {
+        			cmbMunicipios.getItems().add("sin filtro");
+            		municipios.add("sin filtro");
+            	}
+        	}else {
+        		cmbDeptos.getItems().add("sin filtro");
+        		deptos.add("sin filtro");
+        		cmbMunicipios.getItems().add("sin filtro");
+        		municipios.add("sin filtro");
         	}
         });
 	}
