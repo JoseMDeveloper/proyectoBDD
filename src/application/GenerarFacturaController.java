@@ -43,11 +43,16 @@ public class GenerarFacturaController implements Initializable{
 	private Integer cantMese=1;
 	private Float totalPagar;
 	private List<tipoPago> paguitos=new ArrayList<>();
-	 private ObservableList<tipoPago> tablita;
-	
+	private ObservableList<tipoPago> tablita;
+	Integer casa;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		try {
+			casa=obtenerCasa();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -90,5 +95,12 @@ public class GenerarFacturaController implements Initializable{
 	public void pago(MouseEvent event)
 	{
 		
+	}
+	public Integer obtenerCasa() throws IOException
+	{
+		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/propiedades.fxml"));
+		Parent root1=(Parent)fxmlLoader.load();
+		propiedadesController controlador1= fxmlLoader.getController();
+		return controlador1.getnombre();
 	}
 }

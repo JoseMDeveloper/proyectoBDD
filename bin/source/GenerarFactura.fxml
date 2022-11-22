@@ -59,5 +59,10 @@
       </HBox>
       <TextField layoutX="43.0" layoutY="102.0" />
       <Text layoutX="43.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="correo electronico" />
+      <Text layoutX="200.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="157.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

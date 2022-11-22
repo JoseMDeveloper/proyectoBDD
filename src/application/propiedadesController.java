@@ -4,11 +4,12 @@ import java.awt.Image;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import connection.Queries;
 import dataClass.Sesion;
 import dataClass.Vivienda;
-
+import dataClass.tipoPago;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -139,5 +140,10 @@ public class propiedadesController {
 //            alert.showAndWait();
 //			e.printStackTrace();
 //		}
+	}
+	public Integer getnombre()
+	{
+		return vivienda.getId();
+		
 	}
 }
