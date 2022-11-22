@@ -3,6 +3,7 @@ package application;
 import java.awt.Image;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import connection.Queries;
 import dataClass.Sesion;
@@ -10,12 +11,12 @@ import dataClass.Vivienda;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -71,12 +72,23 @@ public class propiedadesController {
 						+ "Puede actualizar su perfil en MI PERFIL para realizar esta accion");
 				alert.showAndWait();
 			}else {
-				Queries.CrearVisita(Sesion.getUser().getId(), vivienda.getId());
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setTitle("Agregar a la lista de visitas");
-				alert.setContentText("Se agrego correctamente");
-				alert.showAndWait();
+				try {
+					FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/calendario.fxml"));
+					Parent root1=(Parent)fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setScene(new Scene(root1));
+					stage.centerOnScreen();
+					stage.showAndWait();
+					calendarioController controlador1= fxmlLoader.getController();
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+//				Queries.CrearVisita(Sesion.getUser().getId(), vivienda.getId());
+//				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//				alert.setHeaderText(null);
+//				alert.setTitle("Agregar a la lista de visitas");
+//				alert.setContentText("Se agrego correctamente");
+//				alert.showAndWait();
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);

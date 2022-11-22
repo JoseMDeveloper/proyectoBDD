@@ -1,1 +1,4 @@
-/src/
+/application/
+/connection/
+/dataClass/
+/module-info.class
