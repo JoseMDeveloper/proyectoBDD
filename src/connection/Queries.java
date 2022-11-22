@@ -59,6 +59,21 @@ public class Queries {
 		DBConnection.getStatement().executeUpdate();
 		DBConnection.desconnect();
 	}
+	public static void createpropi(String direccion, int CantHabitaciones, Float precio,String descripcion,int idubicacion,int tipoviv) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+		DBConnection.connect();
+		String insert = "INSERT INTO vivienda"
+				+ "(IDvivienda, Direccion, CantHabitaciones, PrecioRentaMensual, Fecha, Estado, Descripcion, IDubicacion, IDtipoViv, IDAgencia)"
+				+ "VALUES(default, ?, ?, ?,default,default,?,?,?,null)";
+		DBConnection.createStatement(insert);
+		DBConnection.getStatement().setString(1,direccion);
+		DBConnection.getStatement().setInt(2,CantHabitaciones);
+		DBConnection.getStatement().setFloat(3,precio);
+		DBConnection.getStatement().setString(4, descripcion);
+		DBConnection.getStatement().setInt(5, idubicacion);
+		DBConnection.getStatement().setInt(6,tipoviv);
+		DBConnection.getStatement().executeUpdate();
+		DBConnection.desconnect();
+	}
 	
 	public static void updateUser(String username, String mail, String password,String nombre, String Apellido, Float maximo) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();

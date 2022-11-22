@@ -16,14 +16,14 @@ public class Main extends Application {
 	
     public void start(Stage stage) throws Exception {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/source/LoginScene.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/source/calendario.fxml"));
 			Scene scene = new Scene(root);
 			String css = this.getClass().getResource("application.css").toExternalForm();
 			scene.getStylesheets().add(css);
 //			stage.initStyle(StageStyle.UNDECORATED);
 //			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setResizable(false);
-			stage.setTitle("La Casa De Tus Sueños");
+			stage.setTitle("La Casa De Tus Sueï¿½os");
 			stage.setScene(scene);
 			stage.centerOnScreen();
 			stage.show();
