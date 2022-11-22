@@ -1,12 +1,12 @@
 package dataClass;
 public class Pago {
 	private Integer Idfactura;
-	private String Tipopago;
+	private tipoPago Tipopago;
 	private Integer Numero;
 	private Integer Monto;
 	private Integer NumeroAutorizacion;
 	
-	public Pago(Integer idfactura, String tipopago, Integer numero, Integer monto, Integer numeroAutorizacion) {
+	public Pago(Integer idfactura, tipoPago tipopago, Integer numero, Integer monto, Integer numeroAutorizacion) {
 		Idfactura = idfactura;
 		Tipopago = tipopago;
 		Numero = numero;
@@ -19,10 +19,10 @@ public class Pago {
 	public void setIdfactura(Integer idfactura) {
 		Idfactura = idfactura;
 	}
-	public String getTipopago() {
+	public tipoPago getTipopago() {
 		return Tipopago;
 	}
-	public void setTipopago(String tipopago) {
+	public void setTipopago(tipoPago tipopago) {
 		Tipopago = tipopago;
 	}
 	public Integer getNumero() {
