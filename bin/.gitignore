@@ -1,8 +1,2 @@
-/application/
-/connection/
-<<<<<<< HEAD
-=======
 /dataClass/
-/module-info.class
->>>>>>> 0802449d389a1a75ec636e214376620be571ae4e
-/source/
+/application/
