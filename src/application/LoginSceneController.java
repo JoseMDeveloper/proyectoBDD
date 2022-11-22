@@ -47,7 +47,6 @@ public class LoginSceneController implements Initializable{
 	@FXML private Label error;
 	@FXML private Label slogan;
 	@FXML private Label texto;
-	@FXML private Label profe;
 	@FXML private Label recibir;
 	@FXML private BorderPane pantalla1;
 	@FXML private AnchorPane ancla2;
@@ -203,7 +202,6 @@ public class LoginSceneController implements Initializable{
 		enterPassword.setTranslateY(-20);
 		seTeOlvido.setTranslateY(-20);
 		boton2.setVisible(false);
-		profe.setVisible(false);
 		error.setVisible(false);
 		selectTipo.setVisible(false);
 		enterMail.setVisible(false);
@@ -218,7 +216,6 @@ public class LoginSceneController implements Initializable{
 	public void setPerspectiveSignIn() {
 		boton1.setVisible(false);
 		boton2.setVisible(true);
-		profe.setVisible(true);
 		error.setVisible(false);
 		selectTipo.setVisible(true);
 		enterMail.setVisible(true);

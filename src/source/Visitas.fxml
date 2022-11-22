@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" prefHeight="490.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisitasController">
+<BorderPane fx:id="bp" prefHeight="490.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisitasController">
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="365.0" prefWidth="600.0" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="365.0" prefWidth="555.0" />
    </center>
    <top>
       <AnchorPane prefHeight="115.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="82.0" layoutY="14.0" text="Visitas">
+            <Label layoutX="99.0" layoutY="14.0" text="Visitas">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <HBox layoutX="59.0" layoutY="59.0" prefHeight="61.0" prefWidth="405.0">
+            <HBox layoutX="75.0" layoutY="59.0" prefHeight="61.0" prefWidth="405.0">
                <children>
                   <Button fx:id="Agendadas" mnemonicParsing="false" onMouseClicked="#cargarAgendadas" prefHeight="68.0" prefWidth="205.0" text="Agendadas" />
                   <Button fx:id="Historial" mnemonicParsing="false" onMouseClicked="#cargarHistorial" prefHeight="68.0" prefWidth="205.0" text="Historial" />
