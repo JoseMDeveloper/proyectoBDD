@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -65,6 +66,7 @@ public class GenerarFacturaController implements Initializable{
 	private ObservableList<tipoPago> tablita;
 	Integer casa;
 	Float precio=0F;
+	String RegexC="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -116,14 +118,35 @@ public class GenerarFacturaController implements Initializable{
 		listView.setItems(tablita);
 		actualizar();
 	}
-	
 	@FXML
 	public void pago(MouseEvent event){
 		Factura factura =new Factura(null, correo.getText(), precio, null, null, Sesion.getUser().getId(), casa, null);
 		try {
-			Queries.insertTransaccionPago(Sesion.getUser().getId(), casa, factura, paguitos);
+			if(correo.getText()==null) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("El campo de correo no puede quedar vacio");
+	            alert.showAndWait();
+			}
+			else if(!correo.getText().equals(RegexC)) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("No es un correo valido");
+	            alert.showAndWait();
+			}
+			else if (totalPagar==Float.parseFloat(pagado.getText())) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("Monto Invalido");
+	            alert.showAndWait();
+			}
+			else {
+				Queries.insertTransaccionPago(Sesion.getUser().getId(), casa, factura, paguitos);				
+			}
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

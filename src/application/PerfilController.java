@@ -1,13 +1,14 @@
 package application;
 
 import javafx.scene.control.Label;
+
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+import java.lang.*;
 import connection.Queries;
 import dataClass.Sesion;
 import dataClass.Usuario;
@@ -142,6 +143,13 @@ public class PerfilController implements Initializable{
 	            alert.showAndWait();
 	            textfieldNombre.setText(Sesion.getUser().getNombre());
 			}
+			if(editarNombre.getText()==null) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("No puedes dejar el campo Nombre vacio");
+	            alert.showAndWait();
+			}
 			textfieldNombre.setEditable(false);
 			editarNombre.setText("Editar");
 		}
@@ -153,6 +161,13 @@ public class PerfilController implements Initializable{
 			editarApe.setText("Guardar");
 		}
 		else if(editarApe.getText().equals("Guardar")){
+			if(editarApe.getText()==null) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("No puedes dejar el campo Apellido vacio");
+	            alert.showAndWait();
+			}
 			textfieldApeliido.setEditable(false);
 			editarApe.setText("Editar");
 		}
@@ -173,6 +188,13 @@ public class PerfilController implements Initializable{
 	            alert.showAndWait();
 	            textfieldCorreo.setText(Sesion.getUser().getCorreo());
 			}
+			if(editarCorreo.getText()==null) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("No puedes dejar el campo Correo vacio");
+	            alert.showAndWait();
+			}
 			textfieldCorreo.setEditable(false);
 			editarCorreo.setText("Editar");
 		}
@@ -184,6 +206,20 @@ public class PerfilController implements Initializable{
 			editarRenta.setText("Guardar");
 		}
 		else if(editarRenta.getText().equals("Guardar")){
+			if(editarRenta.getText()==null) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("No puedes dejar el campo Maxima Renta vacio");
+	            alert.showAndWait();
+			}
+			if(Integer.parseInt(editarRenta.getText())<0) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("El campo Renta Maxima no recibe numeros negativos");
+	            alert.showAndWait();
+			}
 			textfieldrenta.setEditable(false);
 			editarRenta.setText("Editar");
 		}
