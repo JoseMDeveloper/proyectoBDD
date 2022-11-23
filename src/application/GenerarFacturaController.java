@@ -2,10 +2,14 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import connection.Queries;
+import dataClass.Factura;
+import dataClass.Sesion;
 import dataClass.tipoPago;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,6 +30,8 @@ import javafx.stage.Stage;
 public class GenerarFacturaController implements Initializable{
 	@FXML
 	private Button agregarPago;
+	@FXML
+	private TextField correo;
 	@FXML
 	private ListView<tipoPago> listView;
 	@FXML
@@ -58,6 +65,7 @@ public class GenerarFacturaController implements Initializable{
 	private ObservableList<tipoPago> tablita;
 	Integer casa;
 	Float precio=0F;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -107,14 +115,19 @@ public class GenerarFacturaController implements Initializable{
 		tablita=FXCollections.observableArrayList(paguitos);
 		listView.setItems(tablita);
 		actualizar();
-		
-		
 	}
+	
 	@FXML
-	public void pago(MouseEvent event)
-	{
-		
+	public void pago(MouseEvent event){
+		Factura factura =new Factura(null, correo.getText(), precio, null, null, Sesion.getUser().getId(), casa, null);
+		try {
+			Queries.insertTransaccionPago(Sesion.getUser().getId(), casa, factura, paguitos);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
 	public Integer obtenerCasa() throws IOException
 	{
 		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/propiedades.fxml"));
@@ -138,6 +151,7 @@ public class GenerarFacturaController implements Initializable{
 		Rete=(float)(precio*0.07);
 		return total=IVA+ICA+Rete;
 	}
+	
 	public Float pagado()
 	{
 		Float total=0F;
@@ -147,6 +161,7 @@ public class GenerarFacturaController implements Initializable{
 		}
 		return total;
 	}
+	
 	public void segu(MouseEvent event)
 	{
 		boolean selecionado;
