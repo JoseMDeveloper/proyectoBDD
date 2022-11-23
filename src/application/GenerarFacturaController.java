@@ -67,7 +67,6 @@ public class GenerarFacturaController implements Initializable{
 	Integer casa;
 	Float precio=0F;
 	String RegexC="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -78,7 +77,6 @@ public class GenerarFacturaController implements Initializable{
 			pagado.setText(pagado()+"");
 			faltante.setText(totalPagar+"");
 		} catch (IOException e) {
-			
 			e.printStackTrace();
 		}
 	}
@@ -122,14 +120,14 @@ public class GenerarFacturaController implements Initializable{
 	public void pago(MouseEvent event){
 		Factura factura =new Factura(null, correo.getText(), precio, null, null, Sesion.getUser().getId(), casa, null);
 		try {
-			if(correo.getText()==null) {
+			if(correo.getText().isEmpty()) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	            alert.setHeaderText(null);
 	            alert.setTitle("Error");
 	            alert.setContentText("El campo de correo no puede quedar vacio");
 	            alert.showAndWait();
 			}
-			else if(!correo.getText().equals(RegexC)) {
+			else if(!correo.getText().matches(RegexC)) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	            alert.setHeaderText(null);
 	            alert.setTitle("Error");
