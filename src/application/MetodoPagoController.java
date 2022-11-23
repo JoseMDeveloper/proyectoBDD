@@ -11,6 +11,7 @@ import dataClass.tipoPago;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -61,6 +62,7 @@ public class MetodoPagoController implements Initializable{
     String tipago;
     private List<tipoPago> paguitos=new ArrayList<>();
     tipoPago tempo;
+    String RegexTargeta="[0-9]{16}";
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		anoField.setVisible(false);
@@ -123,6 +125,13 @@ public class MetodoPagoController implements Initializable{
 			tipPagoText.setVisible(true);
 			tigoTarjetaField.setVisible(true);
 		}	
+		else{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debe seleccionar un tipo de pago");
+            alert.showAndWait();
+		}
 	}
 	public void crear(String tipo) 
 	{
@@ -140,8 +149,25 @@ public class MetodoPagoController implements Initializable{
 			}
 			else if(tipo.equals("Tarjeta Credito"))
 			{
-				tempo=new tipoPago(Float.parseFloat(montoField.getText()),Long.parseLong(numeroField.getText()),nombreField.getText(),Integer.parseInt(anoField.getText()),mesField.getValue(),tigoTarjetaField.getValue());
+				if(!numeroField.getText().matches(RegexTargeta)){
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setHeaderText(null);
+		            alert.setTitle("Error");
+		            alert.setContentText("No es un numero de targeta de credito valido");
+		            alert.showAndWait();
+				}
+				else {
+					tempo=new tipoPago(Float.parseFloat(montoField.getText()),Long.parseLong(numeroField.getText()),nombreField.getText(),Integer.parseInt(anoField.getText()),mesField.getValue(),tigoTarjetaField.getValue());					
+				}
 				paguitos.add(tempo);
+			}
+			else
+			{
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("Seleccione un metodo de pago");
+	            alert.showAndWait();	
 			}
 			
 		}

@@ -67,7 +67,6 @@ public class GenerarFacturaController implements Initializable{
 	Integer casa;
 	Float precio=0F;
 	String RegexC="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -79,7 +78,6 @@ public class GenerarFacturaController implements Initializable{
 			faltante.setText(totalPagar+"");
 			alpha=totalPagar;
 		} catch (IOException e) {
-			
 			e.printStackTrace();
 		}
 	}
@@ -127,8 +125,8 @@ public class GenerarFacturaController implements Initializable{
 	public void pago(MouseEvent event){
 		Factura factura =new Factura(null, correo.getText(), precio, null, null, Sesion.getUser().getId(), casa, null);
 		try {
-			actualizar();
-			if(correo.getText()==null) {
+
+			if(correo.getText().isEmpty()) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	            alert.setHeaderText(null);
 	            alert.setTitle("Error");
@@ -143,7 +141,7 @@ public class GenerarFacturaController implements Initializable{
 	            alert.showAndWait();
 			}
 	
-			else if (pagado.getText().equals(totalPagar.toString())) {
+			else if (!(totalPagar==Float.parseFloat(pagado.getText()))) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	            alert.setHeaderText(null);
 	            alert.setTitle("Error");
@@ -151,6 +149,7 @@ public class GenerarFacturaController implements Initializable{
 	            alert.showAndWait();
 			}
 			else {
+				
 				Queries.insertTransaccionPago(Sesion.getUser().getId(), casa, factura, paguitos);				
 			}
 		} catch (ClassNotFoundException | SQLException e) {
