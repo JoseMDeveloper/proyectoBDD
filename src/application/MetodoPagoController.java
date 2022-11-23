@@ -22,6 +22,7 @@ import javafx.scene.control.ComboBox;
 public class MetodoPagoController implements Initializable{
 
 	private List <String> tipospago=new ArrayList<>();
+	private List <String> tigotarjetaField=new ArrayList<>();
 	private Integer[] meses= {1,2,3,4,5,6,7,8,9,10,11,12};
     @FXML
     private Button agregarButton;
@@ -31,6 +32,8 @@ public class MetodoPagoController implements Initializable{
 
     @FXML
     private ChoiceBox<Integer> mesField;
+    @FXML
+    private ComboBox <String >tigoTarjetaField;
 
     @FXML
     private TextField montoField;
@@ -47,9 +50,11 @@ public class MetodoPagoController implements Initializable{
     private Text venciText;
     @FXML
     private Text nombreText;
+    @FXML
+    private Text tipoTarjeText;
     
     @FXML
-    private Label tipPagoText;
+    private Text tipPagoText;
 
     @FXML
     private ComboBox<String> tipoPagoField;
@@ -65,10 +70,15 @@ public class MetodoPagoController implements Initializable{
 		venciText.setVisible(false);
 		nombreText.setVisible(false);
 		numeroField.setVisible(false);	
+		tipPagoText.setVisible(false);
+		tigoTarjetaField.setVisible(false);
 		mesField.getItems().addAll(meses);
 		tipospago.add("Efectivo");
 		tipospago.add("Bono");
 		tipospago.add("Tarjeta Credito");
+		tigotarjetaField.add("Visa");
+		tigotarjetaField.add("Mastercard");
+		tigoTarjetaField.getItems().addAll(tigotarjetaField);
 		tipoPagoField.getItems().addAll(tipospago);
 		tipoPagoField.setOnAction(this::tipoPago);
 	}
@@ -84,6 +94,8 @@ public class MetodoPagoController implements Initializable{
 			venciText.setVisible(false);
 			anoField.setVisible(false);
 			mesField.setVisible(false);
+			tipPagoText.setVisible(false);
+			tigoTarjetaField.setVisible(false);
 			
 		}
 		else if(tipago.equals("Bono"))
@@ -95,6 +107,8 @@ public class MetodoPagoController implements Initializable{
 			venciText.setVisible(false);
 			anoField.setVisible(false);
 			mesField.setVisible(false);
+			tipPagoText.setVisible(false);
+			tigoTarjetaField.setVisible(false);
 			
 		}
 		else if(tipago.equals("Tarjeta Credito"))
@@ -106,6 +120,8 @@ public class MetodoPagoController implements Initializable{
 			venciText.setVisible(true);
 			anoField.setVisible(true);
 			mesField.setVisible(true);
+			tipPagoText.setVisible(true);
+			tigoTarjetaField.setVisible(true);
 		}	
 	}
 	public void crear(String tipo) 
@@ -124,7 +140,7 @@ public class MetodoPagoController implements Initializable{
 			}
 			else if(tipo.equals("Tarjeta Credito"))
 			{
-				tempo=new tipoPago(Float.parseFloat(montoField.getText()),Long.parseLong(numeroField.getText()),nombreField.getText(),Integer.parseInt(anoField.getText()),mesField.getValue());
+				tempo=new tipoPago(Float.parseFloat(montoField.getText()),Long.parseLong(numeroField.getText()),nombreField.getText(),Integer.parseInt(anoField.getText()),mesField.getValue(),tigoTarjetaField.getValue());
 				paguitos.add(tempo);
 			}
 			
