@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="398.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HistorialController">
+   <children>
+      <TableView fx:id="tabla" layoutX="34.0" layoutY="18.0" prefHeight="387.0" prefWidth="330.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="18.0">
+         <columns>
+            <TableColumn fx:id="IDvivienda" prefWidth="168.0" text="IDvivienda" />
+            <TableColumn fx:id="fecha" minWidth="0.0" prefWidth="167.0" text="Fecha" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
