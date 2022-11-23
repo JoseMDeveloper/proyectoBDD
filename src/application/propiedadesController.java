@@ -42,6 +42,8 @@ public class propiedadesController {
     private Button agregarVisita;
 	@FXML
     private Button rentar;
+	@FXML
+    private Label fecha;
 
 	private Vivienda vivienda;
 	private static Integer id;
@@ -58,6 +60,7 @@ public class propiedadesController {
 		precio.setText("Precio: $"+preci);
 		habi.setText("Cantidad habitaciones: "+vivienda.getCantHabitaciones()+"");
 		tipo.setText("Tipo: "+vivienda.getTipo());
+		fecha.setText(vivienda.getFecha());
 	}
 	
 	@FXML

@@ -79,6 +79,8 @@
                         </VBox>
                         <Button fx:id="agregarVisita" layoutX="165.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#agregarVisita" prefHeight="47.0" prefWidth="95.0" styleClass="add-button" stylesheets="@../application/application.css" text="Agregar a la lista de visitas" textAlignment="CENTER" wrapText="true" />
                         <Button fx:id="rentar" layoutX="187.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#rentar" style="-fx-background-color: #BAEAC3; -fx-background-radius: 20;" text="Rentar" />
+                        <Label layoutX="200.0" layoutY="14.0" text="Fecha:" />
+                        <Label fx:id="fecha" layoutX="203.0" layoutY="38.0" text="Label" />
                      </children>
                   </AnchorPane>
                </children>

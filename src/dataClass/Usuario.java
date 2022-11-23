@@ -12,14 +12,14 @@ public class Usuario {
 	private String Correo;
 	private Integer Estado;
 	private String Fecha;
-	private Integer Maximo;
+	private Float Maximo;
 	private Integer Salario;
 	private Integer IDtipousuario;
 	private Integer IDubicacion;
 	private Integer IDagencia;
 	
 	public Usuario(Integer id, String nombre, String apellido, String nombredeusuario, String contrasena, String correo,
-			Integer estado, String fecha, Integer maximo, Integer salario, Integer iDtipousuario, Integer iDubicacion,
+			Integer estado, String fecha, Float maximo, Integer salario, Integer iDtipousuario, Integer iDubicacion,
 			Integer iDagencia) {
 		Id = id;
 		Nombre = nombre;
@@ -85,11 +85,11 @@ public class Usuario {
 	public void setFecha(String fecha) {
 		Fecha = fecha;
 	}
-	public Integer getMaximo() {
+	public Float getMaximo() {
 		return Maximo;
 	}
-	public void setMaximo(Integer maximo) {
-		Maximo = maximo;
+	public void setMaximo(float f) {
+		Maximo = f;
 	}
 	public Integer getSalario() {
 		return Salario;

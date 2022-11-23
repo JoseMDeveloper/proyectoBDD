@@ -24,7 +24,7 @@
             <ComboBox fx:id="tipoPagoField" prefHeight="30.0" prefWidth="174.0" />
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="167.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Valor a pago" wrappingWidth="86.13671875" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Valor a pagar" wrappingWidth="86.13671875" />
                </children>
             </HBox>
             <TextField fx:id="montoField" prefHeight="30.0" promptText="Monto" />

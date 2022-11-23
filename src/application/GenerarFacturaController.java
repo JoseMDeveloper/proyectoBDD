@@ -51,7 +51,7 @@ public class GenerarFacturaController implements Initializable{
 	
 	@FXML
 	private Text total;
-	
+	Float alpha=0F;
 	private Integer cantMese=1;
 	private Float totalPagar;
 	private List<tipoPago> paguitos=new ArrayList<>();
@@ -67,6 +67,7 @@ public class GenerarFacturaController implements Initializable{
 			total.setText(totalPagar+"");
 			pagado.setText(pagado()+"");
 			faltante.setText(totalPagar+"");
+			alpha=totalPagar;
 		} catch (IOException e) {
 			
 			e.printStackTrace();
@@ -75,10 +76,13 @@ public class GenerarFacturaController implements Initializable{
 	
 	@FXML
 	public void menosMeses(MouseEvent event) {
-		if(cantMese==2) {
+		menosMeses.setDisable(false);
+		if(cantMese>=2) {
 			cantMese--;
 			cantMeses.setText(cantMese+"");
-			menosMeses.setDisable(true);
+			menosMeses.setDisable(false);
+			totalPagar-=alpha;
+			actualizar();
 		}else if(cantMese>1) {
 			cantMese--;
 			cantMeses.setText(cantMese+"");
@@ -87,11 +91,12 @@ public class GenerarFacturaController implements Initializable{
 	
 	@FXML
 	public void masMeses(MouseEvent event) {
+		menosMeses.setDisable(false);
 		cantMese++;
 		cantMeses.setText(cantMese+"");
-		if(cantMese==2) {
-			menosMeses.setDisable(false);
-		}
+		totalPagar+=alpha;
+		actualizar();
+		
 	}
 	@FXML
 	public void agregar(MouseEvent event) throws IOException 
@@ -183,6 +188,7 @@ public class GenerarFacturaController implements Initializable{
 	}
 	public void actualizar()
 	{
+		total.setText(totalPagar+"");
 		pagado.setText(pagado()+"");
 		faltante.setText(totalPagar-pagado()+"");
 		

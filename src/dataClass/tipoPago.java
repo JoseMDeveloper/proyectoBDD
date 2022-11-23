@@ -18,7 +18,7 @@ public class tipoPago {
 	public tipoPago(Float monto,Long numero) {
 		super();
 		this.tipPago="Bono";
-		this.monto = monto;
+		this.monto=monto;
 		this.numero=numero;
 	}
 	public tipoPago(Float monto,Long numero,String nombre,Integer ano,Integer mes,String tiptarje) {
