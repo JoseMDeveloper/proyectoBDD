@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 import application.Encrypter;
+import dataClass.Factura;
+import dataClass.Pago;
 import dataClass.Sesion;
 import dataClass.Ubicacion;
 import dataClass.Usuario;
 import dataClass.Visita;
 import dataClass.Vivienda;
+import dataClass.tipoPago;
 
 public class Queries {
 	public static boolean validSesion(String name, String password) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
@@ -306,5 +309,34 @@ public class Queries {
 		return vivs;
 	}
 	
-//	public void 
+	public void insertTransaccionPago(Integer idus, Integer idviv, Factura f, List<tipoPago> tps) throws ClassNotFoundException, SQLException {
+		DBConnection.connect();
+		DBConnection.getConnection().setAutoCommit(false);
+		String code = "insert into Factura values(default,'"+f.getCorreo()+"',"+f.getTotal()+", sysdate,null,"+idus+","+idviv+");";
+		DBConnection.createStatement(code);
+		DBConnection.getStatement().executeQuery();
+		code = "select max(idfactura) from Factura";
+		DBConnection.createStatement(code);
+		ResultSet rs = DBConnection.getStatement().executeQuery();
+		rs.next();
+		Integer idNewFactura = rs.getInt(1);
+		for (tipoPago tp : tps) {
+			if (tp.getTipPago().equals("Efectivo")) {
+				code = "insert into pago values ("+idNewFactura+","+4+",null,"+tp.getMonto()+",null,null,null,null)";
+				DBConnection.createStatement(code);
+				DBConnection.getStatement().executeQuery();
+			}else if (tp.getTipPago().equals("Bono")) {
+				code = "insert into pago values ("+idNewFactura+","+3+",null,"+tp.getMonto()+","+tp.getNumero()+",null,null,null)";
+				DBConnection.createStatement(code);
+				DBConnection.getStatement().executeQuery();
+			}else if (tp.getTipPago().equals("Tarjeta")) {
+				code = "insert into pago values ("+idNewFactura+",null, null,"+tp.getMonto()+","+tp.getNumero()+",null,null,null)";
+				DBConnection.createStatement(code);
+				DBConnection.getStatement().executeQuery();
+			}
+		}
+		DBConnection.getConnection().commit();
+		DBConnection.getConnection().setAutoCommit(true);
+		DBConnection.desconnect();
+	}
 }

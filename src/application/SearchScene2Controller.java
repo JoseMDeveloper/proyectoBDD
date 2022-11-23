@@ -9,10 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+
 import connection.Queries;
 import dataClass.Sesion;
 import dataClass.Ubicacion;
 import dataClass.Vivienda;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,6 +87,7 @@ public class SearchScene2Controller extends PrincipalAbstractController implemen
     private Button clearSelect;
     @FXML
     private Button nuevaUbicacion;
+    
     
     private Integer cantHabs=0;
     private String tipoVivienda=null;

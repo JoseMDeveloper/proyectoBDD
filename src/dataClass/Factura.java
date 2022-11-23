@@ -8,6 +8,7 @@ public class Factura {
 	private Integer Idusuario;
 	private Integer Idvivienda;
 	private Integer Idservicio;
+	
 	public Factura(Integer id, String correo, Float total, String fechainicio, String fechaFin, Integer idusuario,
 			Integer idvivienda, Integer idservicio) {
 		this.id = id;
