@@ -8,6 +8,7 @@ public class tipoPago {
 	private String nombre;
 	private Integer ano;
 	private Integer mes;
+	private String tiptarje;
 
 	public tipoPago(Float monto) {
 		super();
@@ -17,10 +18,10 @@ public class tipoPago {
 	public tipoPago(Float monto,Long numero) {
 		super();
 		this.tipPago="Bono";
-		this.monto = monto;
+		this.monto=monto;
 		this.numero=numero;
 	}
-	public tipoPago(Float monto,Long numero,String nombre,Integer ano,Integer mes) {
+	public tipoPago(Float monto,Long numero,String nombre,Integer ano,Integer mes,String tiptarje) {
 		super();
 		this.tipPago="Tarjeta Credito";
 		this.monto = monto;
@@ -28,6 +29,7 @@ public class tipoPago {
 		this.nombre=nombre;
 		this.ano=ano;
 		this.mes=mes;
+		this.tiptarje=tiptarje;
 	}
 	
 	@Override
@@ -43,7 +45,7 @@ public class tipoPago {
 		}
 		else if(tipPago.equals("Tarjeta Credito"))
 		{
-			return  "Tipo="+tipPago + ", monto=" + monto + ", numero=" + numero +", nombre="+nombre+"ano="+ano+", mes="+mes;
+			return  "Tipo="+tipPago + ", monto=" + monto + ", numero=" + numero +", nombre="+nombre+"ano="+ano+", mes="+mes+", TipoTarjeta="+tiptarje;
 			
 		}
 				
@@ -69,6 +71,9 @@ public class tipoPago {
 	}
 	public Integer getMes() {
 		return mes;
+	}
+	public String getTiptarje() {
+		return tiptarje;
 	}
 	
 }

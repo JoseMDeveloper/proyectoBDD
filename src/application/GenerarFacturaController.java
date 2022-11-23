@@ -15,7 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -39,15 +39,38 @@ public class GenerarFacturaController implements Initializable{
 	private Button pagar;
 	@FXML
 	private Text cantMeses;
+	@FXML
+	private Text pagado;
+	@FXML
+	private CheckBox seguro;
+	@FXML
+	private CheckBox psicina;
+	
+	@FXML
+	private Text faltante;
+	
+	@FXML
+	private Text total;
 	
 	private Integer cantMese=1;
 	private Float totalPagar;
 	private List<tipoPago> paguitos=new ArrayList<>();
-	 private ObservableList<tipoPago> tablita;
-	
+	private ObservableList<tipoPago> tablita;
+	Integer casa;
+	Float precio=0F;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		try {
+			casa=obtenerCasa();
+			precio=obtenerpreci();
+			totalPagar=precio+impuestos(precio);
+			total.setText(totalPagar+"");
+			pagado.setText(pagado()+"");
+			faltante.setText(totalPagar+"");
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
@@ -83,12 +106,85 @@ public class GenerarFacturaController implements Initializable{
 		paguitos.addAll(controlador1.getpaguitos());
 		tablita=FXCollections.observableArrayList(paguitos);
 		listView.setItems(tablita);
+		actualizar();
 		
 		
 	}
 	@FXML
 	public void pago(MouseEvent event)
 	{
+		
+	}
+	public Integer obtenerCasa() throws IOException
+	{
+		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/propiedades.fxml"));
+		Parent root1=(Parent)fxmlLoader.load();
+		propiedadesController controlador1= fxmlLoader.getController();
+		return controlador1.getnombre();
+	}
+	public Float obtenerpreci() throws IOException
+	{
+		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("/source/propiedades.fxml"));
+		Parent root1=(Parent)fxmlLoader.load();
+		propiedadesController controlador1= fxmlLoader.getController();
+		return controlador1.getprecio();
+	}
+	public Float impuestos(Float precio)
+	{
+		Float IVA=0F,ICA=0F,Rete=0F;
+		Float total=0F;
+		IVA=(float) (precio*0.16);
+		ICA=(float) (precio*0.06);
+		Rete=(float)(precio*0.07);
+		return total=IVA+ICA+Rete;
+	}
+	public Float pagado()
+	{
+		Float total=0F;
+		for(int i=0;i<paguitos.size();i++)
+		{
+			total+=paguitos.get(i).getMonto();
+		}
+		return total;
+	}
+	public void segu(MouseEvent event)
+	{
+		boolean selecionado;
+		selecionado=seguro.isSelected();
+		if(selecionado)
+		{
+			totalPagar+=200000F;
+			total.setText(totalPagar+"");
+			actualizar();
+		}
+		else
+		{
+			totalPagar-=200000F;
+			total.setText(totalPagar+"");
+			actualizar();
+		}
+	}
+	public void pis(MouseEvent event)
+	{
+		boolean selecionado;
+		selecionado=psicina.isSelected();
+		if(selecionado)
+		{
+			totalPagar+=100000F;
+			total.setText(totalPagar+"");
+			actualizar();
+		}
+		else
+		{
+			totalPagar-=100000F;
+			total.setText(totalPagar+"");
+			actualizar();
+		}
+	}
+	public void actualizar()
+	{
+		pagado.setText(pagado()+"");
+		faltante.setText(totalPagar-pagado()+"");
 		
 	}
 }

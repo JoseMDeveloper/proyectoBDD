@@ -43,6 +43,4 @@ public class Pago {
 	public void setNumeroAutorizacion(Integer numeroAutorizacion) {
 		NumeroAutorizacion = numeroAutorizacion;
 	}
-	
-
 }

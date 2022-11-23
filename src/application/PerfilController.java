@@ -78,6 +78,7 @@ public class PerfilController implements Initializable{
 		textfieldApeliido.setText(usuario.getApellido());
 		textfieldCorreo.setText(usuario.getCorreo());
 		textfieldContra.setText(usuario.getContrasena());
+		contra = usuario.getContrasena();
 		
 		if(usuario.getIDtipousuario()==1){
 			textfieldTipoCuenta.setText("Arrendatario");
@@ -112,6 +113,11 @@ public class PerfilController implements Initializable{
             	try {
 					Queries.updateUser(textfieldUsuario.getText(),textfieldCorreo.getText(),contra,textfieldNombre.getText(),
 							textfieldApeliido.getText(),Float.parseFloat(textfieldrenta.getText()));
+					Sesion.getUser().setCorreo(textfieldCorreo.getText());
+					Sesion.getUser().setNombre(textfieldNombre.getText());
+					Sesion.getUser().setApellido(textfieldApeliido.getText());
+					Sesion.getUser().setContrasena(contra);
+					Sesion.getUser().setMaximo(Float.parseFloat(textfieldrenta.getText()));
 				} catch (NumberFormatException | ClassNotFoundException | NoSuchAlgorithmException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
