@@ -14,6 +14,7 @@ import dataClass.Sesion;
 import dataClass.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -45,6 +46,13 @@ public class EditarContraController implements Initializable{
 		if(Queries.validSesion(usuario.getNombredeusuario(), viejaContra.getText()))
 		{
 			nuevaContra1=nuevaContra.getText();
+			if(viejaContra.getText()==null || nuevaContra==null ) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText(null);
+	            alert.setTitle("Error");
+	            alert.setContentText("No puedes dejar ninguno de los 2 campos vacios");
+	            alert.showAndWait();
+			}
 			error.setVisible(false);
 			Stage stage = (Stage) this.actualizar.getScene().getWindow();
     		stage.close();
