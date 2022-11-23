@@ -44,14 +44,18 @@ public class propiedadesController {
     private Button rentar;
 
 	private Vivienda vivienda;
+	private static Integer id;
+	private static Float preci;
 	
 	public void setData(Vivienda vivienda)
 	{
 		this.vivienda=vivienda;
-		nombrepropi.setText("ID: "+vivienda.getId()+"");
+		id=vivienda.getId();
+		nombrepropi.setText("ID: "+id+"");
 		ubicacion.setText(vivienda.getPais());
 		descripcion.setText("Descripcion: "+vivienda.getDescripcion());
-		precio.setText("Precio: $"+vivienda.getPrecioRentaMensual());
+		preci=vivienda.getPrecioRentaMensual();
+		precio.setText("Precio: $"+preci);
 		habi.setText("Cantidad habitaciones: "+vivienda.getCantHabitaciones()+"");
 		tipo.setText("Tipo: "+vivienda.getTipo());
 	}
@@ -143,7 +147,11 @@ public class propiedadesController {
 	}
 	public Integer getnombre()
 	{
-		return vivienda.getId();
+		return id;
 		
+	}
+	public Float getprecio()
+	{
+		return preci;
 	}
 }
