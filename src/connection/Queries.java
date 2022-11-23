@@ -352,4 +352,8 @@ public class Queries {
 		DBConnection.getConnection().setAutoCommit(true);
 		DBConnection.desconnect();
 	}
+	
+	public static void notificaciones() {
+		
+	}
 }
