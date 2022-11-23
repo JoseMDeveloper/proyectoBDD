@@ -59,7 +59,7 @@ public class GenerarFacturaController implements Initializable{
 	
 	@FXML
 	private Text total;
-	
+	Float alpha=0F;
 	private Integer cantMese=1;
 	private Float totalPagar;
 	private List<tipoPago> paguitos=new ArrayList<>();
@@ -67,7 +67,6 @@ public class GenerarFacturaController implements Initializable{
 	Integer casa;
 	Float precio=0F;
 	String RegexC="^([.\\w]{1,64}@)\\w{1,}\\.[.\\w]{1,}";
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -77,18 +76,21 @@ public class GenerarFacturaController implements Initializable{
 			total.setText(totalPagar+"");
 			pagado.setText(pagado()+"");
 			faltante.setText(totalPagar+"");
+			alpha=totalPagar;
 		} catch (IOException e) {
-			
 			e.printStackTrace();
 		}
 	}
 	
 	@FXML
 	public void menosMeses(MouseEvent event) {
-		if(cantMese==2) {
+		menosMeses.setDisable(false);
+		if(cantMese>=2) {
 			cantMese--;
 			cantMeses.setText(cantMese+"");
-			menosMeses.setDisable(true);
+			menosMeses.setDisable(false);
+			totalPagar-=alpha;
+			actualizar();
 		}else if(cantMese>1) {
 			cantMese--;
 			cantMeses.setText(cantMese+"");
@@ -97,11 +99,12 @@ public class GenerarFacturaController implements Initializable{
 	
 	@FXML
 	public void masMeses(MouseEvent event) {
+		menosMeses.setDisable(false);
 		cantMese++;
 		cantMeses.setText(cantMese+"");
-		if(cantMese==2) {
-			menosMeses.setDisable(false);
-		}
+		totalPagar+=alpha;
+		actualizar();
+		
 	}
 	@FXML
 	public void agregar(MouseEvent event) throws IOException 
@@ -122,21 +125,23 @@ public class GenerarFacturaController implements Initializable{
 	public void pago(MouseEvent event){
 		Factura factura =new Factura(null, correo.getText(), precio, null, null, Sesion.getUser().getId(), casa, null);
 		try {
-			if(correo.getText()==null) {
+
+			if(correo.getText().isEmpty()) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	            alert.setHeaderText(null);
 	            alert.setTitle("Error");
 	            alert.setContentText("El campo de correo no puede quedar vacio");
 	            alert.showAndWait();
 			}
-			else if(!correo.getText().equals(RegexC)) {
+			else if(!correo.getText().matches(RegexC)) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	            alert.setHeaderText(null);
 	            alert.setTitle("Error");
 	            alert.setContentText("No es un correo valido");
 	            alert.showAndWait();
 			}
-			else if (totalPagar==Float.parseFloat(pagado.getText())) {
+	
+			else if (!(totalPagar==Float.parseFloat(pagado.getText()))) {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 	            alert.setHeaderText(null);
 	            alert.setTitle("Error");
@@ -144,6 +149,7 @@ public class GenerarFacturaController implements Initializable{
 	            alert.showAndWait();
 			}
 			else {
+				
 				Queries.insertTransaccionPago(Sesion.getUser().getId(), casa, factura, paguitos);				
 			}
 		} catch (ClassNotFoundException | SQLException e) {
@@ -221,6 +227,7 @@ public class GenerarFacturaController implements Initializable{
 	}
 	public void actualizar()
 	{
+		total.setText(totalPagar+"");
 		pagado.setText(pagado()+"");
 		faltante.setText(totalPagar-pagado()+"");
 		
