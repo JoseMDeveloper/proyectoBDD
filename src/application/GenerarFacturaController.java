@@ -150,7 +150,10 @@ public class GenerarFacturaController implements Initializable{
 			}
 			else {
 				
-				Queries.insertTransaccionPago(Sesion.getUser().getId(), casa, factura, paguitos);				
+				Queries.insertTransaccionPago(Sesion.getUser().getId(), casa, factura, paguitos);		
+				Stage stage = (Stage) this.pagar.getScene().getWindow();
+				stage.close();
+				System.out.println("entro");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

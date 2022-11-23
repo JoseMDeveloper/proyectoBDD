@@ -125,13 +125,7 @@ public class MetodoPagoController implements Initializable{
 			tipPagoText.setVisible(true);
 			tigoTarjetaField.setVisible(true);
 		}	
-		else{
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Debe seleccionar un tipo de pago");
-            alert.showAndWait();
-		}
+		
 	}
 	public void crear(String tipo) 
 	{
@@ -178,9 +172,20 @@ public class MetodoPagoController implements Initializable{
 	}
 	public void agregar(MouseEvent event)
 	{
-		crear(tipoPagoField.getValue());
-		Stage stage = (Stage) this.agregarButton.getScene().getWindow();
-		stage.close();
+		if(tipoPagoField.getValue()==null)
+		{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debe seleccionar un tipo de pago");
+            alert.showAndWait();
+		}
+		else
+		{
+			crear(tipoPagoField.getValue());
+			Stage stage = (Stage) this.agregarButton.getScene().getWindow();
+			stage.close();
+		}
 	}
 	public List<tipoPago> getpaguitos()
 	{
