@@ -63,11 +63,12 @@ public class Queries {
 		DBConnection.desconnect();
 	}
 	
-	public static void createpropi(String direccion, int CantHabitaciones, Float precio,String descripcion,int idubicacion,int tipoviv) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public static Integer createpropi(String direccion, int CantHabitaciones, Float precio,String descripcion,int idubicacion,int tipoviv) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		DBConnection.connect();
+//		DBConnection.getConnection().setAutoCommit(false);
 		String insert = "INSERT INTO vivienda"
 				+ "(IDvivienda, Direccion, CantHabitaciones, PrecioRentaMensual, Fecha, Estado, Descripcion, IDubicacion, IDtipoViv, IDAgencia)"
-				+ "VALUES(default, ?, ?, ?,default,default,?,?,?,null)";
+				+ "VALUES(default, ?, ?, ?,default,default,?,?,?,1)";
 		DBConnection.createStatement(insert);
 		DBConnection.getStatement().setString(1,direccion);
 		DBConnection.getStatement().setInt(2,CantHabitaciones);
@@ -76,7 +77,13 @@ public class Queries {
 		DBConnection.getStatement().setInt(5, idubicacion);
 		DBConnection.getStatement().setInt(6,tipoviv);
 		DBConnection.getStatement().executeUpdate();
+		String query = "select max(idvivienda) from vivienda";
+		DBConnection.createStatement(query);
+		ResultSet rs = DBConnection.getStatement().executeQuery();
+		rs.next();
+		int id = rs.getInt(1);
 		DBConnection.desconnect();
+		return id;
 	}
 	
 	public static void updateUser(String username, String mail, String password,String nombre, String Apellido, Float maximo) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
@@ -174,8 +181,7 @@ public class Queries {
 	public static Map<Integer, Ubicacion> obtenerUbicacion() throws SQLException, ClassNotFoundException {
 		DBConnection.connect();
 		Map<Integer, Ubicacion> ubicaciones = new HashMap<>();
-		String query = "SELECT IDubicacion, pais, departamento, municipio "
-				+ "FROM ubicacion";
+		String query = "SELECT IDubicacion, pais, departamento, municipio FROM ubicacion";
 		DBConnection.createStatement(query);
 		ResultSet rs = DBConnection.getStatement().executeQuery();
 		while (rs.next()) {
@@ -250,6 +256,7 @@ public class Queries {
 		DBConnection.getStatement().executeQuery();
 		DBConnection.desconnect();
 	}
+	
 	public static void eliminarpropi(Integer id) throws SQLException, ClassNotFoundException {
 		DBConnection.connect();
 		String update = "UPDATE vivienda"
@@ -282,8 +289,8 @@ public class Queries {
 				+ " JOIN Ubicacion ON Vivienda.IDubicacion = Ubicacion.IDubicacion "
 				+ " JOIN TipoVivienda ON Vivienda.IDtipoViv = TipoVivienda.IDtipoViv "
 				+ " JOIN Factura ON Vivienda.IDvivienda = Factura.IDvivienda "
-				+ " JOIN Usuario ON Factura.IDusuario = Usuario.IDusuario"
-				+ "WHERE IDusuario=? AND NOT vivienda.estado=0";
+				+ " JOIN Usuario ON Factura.IDusuario = Usuario.IDusuario "
+				+ "WHERE usuario.IDusuario=? AND NOT vivienda.estado=0";
 		List<Vivienda> vivs = new ArrayList<>();
 		DBConnection.createStatement(consulta);
 		DBConnection.getStatement().setInt(1,id);
@@ -331,9 +338,11 @@ public class Queries {
 				DBConnection.getStatement().executeQuery();
 			}else if (tp.getTipPago().equals("Tarjeta")) {
 				if(tp.getTiptarje().equals("Visa")) {
-					code = "insert into pago values ("+idNewFactura+",1, null,"+tp.getMonto()+","+tp.getNumero()+",null,null,null)";
+					code = "insert into pago values ("+idNewFactura+",1,"+ tp.getNumero()+","+tp.getMonto()+",null,'"+tp.getNombre()+"',"
+							+ tp.getMes()+","+tp.getAno()+")";
 				}else {
-					code = "insert into pago values ("+idNewFactura+",2, null,"+tp.getMonto()+","+tp.getNumero()+",null,null,null)";
+					code = "insert into pago values ("+idNewFactura+",2,"+ tp.getNumero()+","+tp.getMonto()+",null,'"+tp.getNombre()+"',"
+							+ tp.getMes()+","+tp.getAno()+")";
 				}
 				DBConnection.createStatement(code);
 				DBConnection.getStatement().executeQuery();

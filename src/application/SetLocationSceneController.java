@@ -202,7 +202,6 @@ public class SetLocationSceneController implements Initializable{
 		});
 	}
 	
-	
 	public String getResult() {
 		return result;
 	}
