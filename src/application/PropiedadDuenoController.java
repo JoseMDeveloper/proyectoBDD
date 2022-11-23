@@ -137,9 +137,9 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
 			numPropiedades.setText("Usted tiene "+viviendas.size()+" Viviendas");
 			for(int i=0;i<viviendas.size();i++){
 				FXMLLoader fxmlLoader=new FXMLLoader();		
-				fxmlLoader.setLocation(getClass().getResource("/source/propiedades.fxml"));
+				fxmlLoader.setLocation(getClass().getResource("/source/propiedades2.fxml"));
 				AnchorPane anchorpane=fxmlLoader.load();		
-				propiedadesController propiController = fxmlLoader.getController();
+				propiedades2Controller propiController = fxmlLoader.getController();
 				propiController.setData(viviendas.get(i));
 				grid.add(anchorpane, 1, i+1);
 			}
