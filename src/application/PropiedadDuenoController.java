@@ -3,13 +3,16 @@ package application;
 import java.awt.Insets;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import connection.DBConnection;
 import connection.Queries;
+import dataClass.Factura;
 import dataClass.Sesion;
 import dataClass.Ubicacion;
 import dataClass.Vivienda;
@@ -100,13 +103,14 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
 		cmbDeptos.getItems().add("Depto");
 		cmbMunicipios.getItems().add("Municipio");
 //		viviendas.addAll();
-		updateViviendas();
 		try {
+			misViviendas();
 			updateLocations();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
+		updateViviendas();
 	}
 	
 	@FXML
@@ -220,8 +224,13 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
         ubi=controlador.getResult();
 	}
 	
-	public void updateLocations() throws ClassNotFoundException, SQLException {
-		this.ubicaciones = Queries.obtenerUbicacion();
+	public void updateLocations() {
+		try {
+			this.ubicaciones = Queries.obtenerUbicacion();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void setLocations(String p, String d, String m) {
@@ -254,7 +263,7 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
 	}
 	
 	@FXML
-	public void arrendar(MouseEvent event) {
+	public void arrendar(MouseEvent event) throws IOException {
 		if (ubi==null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -262,7 +271,42 @@ public class PropiedadDuenoController extends PrincipalAbstractController implem
             alert.setContentText("Debe seleccionar una ubicacion");
             alert.showAndWait();
 		}else {
-			
+			try {
+				int idTipoViv=0;
+				if (tipoVivienda.equals("Apartamento")) {
+					idTipoViv = 1;
+				}else {
+					idTipoViv = 2;
+				}
+				int idUbi=0;
+				String[] splitUbi = ubi.split(",");
+				for(Integer i : ubicaciones.keySet()){
+					Ubicacion u = ubicaciones.get(i);
+					if(u.getPais().equals(splitUbi[0]) && u.getDepartamento().equals(splitUbi[1]) && u.getMunicipio().equals(splitUbi[2])) {
+						idUbi=i;
+					}
+				}
+				int idviv=Queries.createpropi("d", cantHabs, Float.parseFloat(arriendo.getText()), null, idUbi, idTipoViv);
+				Queries.insertTransaccionPago(Sesion.getUser().getId(), idviv,
+						new Factura(null, Sesion.getUser().getCorreo(), 1F, null, null, null, null, null), new ArrayList<>());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		try {
+			misViviendas();
+			updateViviendas();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void misViviendas() throws ClassNotFoundException, SQLException {
+		viviendas = Queries.viviendasPropietario(Sesion.getUser().getId());
 	}
 }
