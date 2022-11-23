@@ -4,11 +4,12 @@ import java.awt.Image;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import connection.Queries;
 import dataClass.Sesion;
 import dataClass.Vivienda;
-
+import dataClass.tipoPago;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -45,14 +46,18 @@ public class propiedadesController {
     private Label fecha;
 
 	private Vivienda vivienda;
+	private static Integer id;
+	private static Float preci;
 	
 	public void setData(Vivienda vivienda)
 	{
 		this.vivienda=vivienda;
-		nombrepropi.setText("ID: "+vivienda.getId()+"");
+		id=vivienda.getId();
+		nombrepropi.setText("ID: "+id+"");
 		ubicacion.setText(vivienda.getPais());
 		descripcion.setText("Descripcion: "+vivienda.getDescripcion());
-		precio.setText("Precio: $"+vivienda.getPrecioRentaMensual());
+		preci=vivienda.getPrecioRentaMensual();
+		precio.setText("Precio: $"+preci);
 		habi.setText("Cantidad habitaciones: "+vivienda.getCantHabitaciones()+"");
 		tipo.setText("Tipo: "+vivienda.getTipo());
 		fecha.setText(vivienda.getFecha());
@@ -142,5 +147,14 @@ public class propiedadesController {
 //            alert.showAndWait();
 //			e.printStackTrace();
 //		}
+	}
+	public Integer getnombre()
+	{
+		return id;
+		
+	}
+	public Float getprecio()
+	{
+		return preci;
 	}
 }
