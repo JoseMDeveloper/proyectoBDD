@@ -31,9 +31,9 @@
       </ImageView>
       <Pane layoutX="27.0" prefHeight="851.2" prefWidth="1363.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="121.0" fitWidth="121.0" layoutX="147.0" layoutY="565.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="132.0" fitWidth="246.0" layoutX="70.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@imgs/icon1.png" />
+                  <Image url="@../../../../../../Downloads/casitaazul.png" />
                </image>
                <effect>
                   <ColorAdjust />
