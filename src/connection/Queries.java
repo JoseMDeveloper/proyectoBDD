@@ -309,10 +309,10 @@ public class Queries {
 		return vivs;
 	}
 	
-	public void insertTransaccionPago(Integer idus, Integer idviv, Factura f, List<tipoPago> tps) throws ClassNotFoundException, SQLException {
+	public static void insertTransaccionPago(Integer idus, Integer idviv, Factura f, List<tipoPago> tps) throws ClassNotFoundException, SQLException {
 		DBConnection.connect();
 		DBConnection.getConnection().setAutoCommit(false);
-		String code = "insert into Factura values(default,'"+f.getCorreo()+"',"+f.getTotal()+", sysdate,null,"+idus+","+idviv+");";
+		String code = "insert into Factura values(default,'"+f.getCorreo()+"',"+f.getTotal()+", sysdate,sysdate,"+idus+","+idviv+")";
 		DBConnection.createStatement(code);
 		DBConnection.getStatement().executeQuery();
 		code = "select max(idfactura) from Factura";
@@ -330,7 +330,11 @@ public class Queries {
 				DBConnection.createStatement(code);
 				DBConnection.getStatement().executeQuery();
 			}else if (tp.getTipPago().equals("Tarjeta")) {
-				code = "insert into pago values ("+idNewFactura+",null, null,"+tp.getMonto()+","+tp.getNumero()+",null,null,null)";
+				if(tp.getTiptarje().equals("Visa")) {
+					code = "insert into pago values ("+idNewFactura+",1, null,"+tp.getMonto()+","+tp.getNumero()+",null,null,null)";
+				}else {
+					code = "insert into pago values ("+idNewFactura+",2, null,"+tp.getMonto()+","+tp.getNumero()+",null,null,null)";
+				}
 				DBConnection.createStatement(code);
 				DBConnection.getStatement().executeQuery();
 			}
